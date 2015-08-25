@@ -187,29 +187,37 @@ greeting = "Hello, " + name + "!"
 						<p>
 						But only some types appear in the user interface:
 						</p>
-						<ul>
-							<li><code>boolean</code> | <code>Boolean</code> &#8594; checkbox</li>
-							<li><code>byte</code> | <code>short</code> | <code>int</code> | <code>long</code> &#8594; numeric field</li>
-							<li><code>Byte</code> | <code>Short</code> | <code>Integer</code> | <code>Long</code> &#8594; numeric field</li>
-							<li><code>BigInteger</code> | <code>BigDecimal</code> &#8594; numeric field (arbitrarily large)</li>
-							<li><code>char</code> | <code>Character</code> | <code>String</code> &#8594; text field</li>
-							<li><code>ColorRGB</code> &#8594; color chooser</li>
-							<li><code>Date</code> &#8594; date chooser</li>
-							<li><code>File</code> &#8594; file chooser (opener)</li>
-						</ul>
+						<small>
+							<table>
+								<tr><td><code>boolean</code> | <code>Boolean</code></td><td>checkbox</td></tr>
+								<tr><td><code>byte</code> | <code>short</code> | <code>int</code> | <code>long</code></td><td>numeric field</td></tr>
+								<tr><td><code>Byte</code> | <code>Short</code> | <code>Integer</code> | <code>Long</code></td><td>numeric field</td></tr>
+								<tr><td><code>BigInteger</code> | <code>BigDecimal</code></td><td>numeric field</td></tr>
+								<tr><td><code>char</code> | <code>Character</code> | <code>String</code></td><td>text field</td></tr>
+								<tr><td><code>ColorRGB</code></td><td>color chooser</td></tr>
+								<tr><td><code>Date</code></td><td>date chooser</td></tr>
+								<tr><td><code>File</code></td><td>file chooser (opener)</td></tr>
+							</table>
+						</small>
 					</section>
 					<section>
 						<p>
 						Some parameters have configurable styles:
 						</p>
-						<ul>
-							<li>Numeric types with <code>style=&quot;slider&quot;</code> &#8594; field + slider</li>
-							<li>Numeric types with <code>style=&quot;scroll bar&quot;</code> &#8594; field + scroll bar</li>
-							<li><code>String</code> with <code>choices={"foo", "bar", ...}</code> &#8594; dropdown list</li>
-							<li><code>File</code> with <code>style=&quot;save&quot;</code> &#8594; file chooser (saver)</li>
-							<li><code>File</code> with <code>style=&quot;directory&quot;</code> &#8594; directory chooser</li>
-							<li><code>String</code> with <code>visibility=MESSAGE</code> &#8594; labels (non-editable)</li>
-						</ul>
+						<small>
+							<table>
+								<tr><td>Numbers with <code>style=&quot;slider&quot;</code></td><td>field + slider</td></tr>
+								<tr><td>Numbers with <code>style=&quot;scroll bar&quot;</code></td><td>field + scroll bar</td></tr>
+								<tr><td><code>String</code> with <code>style=&quot;text area&quot;</code></td><td>text area</td></tr>
+								<tr><td><code>String</code> with <code>style=&quot;password&quot;</code></td><td>password field</td></tr>
+								<tr><td><code>String</code> with <code>choices={"foo", "bar", ...}</code></td><td>dropdown list</td></tr>
+								<tr><td><code>String</code> with <code>style=&quot;radioButtonHorizontal&quot;</code></td><td>radio buttons</td></tr>
+								<tr><td><code>String</code> with <code>style=&quot;radioButtonVertical&quot;</code></td><td>radio buttons</td></tr>
+								<tr><td><code>File</code> with <code>style=&quot;save&quot;</code></td><td>file chooser (saver)</td></tr>
+								<tr><td><code>File</code> with <code>style=&quot;directory&quot;</code></td><td>directory chooser</td></tr>
+								<tr><td><code>String</code> with <code>visibility=MESSAGE</code></td><td>labels (non-editable)</td></tr>
+							</table>
+						</small>
 					</section>
 					<section>
 						<p>
