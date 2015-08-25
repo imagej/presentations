@@ -1,3 +1,11 @@
 .menu {
   color: limegreen;
 }
+
+.doit {
+  background: chocolate;
+  border-radius: 0.7em;
+  border: 2px solid darkgray;
+  font-size: 0.8em !important;
+  padding: 0.7em !important;
+}
