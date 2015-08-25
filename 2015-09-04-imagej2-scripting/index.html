@@ -172,6 +172,61 @@ greeting = "Hello, " + name + "!"
 					</section>
 				</section>
 
+				<section>
+					<h2>Supported types</h2>
+					<section>
+						<p>
+						You can use any Java type for a parameter.
+						</p>
+						<p class="doit">
+						Select <span class="menu">Widgets</span> from the <span class="menu">Templates &#9654; JavaScript</span> menu</li>
+						</p>
+					</section>
+					<section>
+						<p>
+						But only some types appear in the user interface:
+						</p>
+						<ul>
+							<li><code>boolean</code> | <code>Boolean</code> &#8594; checkbox</li>
+							<li><code>byte</code> | <code>short</code> | <code>int</code> | <code>long</code> &#8594; numeric field</li>
+							<li><code>Byte</code> | <code>Short</code> | <code>Integer</code> | <code>Long</code> &#8594; numeric field</li>
+							<li><code>BigInteger</code> | <code>BigDecimal</code> &#8594; numeric field (arbitrarily large)</li>
+							<li><code>char</code> | <code>Character</code> | <code>String</code> &#8594; text field</li>
+							<li><code>ColorRGB</code> &#8594; color chooser</li>
+							<li><code>Date</code> &#8594; date chooser</li>
+							<li><code>File</code> &#8594; file chooser (opener)</li>
+						</ul>
+					</section>
+					<section>
+						<p>
+						Some parameters have configurable styles:
+						</p>
+						<ul>
+							<li>Numeric types with <code>style=&quot;slider&quot;</code> &#8594; field + slider</li>
+							<li>Numeric types with <code>style=&quot;scroll bar&quot;</code> &#8594; field + scroll bar</li>
+							<li><code>String</code> with <code>choices={"foo", "bar", ...}</code> &#8594; dropdown list</li>
+							<li><code>File</code> with <code>style=&quot;save&quot;</code> &#8594; file chooser (saver)</li>
+							<li><code>File</code> with <code>style=&quot;directory&quot;</code> &#8594; directory chooser</li>
+							<li><code>String</code> with <code>visibility=MESSAGE</code> &#8594; labels (non-editable)</li>
+						</ul>
+					</section>
+					<section>
+						<p>
+						More things are possible in Java code:
+						</p>
+						<ul>
+							<li>Support for previews and cancelation</li>
+							<li>Callbacks when inputs change</li>
+							<li>Buttons which trigger callbacks</li>
+							<li>Dynamically add, remove and modify parameters</li>
+							<li>Write your own input widgets!</li>
+						</ul>
+						<p>
+						See the <a href="https://github.com/imagej/imagej-tutorials/blob/565c68c4ffa396d43ee39ebfed6bed9d23acb768/widget-demo/src/main/java/WidgetDemo.java">widget-demo tutorial</a> for details.
+						</p>
+					</section>
+				</section>
+
 			</div>
 
 		</div>
