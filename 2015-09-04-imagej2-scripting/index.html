@@ -54,6 +54,121 @@
 					</p>
 				</section>
 
+				<section>
+					<h2>Why parameterize?</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li>Less code</li>
+							<li class="fragment">Easier to read</li>
+							<li class="fragment">Write once, run anywhere!</li>
+						</ul>
+					</section>
+					<section>
+						<p>
+						Go from this:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+from ij import IJ, ImagePlus, WindowManager
+from ij.gui import GenericDialog
+
+def run():
+	# fail if no images are open
+	wList = WindowManager.getIDList()
+	if wList is None:
+		IJ.noImage()
+		return
+	# build list of image titles
+	titles = []
+	for w in wList:
+		imp = WindowManager.getImage(w)
+		titles.append("" if imp is None else imp.getTitle())
+	# prompt user for image inputs
+	gd = GenericDialog("Label Copier")
+	gd.addChoice("Source Image:", titles, titles[0])
+	gd.addChoice("Target Image:", titles, titles[0])
+	gd.showDialog()
+	if gd.wasCanceled():
+		return
+	source = WindowManager.getImage(wList[gd.getNextChoiceIndex()])
+	target = WindowManager.getImage(wList[gd.getNextChoiceIndex()])
+	# ensure images are compatible
+	if source.getStackSize() != target.getStackSize():
+		IJ.error("Source and target images must have same stack size.")
+		return
+	# copy the labels
+	for i in range(1, source.getStackSize()):
+		label = source.getStack().getSliceLabel(i)
+		target.getStack().setSliceLabel(label, i)
+
+run()
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						To this:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+from ij import IJ
+
+# @ij.ImagePlus source
+# @ij.ImagePlus target
+
+def run():
+	# ensure images are compatible
+	if source.getStackSize() != target.getStackSize():
+		IJ.error("Source and target images must have same stack size.")
+		return
+	# copy the labels
+	for i in range(1, source.getStackSize()):
+		label = source.getStack().getSliceLabel(i)
+		target.getStack().setSliceLabel(label, i)
+
+run()
+						</code></pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Getting started</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li>Press the <code style="color: pink">[</code> key to open the <a href="http://imagej.net/Script_Editor">Script Editor</a></li>
+							<li class="fragment">Select <a href="http://imagej.net/Python">Python</a> from the <span style="color: limegreen">Language</span> menu</li>
+							<li class="fragment">Select <span style="color: limegreen">Greeting</span> from the <span style="color: limegreen">Templates &#9654; Python</span> menu</li>
+						</ul>
+					</section>
+					<section>
+						<p>
+						You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @String(label="Please enter your name",description="Name field") name
+# @OUTPUT String greeting
+
+# A Jython script with parameters.
+# It is the duty of the scripting framework to harvest
+# the 'name' parameter from the user, and then display
+# the 'greeting' output parameter, based on its type.
+
+greeting = "Hello, " + name + "!"
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Try simplifying it:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @String name
+"Hello, " + name + "!"
+						</code></pre>
+						<p>
+						How does the behavior change?
+						</p>
+					</section>
+				</section>
+
 			</div>
 
 		</div>
