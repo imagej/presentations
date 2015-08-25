@@ -221,6 +221,36 @@ greeting = "Hello, " + name + "!"
 					</section>
 					<section>
 						<p>
+						Certain parameters are populated automatically:
+						</p>
+						<small>
+							<table>
+								<tr>
+									<td><code>Service</code> | <code>Context</code></td>
+									<td>from the application context</td>
+								</tr>
+								<tr>
+									<td><code>Dataset</code> | <code>ImagePlus</code></td>
+									<td>from the active image</td>
+								</tr>
+								<tr>
+									<td><code>DataView</code> | <code>DatasetView</code></td>
+									<td>from the active image</td>
+									<tr>
+										<td><code>Display</code> | <code>ImageDisplay</code></td>
+										<td>from the active image</td>
+										<tr>
+											<td><code>Overlay</code></td>
+											<td>from the active image's ROI</td>
+										</tr>
+							</table>
+						</small>
+						<p>
+						The <a href="http://imagej.net/ImageJ_Common">ImageJ2 data model</a> is still unstable; some of these will change.
+						</p>
+					</section>
+					<section>
+						<p>
 						More things are possible in Java code:
 						</p>
 						<ul>
