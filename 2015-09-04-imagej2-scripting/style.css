@@ -9,3 +9,18 @@
   font-size: 0.8em !important;
   padding: 0.7em !important;
 }
+
+.plain {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.logo {
+  background: white !important;
+  border: none !important;
+  border-radius: 0.2em;
+  box-shadow: none !important;
+  padding: 0.2em 0.5em 0.2em 0.5em !important;
+  vertical-align: middle !important;
+}
