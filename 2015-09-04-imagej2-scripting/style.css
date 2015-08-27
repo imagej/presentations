@@ -24,3 +24,15 @@
   padding: 0.2em 0.5em 0.2em 0.5em !important;
   vertical-align: middle !important;
 }
+
+table.acknowledgements td {
+  font-size: small;
+  text-align: center !important;
+}
+
+table.acknowledgements img {
+  border: none !important;
+  box-shadow: none !important;
+  height: 7em !important;
+  margin-top: 2em !important;
+}
