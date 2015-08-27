@@ -31,12 +31,16 @@
 
 		<style>
 		.reveal h1 { font-size:3.74em; }
-		.reveal h2 { display:inline; } 
 		.reveal h1, .reveal h2, .reveal h3 { font-variant: small-caps; text-transform:lowercase }
 		.reveal small { line-height: 1.3; }
 		.reveal section { height:75%; }
+		.reveal .slides section .fragment.current-visible { display:none; }
+		.reveal .slides section .fragment.current-visible.current-fragment { display:inline; }
+		.reveal section img { border: 0px; }
 
 		a:visited, a:link { color: #2A4762; }
+
+		.reveal section .border { border: 4px solid #333; }
 		</style>
 
 		<!--[if lt IE 9]>
@@ -50,7 +54,7 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png" data-background-size=1200px>
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png" data-background-size=60%>
 					<h1>ImageJ+MATLAB</h1>
 					<h2>
 							<a href="http://imagej.net/MATLAB">Reunited</a>
@@ -63,12 +67,18 @@
 
 				<section>
 					<h2>History</h2>
-					<ul>
-						<li class="fragment"><a href="https://github.com/fiji/MIJ">MIJ</a></li>
-						<li class="fragment"><a href="http://imagej.net/Miji">Miji</a></li>
-						<li class="fragment">ImageJ2 explosion</li>
-						<li class="fragment">sadness</li>
-					</ul>
+					<!-- TODO images: MATLAB + ImageJ, MATLAB + Fiji, IJ2 breaks things up -->
+						<p class="fragment">
+							<a href="https://github.com/fiji/MIJ">MIJ</a>
+							<img width="64" alt="Matlab Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/64px-Matlab_Logo.png"/> + ImageJ
+						</p>
+						<p class="fragment">
+							<a href="http://imagej.net/Miji">Miji</a>
+							<img border="none" width="64" alt="Matlab Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/64px-Matlab_Logo.png"/> + Fiji
+						</p>
+						<p class="fragment">
+							ImageJ2 breaks things up
+						</p>
 				</section>
 
 				<section>
@@ -83,8 +93,27 @@
 
 				<section>
 					<h2>Running in MATLAB</h2>
-						<p class="fragment">TODO show opening 6D dataset in MATLAB</p>
-						<p class="fragment">TODO highlight MATLAB command plugins</p>
+					<p class="fragment current-visible" >
+						<img class="border" data-src="resources/matlab-1-startup.png"/>
+					</p>
+					<p class="fragment current-visible" >
+						<img class="border" data-src="resources/matlab-2-imagej.png"/>
+					</p>
+					<p class="fragment current-visible" >
+						<!-- TODO note ImageJMATLABCommand plugins -->
+						<img class="border" data-src="resources/matlab-3-commands.png"/>
+					</p>
+					<p class="fragment current-visible" >
+						<!-- TODO note ImageJ2's extensible N-D data model -->
+						<img class="border" data-src="resources/matlab-4-open.png"/>
+					</p>
+					<p class="fragment current-visible" >
+						<img class="border" data-src="resources/matlab-5-imageinfo.png"/>
+					</p>
+					<p class="fragment current-visible" >
+						<!-- TODO note Dataset to MATLAB array converter -->
+						<img class="border" data-src="resources/matlab-6-array.png"/>
+					</p>
 				</section>
 
 				<section>
@@ -96,7 +125,7 @@
 
 				<section>
 					<h2>Summary</h2>
-						<p class="fragment">TODO discuss relationship between converters, MATLAB commands</p>
+						<p class="fragment">TODO diagram relationship between converters, MATLAB commands, script parameters</p>
 						<p class="fragment">TODO Emphasize that anyone can add these elements to be picked up by the framework</p>
 				</section>
 			</div>
