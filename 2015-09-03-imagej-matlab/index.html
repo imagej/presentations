@@ -41,6 +41,17 @@
 		a:visited, a:link { color: #2A4762; }
 
 		.reveal section .border { border: 4px solid #333; }
+
+		.reveal tr .hcol { vertical-align:middle; border-style:none; }
+		.reveal tr .hcol-border { vertical-align:middle; text-align:center; border-style:none; border-right: solid #333; }
+
+		.rotate45 {
+			-webkit-transform: rotate(45deg);
+			-moz-transform: rotate(45deg);
+			-o-transform: rotate(45deg);
+			-ms-transform: rotate(45deg);
+			transform: rotate(45deg);
+		}
 		</style>
 
 		<!--[if lt IE 9]>
@@ -68,17 +79,38 @@
 				<section>
 					<h2>History</h2>
 					<!-- TODO images: MATLAB + ImageJ, MATLAB + Fiji, IJ2 breaks things up -->
-						<p class="fragment">
-							<a href="https://github.com/fiji/MIJ">MIJ</a>
-							<img width="64" alt="Matlab Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/64px-Matlab_Logo.png"/> + ImageJ
-						</p>
-						<p class="fragment">
-							<a href="http://imagej.net/Miji">Miji</a>
-							<img border="none" width="64" alt="Matlab Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/64px-Matlab_Logo.png"/> + Fiji
-						</p>
-						<p class="fragment">
-							ImageJ2 breaks things up
-						</p>
+							<table style="border-collapse: separate;">
+								<tr class="fragment">
+									<td class="hcol-border"><a href="https://github.com/fiji/MIJ">MIJ</a></td>
+									<td class="hcol">
+									<img height="64" alt="Matlab Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/64px-Matlab_Logo.png"/>
+									</td>
+									<td class="hcol">
+									<img width="64" alt="ImageJ1 Logo" src="http://imagej.net/_images/a/a8/Imagej1-icon.png"/>
+									</td>
+								</tr>
+								<tr class="fragment">
+									<td class="hcol-border"><a href="http://imagej.net/Miji">Miji</a></td>
+									<td class="hcol" colspan="2">
+										<img height="64" alt="Matlab Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/64px-Matlab_Logo.png"/>
+										<!-- see https://commons.wikimedia.org/wiki/File:Emoji_u1f495.svg -->
+										<img width="64" alt="Fiji Logo" src="resources/Fiji-love-icon.png"/>
+									</td>
+								</tr>
+								<tr class="fragment">
+									<td class="hcol-border"><a href="http://imagej.net/ImageJ2">ImageJ2!</a></td>
+									<td class="hcol">
+										<img height="64" alt="Matlab Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Matlab_Logo.png/64px-Matlab_Logo.png"/>
+									</td>
+									<td class="hcol">
+										<img width="128" alt="ImageJ2 Logo" src="http://imagej.net/_images/d/d1/Imagej2-icon.png"/>
+									</td>
+									<td class="hcol">
+										<!-- see https://commons.wikimedia.org/wiki/File:Emoji_u1f4a7.svg -->
+										<img width="64" alt="Fiji Logo" src="resources/Fiji-sad-icon.png" class="rotate45"/>
+									</td>
+								</tr>
+							</table>
 				</section>
 
 				<section>
