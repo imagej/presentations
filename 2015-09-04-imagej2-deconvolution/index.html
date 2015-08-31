@@ -4,10 +4,10 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>ImageJ2 scripting: parameterized scripts + ImageJ Ops</title>
+		<title>Flexible Deconvolution using ImageJ Ops</title>
 
-		<meta name="description" content="A workshop for scripting with the ImageJ2 platform">
-		<meta name="author" content="Curtis Rueden and Brian Northan">
+		<meta name="description" content="A presentation describing the implementation of Deconvolution in the ImageJ Ops project">
+		<meta name="author" content="Brian Northan">i
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -42,47 +42,297 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<h1>Deconvolution</h1>
-					<h3>Imagej-Ops</h3>
+					<h2>Flexible deconvolution using ImageJ Ops</h2>
 					<p>
 					<small>
 						<a href="https://github.com/bnorthan">Brian Northan</a>,
 						<a href="http://www.truenorth-ia.com/">True North Intelligent Algorithms LLC</a>
 					</small>
 					</p>
-			</section>
-
+				</section>
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<h2>Why deconvolve?</h2>
+					<h2>Outline</h2>
 					<section></section>
 					<section>
 						<ul>
-							<li class="fragment">Improve measurements</li>
-							<li class="fragment">Improve science</li>
+							<li class="fragment">What is deconvolution?</li>
+							<li class="fragment">Point Spread Function (PSF)</li>
+							<li class="fragment">Noise Handling (Regularization)</li>
+							<li class="fragment">Edge Handling</li>
+							<li class="fragment">How do we make it run fast?</li>
+							<li class="fragment">Why imagej-ops??</li>
 						</ul>
+					</section>
+				</section>	
+			
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>What is Deconvolution?</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li class="fragment">A procedure used to reverse convolution</li>
+						<li class="fragment">Convolution (Blurring)  $i(s) = o(s)*h(s)$</li>
+						<ul>
+							<li class="fragment">$i$ is the observed image</li>
+							<li class="fragment">$o$ is the true representation of the object</li>
+							<li class="fragment">$h$ is the point spread function (PSF)</li>
+						</ul>
+						<li class="fragment">Deconvolution (deblurring)</li>
+						<ul>
+							<li class="fragment"> improves measurements</li>
+						</ul>
+						
+						</ul>
+					</section>
+				</section>	
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Point Spread Function (PSF)</h2>
+					<section></section>
+					<section>
+						<p>Describes response of imaging system to a point like object</p>
+
+							<img src="images/PSF_xy.jpg">
+							<img src="images/PSF_xz.jpg">
 					</section>
 					<section>
 						<ul>
-							<li class="fragment">Imaging devices are not perfect</li>
-							<li class="fragment">Images are blurred and noisy</li>
-							<li class="fragment">Deconvolution is a computational technique that:</li>
+							<li class="fragment">Need a point spread function to deconvolve</li>
+							<li class="fragment">Measured (image of subresolution object)</li>
+							<li class="fragment">Theoretical Calculation</li>
+							<li class="fragment">Cosmos</li>
+						</ul>
+					</section>
+				
+				</section>
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Imaging Process</h2>
+					<section></section>
+					<section>
+
+							<img src="images/sphere_xy.jpg">
+							<img src="images/sphere_xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/sphere_convolved_xy.jpg">
+							<img src="images/sphere_convolved_xz.jpg">
+					</section>
+				</section>
+			
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Noise</h2>
+					<section></section>
+					<section>
+						<p>Images also contain noise</p>
+						<ul>
+							<li class="fragment">Convolution attenuates high frequencies</li>
+							<li class="fragment">Deconvolution restores high frenquencies</li>
+							<li class="fragment">Deconvolution can amplify noise</li>
+						</ul>
+						
+						
+					</section>
+					<section>
+
+							<img src="images/sphere_xy.jpg">
+							<img src="images/sphere_xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/sphere_convolved_xy.jpg">
+							<img src="images/sphere_convolved_xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/sphere_convolved_noise_xy.jpg">
+							<img src="images/sphere_convolved_noise_xz.jpg">
+					</section>
+				</section>
+			
+		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Deconvolution (Simple)</h2>
+					<section></section>
+					<section>
+						<ul>
+	
+							<li class="fragment">Forward Model</li>
+
 							<ul>
-								<li class="fragment"> reduces blur</li>
-								<li class="fragment"> enhances contrast</li>
-								<li class="fragment"> reduces noise</li>
-							</ul>	
-							<li class="fragment">If used properly deconvolution</li>
+								<li class="fragment"> Spatial domain  $i(s) = o(s)*h(s)$</li>
+								<li class="fragment"> Frequency domain $I(f)=O(f)H(f)$</li>
+							</ul>
+							<li class="fragment">Simple Inverse Solution</li>
 							<ul>
-								<li class="fragment"> improves measurements</li>
-								<li class="fragment"> (possibly) improves science</li>
+									
+								<li class="fragment"> $O(f)=I(f)/H(f)$</li>
 							</ul>
 						</ul>
 					</section>
-
-
 				</section>
+			<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Deconvolution (Better)</h2>
+					<section></section>
+					<section>
+						<ul>
+	
+							<li class="fragment">Forward Model</li>
 
-			</div>
+							<ul>
+								<li class="fragment"> Blurring + Noise $i(s) = o(s)*h(s)+n$</li>
+								<li class="fragment"> Simple inverse amplifies high frequency noise</li>
+								
+							</ul>
+							<li class="fragment">Solution</li>
+							<ul>
+									
+								<li class="fragment"> Regularized Inverse Filter (Wiener Filter)</li>
+								<li class="fragment"> Iterative Optimization based approaches</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+			<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Richardson Lucy</h2>
+					<section></section>
+					<section>
+						<p>
+							\begin{multline} \label{eq:tv_update}
+        						\mathbf{o}_{k+1}(s) = \left\{\left[\frac{i(s)}{(o_{k}*h)(s)}\right]*h(-s)\right\}o_{k}(s)
+							\end{multline}
+						</p>
+						<ul>
+							<li class="fragment"> Iterative Optization approach</li>
+							<li class="fragment"> Many open implementations for reference</li>
+						</ul>
+							
+					</section>
+			</section>
+		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Richardson Lucy Iterations</h2>
+					<section></section>
+					<section>
+
+							<img src="images/rl_iterations/xy.jpg">
+							<img src="images/rl_iterations/xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/rl_iterations/rl10xy.jpg">
+							<img src="images/rl_iterations/rl10xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/rl_iterations/rl20xy.jpg">
+							<img src="images/rl_iterations/rl20xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/rl_iterations/rl30xy.jpg">
+							<img src="images/rl_iterations/rl30xz.jpg">
+					</section>
+			
+				</section>
+		
+		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Richardson Lucy Result (50 iterations)</h2>
+					<section></section>
+					<section>
+
+							<img src="images/sphere_convolved_noise_xy.jpg">
+							<img src="images/sphere_convolved_noise_xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/sphere_deconvolved_rla50_xy.jpg">
+							<img src="images/sphere_deconvolved_rla50_xz.jpg">
+					</section>
+			</section>
+		
+		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Regularization</h2>
+					<section></section>
+					<section>
+						<li class="fragment"> Solution is modified to better handle noise</li>
+					</section>
+					
+			</section>
+	
+		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Richardson Lucy with Total Variation Regularization</h2>
+					<section></section>
+					<section>
+						<p>
+$$
+        \mathbf{o}_{k+1}(s) = \left\{\left[\frac{i(s)}{(o_{k}*h)(s)}\right]*h(-s)\right\}\\\times\frac{{o}_{k}(s)}{1-\lambda_{TV}div\left({\frac{\nabla_{ok}(s)}{|\nabla_{ok}(s)|}}\right)}
+$$						
+</p>
+						<ul>
+							<li class="fragment"> Open implementations for reference</li>
+						</ul>
+							
+					</section>
+			</section>
+
+		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Richardson Lucy with Total Variation Result (50 iterations)</h2>
+					<section></section>
+					<section>
+
+							<img src="images/sphere_convolved_noise_xy.jpg">
+							<img src="images/sphere_convolved_noise_xz.jpg">
+					</section>
+					
+					<section>
+
+							<img src="images/sphere_deconvolved_rltv0.002_a50_xy.jpg">
+							<img src="images/sphere_deconvolved_rltv0.002_a50_xz.jpg">
+					</section>
+				</section>	
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Edge Handling</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li class="fragment">Boundary Conditions</li>
+						</ul>
+					</section>
+				</section>	
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>How do we make it fast?</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li class="fragment">Algorithm acceleration</li>	
+							<ul>
+								<li class="fragment">Take a bigger step at each iteration</li>
+								<li class="fragment">Vector Acceleration</li>
+							</ul>
+
+							<li class="fragment">Hardware acceleration</li>
+							<ul>
+								<li class="fragment">Fast math libraries</li>
+								<li class="fragment">Multi-threading</li>
+								<li class="fragment">GPU</li>
+							</ul>
+
+						</ul>
+					</section>
+				</section>	
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Why imagej-ops?</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li class="fragment">Easy to implement and test different methods</li>
+							<li class="fragment">Powerful underlying math library</li>
+							<li class="fragment">Can integrate into different software (ImageJ, KNIME, CellProfiler)</li>
+							<li class="fragment">Powerful scripting (evaluate measurements)</li>
+						</ul>
+					</section>
+				</section>	
+			
+	
+		</div>
 
 		</div>
 
@@ -100,7 +350,11 @@
 				center: true,
 
 				transition: 'none', // none/fade/slide/convex/concave/zoom
-
+				
+				math: {
+        				mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+        				config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+   					 },
 				// Optional reveal.js plugins
 				dependencies: [
 					{ src: '../reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
@@ -108,8 +362,9 @@
 					{ src: '../reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
 					{ src: '../reveal.js-3.1.0/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: '../reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true },
-					{ src: '../reveal.js-3.1.0/plugin/notes/notes.js', async: true }
-				]
+					{ src: '../reveal.js-3.1.0/plugin/notes/notes.js', async: true },
+					{src: '../reveal.js-3.1.0/plugin/math/math.js', async: true },		
+					]
 			});
 
 		</script>
