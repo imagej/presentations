@@ -855,6 +855,177 @@ display.createDisplay("sum projection", sumProjection)
 				</section>
 
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>FFT template matching using Ops and Imglib2</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li>Use FFT for template matching</li>
+							<ul>
+								<li class="fragment">Use Ops to perform an FFT</li>
+								<li class="fragment">Use Imglib2 to view the FFT</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<div class="doit">
+							<li>Use the C0Z12 and roiC0Z12 images that were generated in previous tutorial (CropConfocalSeries.py)</li>
+						</div>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In the script editor</li>
+							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
+							<li>Select <span class="menu">Slicewise_Threshold</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<p>
+						You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @DisplayService display
+# @OpService ops
+# @net.imagej.Dataset image
+# @net.imagej.Dataset template
+
+from net.imglib2.img.display.imagej import ImageJFunctions;
+from net.imglib2.type.numeric.complex import ComplexFloatType;
+from net.imglib2.outofbounds import OutOfBoundsMirrorExpWindowingFactory;
+
+from net.imglib2.converter import ComplexImaginaryFloatConverter;
+from net.imglib2.converter import ComplexPhaseFloatConverter;
+from net.imglib2.converter import ComplexRealFloatConverter;
+
+# perform fft of the template
+
+# basic fft call with no parameters
+#templateFFT=ops.filter().fft(template.getImgPlus())
+
+# alternatively to pass an outofbounds factory we have to pass every parameter.  We want:
+# output='None', input=template, borderSize=10 by 10, fast='True', outOfBoundsFactor=OutOfBoundsMirrorExpWindowingFactory
+templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfBoundsMirrorExpWindowingFactory(0.25));
+
+# display fft (by default in generalized log power spectrum)
+ImageJFunctions.show(templateFFT).setTitle("fft power spectrum");
+
+# display fft phase spectrum
+ImageJFunctions.show( templateFFT,ComplexPhaseFloatConverter() ).setTitle( "fft phase spectrum" );
+
+# display fft real values
+ImageJFunctions.show( templateFFT,ComplexRealFloatConverter() ).setTitle( "fft real values" );
+        
+# display fft imaginary values
+ImageJFunctions.show( templateFFT, ComplexImaginaryFloatConverter() ).setTitle( "fft imaginary values" );
+
+# complex invert the fft of the template
+c = ComplexFloatType();
+for  t in templateFFT:
+	c.set(t);
+	t.complexConjugate();
+	c.mul(t);
+	t.div(c);
+
+# create Img memory for inverse FFT and compute inverse 
+templateInverse=ops.create().img([template.dimension(0), template.dimension(1)])
+
+ops.filter().ifft(templateInverse, templateFFT)
+display.createDisplay("template inverse", templateInverse)
+
+# convolve templateInverse with image
+final=ops.filter().convolve(image, templateInverse);
+display.createDisplay("final", final)
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Set up the parameters and import several classes from imglib2
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @DisplayService display
+# @OpService ops
+# @net.imagej.Dataset image
+# @net.imagej.Dataset template
+
+from net.imglib2.img.display.imagej import ImageJFunctions;
+from net.imglib2.type.numeric.complex import ComplexFloatType;
+from net.imglib2.outofbounds import OutOfBoundsMirrorExpWindowingFactory;
+
+from net.imglib2.converter import ComplexImaginaryFloatConverter;
+from net.imglib2.converter import ComplexPhaseFloatConverter;
+from net.imglib2.converter import ComplexRealFloatConverter;
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Perform the FFT of the template using Ops
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# perform fft of the template
+
+# basic fft call with no parameters
+#templateFFT=ops.filter().fft(template.getImgPlus())
+
+# alternatively to pass an outofbounds factory we have to pass every parameter.  We want:
+# output='None', input=template, borderSize=10 by 10, fast='True', outOfBoundsFactor=OutOfBoundsMirrorExpWindowingFactory
+templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfBoundsMirrorExpWindowingFactory(0.25));
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Use utilities from imglib2 to display the power spectrum, phase, real and imaginary values of the FFT
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# display fft (by default in generalized log power spectrum)
+ImageJFunctions.show(templateFFT).setTitle("fft power spectrum");
+
+# display fft phase spectrum
+ImageJFunctions.show( templateFFT,ComplexPhaseFloatConverter() ).setTitle( "fft phase spectrum" );
+
+# display fft real values
+ImageJFunctions.show( templateFFT,ComplexRealFloatConverter() ).setTitle( "fft real values" );
+        
+# display fft imaginary values
+ImageJFunctions.show( templateFFT, ComplexImaginaryFloatConverter() ).setTitle( "fft imaginary values" );
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Use imglib2 to calculate the inverse of the template fft:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# complex invert the fft of the template
+c = ComplexFloatType();
+for  t in templateFFT:
+	c.set(t);
+	t.complexConjugate();
+	c.mul(t);
+	t.div(c);
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Calculate the inverse of the template, convolve with the image and display the result
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# create Img memory for inverse FFT and compute inverse 
+templateInverse=ops.create().img([template.dimension(0), template.dimension(1)])
+
+ops.filter().ifft(templateInverse, templateFFT)
+display.createDisplay("template inverse", templateInverse)
+
+# convolve templateInverse with image
+final=ops.filter().convolve(image, templateInverse);
+display.createDisplay("final", final)
+
+						</code></pre>
+					</section>
+				</section>
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Acknowledgements</h2>
 					<table class="acknowledgements">
 						<tr>
