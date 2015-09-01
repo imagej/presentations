@@ -297,6 +297,157 @@ greeting = "Hello, " + name + "!"
                                 </section>
 
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Crop N-Dimensional Image</h2>
+					<section></section>
+					<section>
+						<ul>
+							<p>Explore data using ImageJ2 Data Model (beta)</p>
+							<ul>
+								<li class="fragment">Print size of each dimension</li>
+								<li class="fragment">Print axis type of each dimension</li>
+							</ul>
+							<li class="fragment">N-Dimensional cropping with imagej-ops</li>
+						</ul>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In Fiji...</li>
+							<li>Select <span class="menu">Confocal Series (2.2MB)</span> from the <span class="menu">File &#9654; Open Samples</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In the script editor</li>
+							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
+							<li>Select <span class="menu">Crop_Confocal_Series</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<p>
+							You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @DisplayService display
+# @net.imagej.Dataset inputData
+
+# to run this tutorial run 'file->Open Samples->Confocal Series' and make sure that
+# confocal-series.tif is the active image
+
+from net.imglib2 import FinalInterval;
+
+# first take a look at the size and type of each dimension
+for d in range(inputData.numDimensions()):
+        print "axis d: type: "+str(inputData.axis(d).type())+" length: "+str(inputData.dimension(d))
+
+# crop a channel
+C0=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,0], [inputData.dimension(0)-1, inputData.dimension(1)-1, 0, inputData.dimension(3)-1]))
+C1=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,1,0], [inputData.dimension(0)-1, inputData.dimension(1)-1, 1, inputData.dimension(3)-1]))
+
+# crop both channels at z=12
+z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,12], [inputData.dimension(0)-1, inputData.dimension(1)-1, 1, 12]))
+
+# crop channel 0 at z=12
+C0z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,12], [inputData.dimension(0)-1, inputData.dimension(1)-1, 0, 12]))
+
+# crop an roi at channel 0, z=12
+roiC0z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([150,150,0,12], [200, 200, 0, 12]))
+
+# display all the cropped images
+display.createDisplay("C0", C0)
+display.createDisplay("C1", C1)
+display.createDisplay("z12", z12)
+display.createDisplay("C0z12", C0z12)
+display.createDisplay("roiC0z12", roiC0z12)
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							The first few lines specify the parameters
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @DisplayService display
+# @net.imagej.Dataset inputData
+						</code></pre>
+						<ul>
+							<li class="fragment">The op Service</li>
+							<li class="fragment">The display Service</li>
+							<li class="fragment">The input dataset</li>
+						</ul>
+					</section>
+					<section>
+						<p>
+							Import the FinalInterval class from imglib2
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+from net.imglib2 import FinalInterval;
+
+						</code></pre>
+						<ul>
+							<li class="fragment">FinalInterval will be used to specify the region to crop</li>
+						</ul>
+						
+					</section>
+					<section>
+						<p>
+							Loop through the dimensions and print the axis type and length of each dimension
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+for d in range(inputData.numDimensions()):
+        print "axis d: type: "+str(inputData.axis(d).type())+" length: "+str(inputData.dimension(d))
+
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							Use ops to crop various intervals.  We use the FinalInterval class to define the region to crop
+						</p>
+						<ul>
+							<li class="fragment">FinalInterval is initialized with the start and end points of the region</li>
+						</ul>
+						
+						<pre><code class="python" data-trim contenteditable>
+
+# crop a channel
+C0=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,0], [inputData.dimension(0)-1, inputData.dimension(1)-1, 0, inputData.dimension(3)-1]))
+C1=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,1,0], [inputData.dimension(0)-1, inputData.dimension(1)-1, 1, inputData.dimension(3)-1]))
+
+# crop both channels at z=12
+z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,12], [inputData.dimension(0)-1, inputData.dimension(1)-1, 1, 12]))
+
+# crop channel 0 at z=12
+C0z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,12], [inputData.dimension(0)-1, inputData.dimension(1)-1, 0, 12]))
+
+# crop an roi at channel 0, z=12
+roiC0z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([150,150,0,12], [200, 200, 0, 12]))
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							Use the display service to show our cropped images
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+# display all the cropped images
+display.createDisplay("C0", C0)
+display.createDisplay("C1", C1)
+display.createDisplay("z12", z12)
+display.createDisplay("C0z12", C0z12)
+display.createDisplay("roiC0z12", roiC0z12)
+						</code></pre>
+					</section>	
+				</section>
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Acknowledgements</h2>
 					<table class="acknowledgements">
 						<tr>
