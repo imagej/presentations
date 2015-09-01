@@ -591,6 +591,128 @@ IJ.run(impThresholded, "Analyze Particles...", "display add");
 				</section>	
 
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Threshold Hyperslice</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li>Apply Threshold to N-Dimensional Data</li>
+							<ul>
+								<li class="fragment">Specify dimension(s) to process</li>
+								<li class="fragment">Specify dimension(s) to iterate</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In Fiji...</li>
+							<li>Select <span class="menu">Confocal Series (2.2MB)</span> from the <span class="menu">File &#9654; Open Samples</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In the script editor</li>
+							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
+							<li>Select <span class="menu">Slicewise_Threshold</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<p>
+							You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @net.imagej.Dataset inputData
+# @DisplayService display
+
+from net.imagej.ops import Ops
+from net.imagej import ImgPlus
+from net.imglib2.type.logic import BitType
+
+
+# first take a look at the size and type of each dimension
+for d in range(inputData.numDimensions()):
+	print "axis d: type: "+str(inputData.axis(d).type())+" length: "+str(inputData.dimension(d))
+
+# create the otsu op
+otsu=ops.op(Ops.Threshold.Otsu, inputData);
+
+# create memory for the thresholded image
+thresholded=ops.create().img(inputData.getImgPlus(), BitType())
+
+# call slicewise passing the threshold op and the axis to process, in this case [0,1] means process the 
+# first two axes (x and y)
+ops.slicewise(thresholded, inputData.getImgPlus(), otsu, [0,1])
+
+# create an ImgPlus using the thresholded img, copy meta data from the input
+thresholdedPlus=ImgPlus(thresholded, inputData.getImgPlus())
+
+display.createDisplay("thresholded", thresholdedPlus)
+
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							The first half of the script sets up the parameters and inputs and prints out the size and type of the input axes:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @net.imagej.Dataset inputData
+# @DisplayService display
+
+from net.imagej.ops import Ops
+from net.imagej import ImgPlus
+from net.imglib2.type.logic import BitType
+
+
+# first take a look at the size and type of each dimension
+for d in range(inputData.numDimensions()):
+	print "axis d: type: "+str(inputData.axis(d).type())+" length: "+str(inputData.dimension(d))
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							Then we create an Otsu (threshold) op and memory for the result
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# create the otsu op
+otsu=ops.op(Ops.Threshold.Otsu, inputData);
+
+# create memory for the thresholded image
+thresholded=ops.create().img(inputData.getImgPlus(), BitType())
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							Then we call the slicewise op passing:
+						</p>
+						<ul>
+							<li class="fragment">The memory that was created</li>
+							<li class="fragment">The input data</li>
+							<li class="fragment">The threshold op</li>
+							<li class="fragment">The axis to process</li>
+						</ul>
+						<pre><code class="python" data-trim contenteditable>
+# call slicewise passing the threshold op and the axis to process, in this case [0,1] means process the 
+# first two axes (x and y)
+ops.slicewise(thresholded, inputData.getImgPlus(), otsu, [0,1])
+
+# create an ImgPlus using the thresholded img, copy meta data from the input
+thresholdedPlus=ImgPlus(thresholded, inputData.getImgPlus())
+
+display.createDisplay("thresholded", thresholdedPlus)
+
+						</code></pre>
+					</section>
+				</section>
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Acknowledgements</h2>
 					<table class="acknowledgements">
 						<tr>
