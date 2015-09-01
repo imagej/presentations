@@ -35,3 +35,33 @@ table.acknowledgements img {
   box-shadow: none !important;
   height: 7em !important;
 }
+
+.urlfoot {
+  background: brown;
+  border-radius: 0.5em;
+  bottom: 0;
+  box-shadow: 3px 3px 1px #444 !important;
+  font-family: monospace !important;
+  font-size: 0.6em !important;
+  padding: 0.5em 2em 0.5em 2em !important;
+  position: absolute;
+  right: 0;
+}
+
+.graybox {
+  background-color: rgba(64,64,64,0.5) !important;
+  border-radius: 1em;
+  padding: 1em !important;
+}
+
+.outlined {
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 0.04em;
+  -webkit-text-stroke-color: black;
+  text-shadow:
+  0.1em 0.1em 0 #000,
+  -0.02em -0.02em 0 #000,
+  0.02em -0.02em 0 #000,
+  -0.02em 0.02em 0 #000,
+  0.02em 0.02em 0 #000;
+}
