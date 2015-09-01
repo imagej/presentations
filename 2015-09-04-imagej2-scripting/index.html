@@ -713,6 +713,148 @@ display.createDisplay("thresholded", thresholdedPlus)
 				</section>
 
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Projections</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li>Use OpService to create sum and max ops</li>
+							<li class="fragment">Pass sum and max ops to projection op</li>
+						</ul>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>Use the C0 image that was generated in previous tutorial (CropConfocalSeries.py)</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In the script editor</li>
+							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
+							<li>Select <span class="menu">Projections</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+						</ul>
+						</div>
+					</section>
+	
+					<section>
+						<p>
+						You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+# @OpService ops
+# @DisplayService display
+# @net.imagej.Dataset inputData
+
+from net.imagej.ops import Ops
+
+dimensionToProject=2
+
+# generate the projected dimension
+projectedDimensions=[inputData.dimension(x) for x in range(0, inputData.numDimensions()) if x!=dimensionToProject]
+print projectedDimensions
+
+# create memory for projections
+maxProjection=ops.create().img(projectedDimensions)
+sumProjection=ops.create().img(projectedDimensions)
+
+# use op service to get the max op
+maxOp = ops.op(Ops.Stats.Max, inputData)
+# use op service to get the sum op
+sumOp = ops.op(Ops.Stats.Sum, sumProjection.firstElement(), inputData)
+
+# call the project op passing
+# maxProjection: img to put projection in
+# image: img to project
+# op: the op used to generate the projection (in this case "max")
+# dimensionToProject: the dimension to project
+ops.image().project(maxProjection, inputData, maxOp, dimensionToProject)
+
+# project again this time use sum projection
+ops.image().project(sumProjection, inputData, sumOp, dimensionToProject)
+
+# display the results
+display.createDisplay("max projection", maxProjection)
+display.createDisplay("sum projection", sumProjection)
+
+					</code></pre>
+					</section>
+					<section>
+						<p>
+						The parameters
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @DisplayService display
+# @net.imagej.Dataset inputData
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Import the Ops class
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+from net.imagej.ops import Ops
+						</code></pre>
+					</section>
+						<section>
+						<p>
+						Calculate projected dimensions and generate memory
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+dimensionToProject=2
+
+# generate the projected dimension
+projectedDimensions=[inputData.dimension(x) for x in range(0, inputData.numDimensions()) if x!=dimensionToProject]
+print projectedDimensions
+
+# create memory for projections
+maxProjection=ops.create().img(projectedDimensions)
+sumProjection=ops.create().img(projectedDimensions)
+
+						</code></pre>
+					</section>
+						<section>
+						<p>
+						Create max and sum ops
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+# use op service to get the max op
+maxOp = ops.op(Ops.Stats.Max, inputData)
+# use op service to get the sum op
+sumOp = ops.op(Ops.Stats.Sum, sumProjection.firstElement(), inputData)
+
+						</code></pre>
+					</section>
+							<section>
+						<p>
+						Call projection op(s) and display outputs
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+# call the project op passing
+# maxProjection: img to put projection in
+# image: img to project
+# op: the op used to generate the projection (in this case "max")
+# dimensionToProject: the dimension to project
+ops.image().project(maxProjection, inputData, maxOp, dimensionToProject)
+
+# project again this time use sum projection
+ops.image().project(sumProjection, inputData, sumOp, dimensionToProject)
+
+# display the results
+display.createDisplay("max projection", maxProjection)
+display.createDisplay("sum projection", sumProjection)
+						</code></pre>
+					</section>	
+				</section>
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Acknowledgements</h2>
 					<table class="acknowledgements">
 						<tr>
