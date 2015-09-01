@@ -2,6 +2,7 @@
 .metadata
 .project
 .settings
+.DS_Store
 target
 *.swp
 *.releaseBackup
