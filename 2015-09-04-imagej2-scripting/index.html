@@ -282,6 +282,749 @@ greeting = "Hello, " + name + "!"
 					</section>
 				</section>
 
+	                         <section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+                                        <h2>Image Processing Examples</h2>
+                                        <section></section>
+                                        <section>
+                                                <ul>
+                                                        <li>Crop N-Dimensional Image</li>
+                                                        <li class="fragment">Segment with Ops, Analyze with IJ1 </li>
+                                                        <li class="fragment">Threshold Hyperslice</li>
+                                                        <li class="fragment">Max Projection</li>
+                                                        <li class="fragment">FFT Template Matching</li> 
+                                                </ul>
+                                        </section>
+                                </section>
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Crop N-Dimensional Image</h2>
+					<section></section>
+					<section>
+						<ul>
+							<p>Explore data using ImageJ2 Data Model (beta)</p>
+							<ul>
+								<li class="fragment">Print size of each dimension</li>
+								<li class="fragment">Print axis type of each dimension</li>
+							</ul>
+							<li class="fragment">N-Dimensional cropping with imagej-ops</li>
+						</ul>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In Fiji...</li>
+							<li>Select <span class="menu">Confocal Series (2.2MB)</span> from the <span class="menu">File &#9654; Open Samples</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In the script editor</li>
+							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
+							<li>Select <span class="menu">Crop_Confocal_Series</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<p>
+							You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @DisplayService display
+# @net.imagej.Dataset inputData
+
+# to run this tutorial run 'file->Open Samples->Confocal Series' and make sure that
+# confocal-series.tif is the active image
+
+from net.imglib2 import FinalInterval;
+
+# first take a look at the size and type of each dimension
+for d in range(inputData.numDimensions()):
+        print "axis d: type: "+str(inputData.axis(d).type())+" length: "+str(inputData.dimension(d))
+
+# crop a channel
+C0=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,0], [inputData.dimension(0)-1, inputData.dimension(1)-1, 0, inputData.dimension(3)-1]))
+C1=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,1,0], [inputData.dimension(0)-1, inputData.dimension(1)-1, 1, inputData.dimension(3)-1]))
+
+# crop both channels at z=12
+z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,12], [inputData.dimension(0)-1, inputData.dimension(1)-1, 1, 12]))
+
+# crop channel 0 at z=12
+C0z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,12], [inputData.dimension(0)-1, inputData.dimension(1)-1, 0, 12]))
+
+# crop an roi at channel 0, z=12
+roiC0z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([150,150,0,12], [200, 200, 0, 12]))
+
+# display all the cropped images
+display.createDisplay("C0", C0)
+display.createDisplay("C1", C1)
+display.createDisplay("z12", z12)
+display.createDisplay("C0z12", C0z12)
+display.createDisplay("roiC0z12", roiC0z12)
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							The first few lines specify the parameters
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @DisplayService display
+# @net.imagej.Dataset inputData
+						</code></pre>
+						<ul>
+							<li class="fragment">The op Service</li>
+							<li class="fragment">The display Service</li>
+							<li class="fragment">The input dataset</li>
+						</ul>
+					</section>
+					<section>
+						<p>
+							Import the FinalInterval class from imglib2
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+from net.imglib2 import FinalInterval;
+
+						</code></pre>
+						<ul>
+							<li class="fragment">FinalInterval will be used to specify the region to crop</li>
+						</ul>
+						
+					</section>
+					<section>
+						<p>
+							Loop through the dimensions and print the axis type and length of each dimension
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+for d in range(inputData.numDimensions()):
+        print "axis d: type: "+str(inputData.axis(d).type())+" length: "+str(inputData.dimension(d))
+
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							Use ops to crop various intervals.  We use the FinalInterval class to define the region to crop
+						</p>
+						<ul>
+							<li class="fragment">FinalInterval is initialized with the start and end points of the region</li>
+						</ul>
+						
+						<pre><code class="python" data-trim contenteditable>
+
+# crop a channel
+C0=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,0], [inputData.dimension(0)-1, inputData.dimension(1)-1, 0, inputData.dimension(3)-1]))
+C1=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,1,0], [inputData.dimension(0)-1, inputData.dimension(1)-1, 1, inputData.dimension(3)-1]))
+
+# crop both channels at z=12
+z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,12], [inputData.dimension(0)-1, inputData.dimension(1)-1, 1, 12]))
+
+# crop channel 0 at z=12
+C0z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([0,0,0,12], [inputData.dimension(0)-1, inputData.dimension(1)-1, 0, 12]))
+
+# crop an roi at channel 0, z=12
+roiC0z12=ops.inputData().crop(inputData.getImgPlus(), FinalInterval([150,150,0,12], [200, 200, 0, 12]))
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							Use the display service to show our cropped images
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+# display all the cropped images
+display.createDisplay("C0", C0)
+display.createDisplay("C1", C1)
+display.createDisplay("z12", z12)
+display.createDisplay("C0z12", C0z12)
+display.createDisplay("roiC0z12", roiC0z12)
+						</code></pre>
+					</section>	
+				</section>
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Ops Segment - IJ1 Analyze</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li>Use ops to segment an image</li>
+							<ul>
+								<li class="fragment">Create a LOG (Laplacian of Gaussian) kernel</li>
+								<li class="fragment">Convolve with the LOG kernel</li>
+								<li class="fragment">Threshold</li>
+							</ul>
+							<li class="fragment">Analyze using ImageJ-1</li>
+							<ul>
+								<li class="fragment">Convert to IJ1 ImagePlus</li>
+								<li class="fragment">Convert to mask</li>
+								<li class="fragment">Run analyze particles</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>Use the C0Z16 image that was generated in previous tutorial (CropConfocalSeries.py)</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In the script editor</li>
+							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
+							<li>Select <span class="menu">OpsThresholdIJ1Analyze</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+						</ul>
+						</div>
+					</section>
+	
+					<section>
+						<p>
+						You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @DisplayService display
+# @OpService ops
+# @net.imagej.Dataset inputData
+
+from net.imglib2.img.display.imagej import ImageJFunctions
+from ij import IJ
+
+# create a log kernel
+logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0);
+
+# convolve with log kernel
+logFiltered=ops.filter().convolve(inputData, logKernel);
+
+# display log filter result
+display.createDisplay("log", logFiltered);
+
+# otsu threshold and display
+thresholded = ops.threshold().otsu(logFiltered)
+display.createDisplay("thresholded", thresholded);
+
+# convert to imagej1 imageplus so we can run analyze particles
+impThresholded=ImageJFunctions.wrap(thresholded, "wrapped")
+
+# convert to mask and analyze particles
+IJ.run(impThresholded, "Convert to Mask", "")
+IJ.run(impThresholded, "Analyze Particles...", "display add");
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						The parameters
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @DisplayService display
+# @OpService ops
+# @net.imagej.Dataset inputData
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							Import the ImageJFunctions and IJ classes
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+from net.imglib2.img.display.imagej import ImageJFunctions
+from ij import IJ
+						</pre></code>
+						<ul>
+							<li class="fragment">ImageJFunctions: contains utilities used to convert between IJ2 and IJ1 data structures</li>
+							<li class="fragment">IJ: the classic IJ1 main namespace</li>
+						</ul>
+			
+					</section>
+					<section>
+						<p>
+							Use ops to implement a segmentation pipeline
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# create a log kernel
+logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0);
+
+# convolve with log kernel
+logFiltered=ops.filter().convolve(inputData, logKernel);
+
+# display log filter result
+display.createDisplay("log", logFiltered);
+
+# otsu threshold and display
+thresholded = ops.threshold().otsu(logFiltered)
+display.createDisplay("thresholded", thresholded);
+						</code></pre>
+						<ul>
+							<li class="fragment">Create Laplacian of Gaussian Kernel</li>
+							<ul>
+
+								<li class="fragment">Laplacian is a high frequency edge detector</li>
+								<li class="fragment">Can be combined with Gaussian to deal with noise</li>
+							</ul>
+							<li class="fragment">Convolve LOG kernel with image</li>
+							<li class="fragment">Apply automatic threshold</li>
+						</ul>			
+					</section>
+					<section>
+						<p>
+							Use IJ1 functions to analyze
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# convert to imagej1 imageplus so we can run analyze particles
+impThresholded=ImageJFunctions.wrap(thresholded, "wrapped")
+
+# convert to mask and analyze particles
+IJ.run(impThresholded, "Convert to Mask", "")
+IJ.run(impThresholded, "Analyze Particles...", "display add");
+	
+						</code></pre>
+						<ul>
+							<li class="fragment">Convert to IJ1 ImagePlus</li>
+							<li class="fragment">Run "Analyze Particles..."</li>
+						</ul>
+					</section>
+				</section>	
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Threshold Hyperslice</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li>Apply Threshold to N-Dimensional Data</li>
+							<ul>
+								<li class="fragment">Specify dimension(s) to process</li>
+								<li class="fragment">Specify dimension(s) to iterate</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In Fiji...</li>
+							<li>Select <span class="menu">Confocal Series (2.2MB)</span> from the <span class="menu">File &#9654; Open Samples</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In the script editor</li>
+							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
+							<li>Select <span class="menu">Slicewise_Threshold</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<p>
+							You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @net.imagej.Dataset inputData
+# @DisplayService display
+
+from net.imagej.ops import Ops
+from net.imagej import ImgPlus
+from net.imglib2.type.logic import BitType
+
+
+# first take a look at the size and type of each dimension
+for d in range(inputData.numDimensions()):
+	print "axis d: type: "+str(inputData.axis(d).type())+" length: "+str(inputData.dimension(d))
+
+# create the otsu op
+otsu=ops.op(Ops.Threshold.Otsu, inputData);
+
+# create memory for the thresholded image
+thresholded=ops.create().img(inputData.getImgPlus(), BitType())
+
+# call slicewise passing the threshold op and the axis to process, in this case [0,1] means process the 
+# first two axes (x and y)
+ops.slicewise(thresholded, inputData.getImgPlus(), otsu, [0,1])
+
+# create an ImgPlus using the thresholded img, copy meta data from the input
+thresholdedPlus=ImgPlus(thresholded, inputData.getImgPlus())
+
+display.createDisplay("thresholded", thresholdedPlus)
+
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							The first half of the script sets up the parameters and inputs and prints out the size and type of the input axes:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @net.imagej.Dataset inputData
+# @DisplayService display
+
+from net.imagej.ops import Ops
+from net.imagej import ImgPlus
+from net.imglib2.type.logic import BitType
+
+
+# first take a look at the size and type of each dimension
+for d in range(inputData.numDimensions()):
+	print "axis d: type: "+str(inputData.axis(d).type())+" length: "+str(inputData.dimension(d))
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							Then we create an Otsu (threshold) op and memory for the result
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# create the otsu op
+otsu=ops.op(Ops.Threshold.Otsu, inputData);
+
+# create memory for the thresholded image
+thresholded=ops.create().img(inputData.getImgPlus(), BitType())
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+							Then we call the slicewise op passing:
+						</p>
+						<ul>
+							<li class="fragment">The memory that was created</li>
+							<li class="fragment">The input data</li>
+							<li class="fragment">The threshold op</li>
+							<li class="fragment">The axis to process</li>
+						</ul>
+						<pre><code class="python" data-trim contenteditable>
+# call slicewise passing the threshold op and the axis to process, in this case [0,1] means process the 
+# first two axes (x and y)
+ops.slicewise(thresholded, inputData.getImgPlus(), otsu, [0,1])
+
+# create an ImgPlus using the thresholded img, copy meta data from the input
+thresholdedPlus=ImgPlus(thresholded, inputData.getImgPlus())
+
+display.createDisplay("thresholded", thresholdedPlus)
+
+						</code></pre>
+					</section>
+				</section>
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Projections</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li>Use OpService to create sum and max ops</li>
+							<li class="fragment">Pass sum and max ops to projection op</li>
+						</ul>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>Use the C0 image that was generated in previous tutorial (CropConfocalSeries.py)</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In the script editor</li>
+							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
+							<li>Select <span class="menu">Projections</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+						</ul>
+						</div>
+					</section>
+	
+					<section>
+						<p>
+						You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+# @OpService ops
+# @DisplayService display
+# @net.imagej.Dataset inputData
+
+from net.imagej.ops import Ops
+
+dimensionToProject=2
+
+# generate the projected dimension
+projectedDimensions=[inputData.dimension(x) for x in range(0, inputData.numDimensions()) if x!=dimensionToProject]
+print projectedDimensions
+
+# create memory for projections
+maxProjection=ops.create().img(projectedDimensions)
+sumProjection=ops.create().img(projectedDimensions)
+
+# use op service to get the max op
+maxOp = ops.op(Ops.Stats.Max, inputData)
+# use op service to get the sum op
+sumOp = ops.op(Ops.Stats.Sum, sumProjection.firstElement(), inputData)
+
+# call the project op passing
+# maxProjection: img to put projection in
+# image: img to project
+# op: the op used to generate the projection (in this case "max")
+# dimensionToProject: the dimension to project
+ops.image().project(maxProjection, inputData, maxOp, dimensionToProject)
+
+# project again this time use sum projection
+ops.image().project(sumProjection, inputData, sumOp, dimensionToProject)
+
+# display the results
+display.createDisplay("max projection", maxProjection)
+display.createDisplay("sum projection", sumProjection)
+
+					</code></pre>
+					</section>
+					<section>
+						<p>
+						The parameters
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @DisplayService display
+# @net.imagej.Dataset inputData
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Import the Ops class
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+from net.imagej.ops import Ops
+						</code></pre>
+					</section>
+						<section>
+						<p>
+						Calculate projected dimensions and generate memory
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+dimensionToProject=2
+
+# generate the projected dimension
+projectedDimensions=[inputData.dimension(x) for x in range(0, inputData.numDimensions()) if x!=dimensionToProject]
+print projectedDimensions
+
+# create memory for projections
+maxProjection=ops.create().img(projectedDimensions)
+sumProjection=ops.create().img(projectedDimensions)
+
+						</code></pre>
+					</section>
+						<section>
+						<p>
+						Create max and sum ops
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+# use op service to get the max op
+maxOp = ops.op(Ops.Stats.Max, inputData)
+# use op service to get the sum op
+sumOp = ops.op(Ops.Stats.Sum, sumProjection.firstElement(), inputData)
+
+						</code></pre>
+					</section>
+							<section>
+						<p>
+						Call projection op(s) and display outputs
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+# call the project op passing
+# maxProjection: img to put projection in
+# image: img to project
+# op: the op used to generate the projection (in this case "max")
+# dimensionToProject: the dimension to project
+ops.image().project(maxProjection, inputData, maxOp, dimensionToProject)
+
+# project again this time use sum projection
+ops.image().project(sumProjection, inputData, sumOp, dimensionToProject)
+
+# display the results
+display.createDisplay("max projection", maxProjection)
+display.createDisplay("sum projection", sumProjection)
+						</code></pre>
+					</section>	
+				</section>
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>FFT template matching using Ops and Imglib2</h2>
+					<section></section>
+					<section>
+						<ul>
+							<li>Use FFT for template matching</li>
+							<ul>
+								<li class="fragment">Use Ops to perform an FFT</li>
+								<li class="fragment">Use Imglib2 to view the FFT</li>
+							</ul>
+						</ul>
+					</section>
+					<section>
+						<div class="doit">
+							<li>Use the C0Z12 and roiC0Z12 images that were generated in previous tutorial (CropConfocalSeries.py)</li>
+						</div>
+					</section>
+					<section>
+						<div class="doit">
+						<ul>
+							<li>In the script editor</li>
+							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
+							<li>Select <span class="menu">Slicewise_Threshold</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+						</ul>
+						</div>
+					</section>
+					<section>
+						<p>
+						You should see:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @DisplayService display
+# @OpService ops
+# @net.imagej.Dataset image
+# @net.imagej.Dataset template
+
+from net.imglib2.img.display.imagej import ImageJFunctions;
+from net.imglib2.type.numeric.complex import ComplexFloatType;
+from net.imglib2.outofbounds import OutOfBoundsMirrorExpWindowingFactory;
+
+from net.imglib2.converter import ComplexImaginaryFloatConverter;
+from net.imglib2.converter import ComplexPhaseFloatConverter;
+from net.imglib2.converter import ComplexRealFloatConverter;
+
+# perform fft of the template
+
+# basic fft call with no parameters
+#templateFFT=ops.filter().fft(template.getImgPlus())
+
+# alternatively to pass an outofbounds factory we have to pass every parameter.  We want:
+# output='None', input=template, borderSize=10 by 10, fast='True', outOfBoundsFactor=OutOfBoundsMirrorExpWindowingFactory
+templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfBoundsMirrorExpWindowingFactory(0.25));
+
+# display fft (by default in generalized log power spectrum)
+ImageJFunctions.show(templateFFT).setTitle("fft power spectrum");
+
+# display fft phase spectrum
+ImageJFunctions.show( templateFFT,ComplexPhaseFloatConverter() ).setTitle( "fft phase spectrum" );
+
+# display fft real values
+ImageJFunctions.show( templateFFT,ComplexRealFloatConverter() ).setTitle( "fft real values" );
+        
+# display fft imaginary values
+ImageJFunctions.show( templateFFT, ComplexImaginaryFloatConverter() ).setTitle( "fft imaginary values" );
+
+# complex invert the fft of the template
+c = ComplexFloatType();
+for  t in templateFFT:
+	c.set(t);
+	t.complexConjugate();
+	c.mul(t);
+	t.div(c);
+
+# create Img memory for inverse FFT and compute inverse 
+templateInverse=ops.create().img([template.dimension(0), template.dimension(1)])
+
+ops.filter().ifft(templateInverse, templateFFT)
+display.createDisplay("template inverse", templateInverse)
+
+# convolve templateInverse with image
+final=ops.filter().convolve(image, templateInverse);
+display.createDisplay("final", final)
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Set up the parameters and import several classes from imglib2
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# @DisplayService display
+# @OpService ops
+# @net.imagej.Dataset image
+# @net.imagej.Dataset template
+
+from net.imglib2.img.display.imagej import ImageJFunctions;
+from net.imglib2.type.numeric.complex import ComplexFloatType;
+from net.imglib2.outofbounds import OutOfBoundsMirrorExpWindowingFactory;
+
+from net.imglib2.converter import ComplexImaginaryFloatConverter;
+from net.imglib2.converter import ComplexPhaseFloatConverter;
+from net.imglib2.converter import ComplexRealFloatConverter;
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Perform the FFT of the template using Ops
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# perform fft of the template
+
+# basic fft call with no parameters
+#templateFFT=ops.filter().fft(template.getImgPlus())
+
+# alternatively to pass an outofbounds factory we have to pass every parameter.  We want:
+# output='None', input=template, borderSize=10 by 10, fast='True', outOfBoundsFactor=OutOfBoundsMirrorExpWindowingFactory
+templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfBoundsMirrorExpWindowingFactory(0.25));
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Use utilities from imglib2 to display the power spectrum, phase, real and imaginary values of the FFT
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# display fft (by default in generalized log power spectrum)
+ImageJFunctions.show(templateFFT).setTitle("fft power spectrum");
+
+# display fft phase spectrum
+ImageJFunctions.show( templateFFT,ComplexPhaseFloatConverter() ).setTitle( "fft phase spectrum" );
+
+# display fft real values
+ImageJFunctions.show( templateFFT,ComplexRealFloatConverter() ).setTitle( "fft real values" );
+        
+# display fft imaginary values
+ImageJFunctions.show( templateFFT, ComplexImaginaryFloatConverter() ).setTitle( "fft imaginary values" );
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Use imglib2 to calculate the inverse of the template fft:
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# complex invert the fft of the template
+c = ComplexFloatType();
+for  t in templateFFT:
+	c.set(t);
+	t.complexConjugate();
+	c.mul(t);
+	t.div(c);
+
+						</code></pre>
+					</section>
+					<section>
+						<p>
+						Calculate the inverse of the template, convolve with the image and display the result
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+# create Img memory for inverse FFT and compute inverse 
+templateInverse=ops.create().img([template.dimension(0), template.dimension(1)])
+
+ops.filter().ifft(templateInverse, templateFFT)
+display.createDisplay("template inverse", templateInverse)
+
+# convolve templateInverse with image
+final=ops.filter().convolve(image, templateInverse);
+display.createDisplay("final", final)
+
+						</code></pre>
+					</section>
+				</section>
+
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Acknowledgements</h2>
 					<table class="acknowledgements">
