@@ -501,8 +501,8 @@ ui.show("roiC0z12", roiC0z12)
 						You should see:
 						</p>
 						<pre><code class="python" data-trim contenteditable>
-# @DisplayService display
 # @OpService ops
+# @UIService ui
 # @net.imagej.Dataset inputData
 
 from net.imglib2.img.display.imagej import ImageJFunctions
@@ -515,11 +515,11 @@ logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0);
 logFiltered=ops.filter().convolve(inputData, logKernel);
 
 # display log filter result
-display.createDisplay("log", logFiltered);
+ui.show("log", logFiltered);
 
 # otsu threshold and display
 thresholded = ops.threshold().otsu(logFiltered)
-display.createDisplay("thresholded", thresholded);
+ui.show("thresholded", thresholded);
 
 # convert to imagej1 imageplus so we can run analyze particles
 impThresholded=ImageJFunctions.wrap(thresholded, "wrapped")
@@ -527,15 +527,17 @@ impThresholded=ImageJFunctions.wrap(thresholded, "wrapped")
 # convert to mask and analyze particles
 IJ.run(impThresholded, "Convert to Mask", "")
 IJ.run(impThresholded, "Analyze Particles...", "display add");
-						</code></pre>
+
+
+					</code></pre>
 					</section>
 					<section>
 						<p>
 						The parameters
 						</p>
 						<pre><code class="python" data-trim contenteditable>
-# @DisplayService display
 # @OpService ops
+# @UIService ui
 # @net.imagej.Dataset inputData
 						</code></pre>
 					</section>
@@ -566,12 +568,13 @@ logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0);
 logFiltered=ops.filter().convolve(inputData, logKernel);
 
 # display log filter result
-display.createDisplay("log", logFiltered);
+ui.show("log", logFiltered);
 
 # otsu threshold and display
 thresholded = ops.threshold().otsu(logFiltered)
-display.createDisplay("thresholded", thresholded);
-						</code></pre>
+ui.show("thresholded", thresholded);
+
+					</code></pre>
 						<ul>
 							<li class="fragment">Create Laplacian of Gaussian Kernel</li>
 							<ul>
