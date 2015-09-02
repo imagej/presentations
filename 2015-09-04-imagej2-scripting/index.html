@@ -285,13 +285,23 @@ greeting = "Hello, " + name + "!"
 				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Getting help</h2>
 
-					<section style="height: 80%">
-						<div class="webpage">
-							<p><input type="text" value="http://javadoc.imagej.net/"></p>
-							<iframe src="http://javadoc.imagej.net/"></iframe>
-						</div>
-					</section>
-
+					<div class="webpage" style="height: 70%; padding-bottom: 30px">
+						<p><input id="address" type="text" value="http://javadoc.imagej.net/" onchange="loadPage(this.value)"></p>
+						<iframe id="browser" src="http://javadoc.imagej.net/"></iframe>
+					</div>
+					<script>
+					function loadPage(url) {
+						document.getElementById('address').value = url;
+						document.getElementById('browser').src = url;
+					}
+					</script>
+					<small>
+						<ul>
+							<li><a onclick="loadPage('http://javadoc.imagej.net/')">http://javadoc.imagej.net/</a></li>
+							<li><a onclick="loadPage('http://imagej.net/Mailing_Lists')">http://imagej.net/Mailing_Lists</a></li>
+							<li><a onclick="loadPage('http://imagej.net/Bugs')">http://imagej.net/Bugs</a></li>
+						</ul>
+					</small>
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
