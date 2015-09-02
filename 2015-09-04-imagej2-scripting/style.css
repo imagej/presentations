@@ -37,6 +37,10 @@
   vertical-align: middle !important;
 }
 
+code {
+  font-size: 0.8em !important;
+}
+
 table.acknowledgements td {
   font-size: small;
   text-align: center !important;
