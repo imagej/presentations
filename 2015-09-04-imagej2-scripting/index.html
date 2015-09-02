@@ -680,7 +680,7 @@ ui.show("thresholded", thresholdedPlus)
 					</section>
 					<section>
 						<p>
-							The first half of the script sets up the parameters and inputs and prints out the size and type of the input axes:
+							The first half of the script sets up the parameters, imports classes, and prints out the size and type of the input axes:
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
@@ -783,15 +783,17 @@ ops.slicewise(thresholded, data.getImgPlus(), otsu, [xDim,yDim,zDim])
 						<pre><code class="python" data-trim contenteditable>
 
 # @OpService ops
-# @DisplayService display
-# @net.imagej.Dataset inputData
+# @UIService ui
+# @net.imagej.Dataset data
 
 from net.imagej.ops import Ops
+from net.imagej.axis import Axes
 
-dimensionToProject=2
+# get the dimension to project
+pDim = data.dimensionIndex(Axes.Z);
 
 # generate the projected dimension
-projectedDimensions=[inputData.dimension(x) for x in range(0, inputData.numDimensions()) if x!=dimensionToProject]
+projectedDimensions=[data.dimension(x) for x in range(0, data.numDimensions()) if x!=pDim]
 print projectedDimensions
 
 # create memory for projections
@@ -799,55 +801,49 @@ maxProjection=ops.create().img(projectedDimensions)
 sumProjection=ops.create().img(projectedDimensions)
 
 # use op service to get the max op
-maxOp = ops.op(Ops.Stats.Max, inputData)
+maxOp = ops.op(Ops.Stats.Max, data)
 # use op service to get the sum op
-sumOp = ops.op(Ops.Stats.Sum, sumProjection.firstElement(), inputData)
+sumOp = ops.op(Ops.Stats.Sum, sumProjection.firstElement(), data)
 
 # call the project op passing
 # maxProjection: img to put projection in
 # image: img to project
 # op: the op used to generate the projection (in this case "max")
 # dimensionToProject: the dimension to project
-ops.image().project(maxProjection, inputData, maxOp, dimensionToProject)
+ops.image().project(maxProjection, data, maxOp, pDim)
 
 # project again this time use sum projection
-ops.image().project(sumProjection, inputData, sumOp, dimensionToProject)
+ops.image().project(sumProjection, data, sumOp, pDim)
 
 # display the results
-display.createDisplay("max projection", maxProjection)
-display.createDisplay("sum projection", sumProjection)
-
+ui.show("max projection", maxProjection)
+ui.show("sum projection", sumProjection)
 					</code></pre>
 					</section>
 					<section>
 						<p>
-						The parameters
+						Set up the Parameters and import classe
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
-# @DisplayService display
-# @net.imagej.Dataset inputData
+# @UIService ui
+# @net.imagej.Dataset data
+
+from net.imagej.ops import Ops
+from net.imagej.axis import Axes
 
 						</code></pre>
 					</section>
 					<section>
 						<p>
-						Import the Ops class
-						</p>
-						<pre><code class="python" data-trim contenteditable>
-
-from net.imagej.ops import Ops
-						</code></pre>
-					</section>
-						<section>
-						<p>
 						Calculate projected dimensions and generate memory
 						</p>
 						<pre><code class="python" data-trim contenteditable>
-dimensionToProject=2
+# get the dimension to project
+pDim = data.dimensionIndex(Axes.Z);
 
 # generate the projected dimension
-projectedDimensions=[inputData.dimension(x) for x in range(0, inputData.numDimensions()) if x!=dimensionToProject]
+projectedDimensions=[data.dimension(x) for x in range(0, data.numDimensions()) if x!=pDim]
 print projectedDimensions
 
 # create memory for projections
@@ -861,11 +857,10 @@ sumProjection=ops.create().img(projectedDimensions)
 						Create max and sum ops
 						</p>
 						<pre><code class="python" data-trim contenteditable>
-
 # use op service to get the max op
-maxOp = ops.op(Ops.Stats.Max, inputData)
+maxOp = ops.op(Ops.Stats.Max, data)
 # use op service to get the sum op
-sumOp = ops.op(Ops.Stats.Sum, sumProjection.firstElement(), inputData)
+sumOp = ops.op(Ops.Stats.Sum, sumProjection.firstElement(), data)
 
 						</code></pre>
 					</section>
@@ -880,14 +875,14 @@ sumOp = ops.op(Ops.Stats.Sum, sumProjection.firstElement(), inputData)
 # image: img to project
 # op: the op used to generate the projection (in this case "max")
 # dimensionToProject: the dimension to project
-ops.image().project(maxProjection, inputData, maxOp, dimensionToProject)
+ops.image().project(maxProjection, data, maxOp, pDim)
 
 # project again this time use sum projection
-ops.image().project(sumProjection, inputData, sumOp, dimensionToProject)
+ops.image().project(sumProjection, data, sumOp, pDim)
 
 # display the results
-display.createDisplay("max projection", maxProjection)
-display.createDisplay("sum projection", sumProjection)
+ui.show("max projection", maxProjection)
+ui.show("sum projection", sumProjection)
 						</code></pre>
 					</section>	
 				</section>
@@ -923,10 +918,20 @@ display.createDisplay("sum projection", sumProjection)
 						You should see:
 						</p>
 						<pre><code class="python" data-trim contenteditable>
-# @DisplayService display
 # @OpService ops
+# @UIService ui
 # @net.imagej.Dataset image
 # @net.imagej.Dataset template
+
+'''
+This example is an 'ops' version of:
+
+http://fiji.sc/ImgLib2_Examples#Example_6c_-_Complex_numbers_and_Fourier_transforms
+
+for which the code and images can be found
+
+https://github.com/imglib/imglib2-tutorials
+'''
 
 from net.imglib2.img.display.imagej import ImageJFunctions;
 from net.imglib2.type.numeric.complex import ComplexFloatType;
@@ -969,12 +974,11 @@ for  t in templateFFT:
 templateInverse=ops.create().img([template.dimension(0), template.dimension(1)])
 
 ops.filter().ifft(templateInverse, templateFFT)
-display.createDisplay("template inverse", templateInverse)
+ui.show("template inverse", templateInverse)
 
 # convolve templateInverse with image
 final=ops.filter().convolve(image, templateInverse);
-display.createDisplay("final", final)
-
+ui.show("final", final)
 						</code></pre>
 					</section>
 					<section>
@@ -982,18 +986,20 @@ display.createDisplay("final", final)
 						Set up the parameters and import several classes from imglib2
 						</p>
 						<pre><code class="python" data-trim contenteditable>
-# @DisplayService display
 # @OpService ops
+# @UIService ui
 # @net.imagej.Dataset image
 # @net.imagej.Dataset template
 
-from net.imglib2.img.display.imagej import ImageJFunctions;
-from net.imglib2.type.numeric.complex import ComplexFloatType;
-from net.imglib2.outofbounds import OutOfBoundsMirrorExpWindowingFactory;
+from net.imglib2.img.display.imagej import ImageJFunctions
+from net.imglib2.type.numeric.complex import ComplexFloatType
+from net.imglib2.outofbounds import OutOfBoundsMirrorExpWindowingFactory
 
-from net.imglib2.converter import ComplexImaginaryFloatConverter;
-from net.imglib2.converter import ComplexPhaseFloatConverter;
-from net.imglib2.converter import ComplexRealFloatConverter;
+from net.imglib2.converter import ComplexImaginaryFloatConverter
+from net.imglib2.converter import ComplexPhaseFloatConverter
+from net.imglib2.converter import ComplexRealFloatConverter
+
+
 						</code></pre>
 					</section>
 					<section>
@@ -1009,7 +1015,8 @@ from net.imglib2.converter import ComplexRealFloatConverter;
 # alternatively to pass an outofbounds factory we have to pass every parameter.  We want:
 # output='None', input=template, borderSize=10 by 10, fast='True', outOfBoundsFactor=OutOfBoundsMirrorExpWindowingFactory
 templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfBoundsMirrorExpWindowingFactory(0.25));
-						</code></pre>
+
+					</code></pre>
 					</section>
 					<section>
 						<p>
@@ -1053,13 +1060,12 @@ for  t in templateFFT:
 templateInverse=ops.create().img([template.dimension(0), template.dimension(1)])
 
 ops.filter().ifft(templateInverse, templateFFT)
-display.createDisplay("template inverse", templateInverse)
+ui.show("template inverse", templateInverse)
 
 # convolve templateInverse with image
 final=ops.filter().convolve(image, templateInverse);
-display.createDisplay("final", final)
-
-						</code></pre>
+ui.show("final", final)
+							</code></pre>
 					</section>
 				</section>
 
