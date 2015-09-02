@@ -18,6 +18,10 @@
   padding: 0.7em !important;
 }
 
+.doit ul {
+  margin-left: 80px !important;
+}
+
 .plain {
   background: none !important;
   border: none !important;
