@@ -152,12 +152,9 @@ run()
 						<div class="doit">
 							<ul>
 								<li>Press the <code style="color: pink">[</code> key to open the <a href="http://imagej.net/Script_Editor">Script Editor</a></li>
-								<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
-								<li>Select <span class="menu">Greeting</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
+								<li>Select <span class="menu">Templates &#9654; Python &#9654; Greeting</span></li>
 							</ul>
 						</div>
-					</section>
-					<section>
 						<p>
 						You should see:
 						</p>
@@ -195,7 +192,7 @@ greeting = "Hello, " + name + "!"
 						You can use any Java type for a parameter.
 						</p>
 						<p class="doit">
-						Select <span class="menu">Widgets</span> from the <span class="menu">Templates &#9654; JavaScript</span> menu</li>
+						Select <span class="menu">Templates &#9654; JavaScript &#9654; Widgets</span></li>
 						</p>
 					</section>
 					<section>
@@ -339,24 +336,15 @@ greeting = "Hello, " + name + "!"
 					</section>
 					<section>
 						<div class="doit">
-						<ul>
-							<li>In Fiji...</li>
-							<li>Select <span class="menu">Confocal Series (2.2MB)</span> from the <span class="menu">File &#9654; Open Samples</span> menu</li>
-						</ul>
+							<ul>
+								<li>In ImageJ, select
+									<span class="menu">File &#9654; Open Samples &#9654; Confocal Series (2.2MB)</span></li>
+								<li>In <a href="http://imagej.net/Script_Editor">Script Editor</a>,
+									select <span class="menu">Templates &#9654; Tutorials &#9654; Crop Confocal Series</span></li>
+							</ul>
 						</div>
-					</section>
-					<section>
-						<div class="doit">
-						<ul>
-							<li>In the script editor</li>
-							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
-							<li>Select <span class="menu">Crop_Confocal_Series</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
-						</ul>
-						</div>
-					</section>
-					<section>
 						<p>
-							You should see:
+						You should see:
 						</p>
 						<small><pre><code class="python" data-trim contenteditable>
 				
@@ -497,22 +485,12 @@ ui.show("roiC0z12", roiC0z12)
 					</section>
 					<section>
 						<div class="doit">
-						<ul>
-							<li>Use the C0Z16 image that was generated in previous tutorial (CropConfocalSeries.py)</li>
-						</ul>
+							<ul>
+								<li>Use the C0Z16 image generated in "Crop Confocal Series" tutorial</li>
+								<li>In <a href="http://imagej.net/Script_Editor">Script Editor</a>,
+									select <span class="menu">Templates &#9654; Tutorials &#9654; Ops Threshold IJ1 Analyze</span></li>
+							</ul>
 						</div>
-					</section>
-					<section>
-						<div class="doit">
-						<ul>
-							<li>In the script editor</li>
-							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
-							<li>Select <span class="menu">OpsThresholdIJ1Analyze</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
-						</ul>
-						</div>
-					</section>
-	
-					<section>
 						<p>
 						You should see:
 						</p>
@@ -636,24 +614,15 @@ IJ.run(impThresholded, "Analyze Particles...", "display add");
 					</section>
 					<section>
 						<div class="doit">
-						<ul>
-							<li>In Fiji...</li>
-							<li>Select <span class="menu">Confocal Series (2.2MB)</span> from the <span class="menu">File &#9654; Open Samples</span> menu</li>
-						</ul>
+							<ul>
+								<li>In ImageJ, select
+									<span class="menu">File &#9654; Open Samples &#9654; Confocal Series (2.2MB)</span></li>
+								<li>In <a href="http://imagej.net/Script_Editor">Script Editor</a>,
+									select <span class="menu">Templates &#9654; Tutorials &#9654; Slicewise Threshold</span></li>
+							</ul>
 						</div>
-					</section>
-					<section>
-						<div class="doit">
-						<ul>
-							<li>In the script editor</li>
-							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
-							<li>Select <span class="menu">Slicewise_Threshold</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
-						</ul>
-						</div>
-					</section>
-					<section>
 						<p>
-							You should see:
+						You should see:
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
@@ -777,22 +746,12 @@ ops.slicewise(thresholded, data.getImgPlus(), otsu, [xDim,yDim,zDim])
 					</section>
 					<section>
 						<div class="doit">
-						<ul>
-							<li>Use the C0 image that was generated in previous tutorial (CropConfocalSeries.py)</li>
-						</ul>
+							<ul>
+								<li>Use the C0 image generated in the "Crop Confocal Series" tutorial</li>
+								<li>In <a href="http://imagej.net/Script_Editor">Script Editor</a>,
+									select <span class="menu">Templates &#9654; Tutorials &#9654; Projections</span></li>
+							</ul>
 						</div>
-					</section>
-					<section>
-						<div class="doit">
-						<ul>
-							<li>In the script editor</li>
-							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
-							<li>Select <span class="menu">Projections</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
-						</ul>
-						</div>
-					</section>
-	
-					<section>
 						<p>
 						You should see:
 						</p>
@@ -917,19 +876,12 @@ ui.show("sum projection", sumProjection)
 					</section>
 					<section>
 						<div class="doit">
-							<li>Use the C0Z12 and roiC0Z12 images that were generated in previous tutorial (CropConfocalSeries.py)</li>
+							<ul>
+								<li>Use C0Z12 and roiC0Z12 from the "Crop Confocal Series" tutorial</li>
+								<li>In <a href="http://imagej.net/Script_Editor">Script Editor</a>,
+									select <span class="menu">Templates &#9654; Tutorials &#9654; Find Template</span></li>
+							</ul>
 						</div>
-					</section>
-					<section>
-						<div class="doit">
-						<ul>
-							<li>In the script editor</li>
-							<li>Select <a href="http://imagej.net/Python">Python</a> from the <span class="menu">Language</span> menu</li>
-							<li>Select <span class="menu">Slicewise_Threshold</span> from the <span class="menu">Templates &#9654; Python</span> menu</li>
-						</ul>
-						</div>
-					</section>
-					<section>
 						<p>
 						You should see:
 						</p>
