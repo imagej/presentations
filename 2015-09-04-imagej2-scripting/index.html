@@ -361,10 +361,10 @@ for d in range(data.numDimensions()):
 
 img=data.getImgPlus()
 
-xLen = data.dimension(data.dimensionIndex(Axes.X));
-yLen = data.dimension(data.dimensionIndex(Axes.Y));
-zLen = data.dimension(data.dimensionIndex(Axes.Z));
-cLen = data.dimension(data.dimensionIndex(Axes.CHANNEL));
+xLen = data.dimension(data.dimensionIndex(Axes.X))
+yLen = data.dimension(data.dimensionIndex(Axes.Y))
+zLen = data.dimension(data.dimensionIndex(Axes.Z))
+cLen = data.dimension(data.dimensionIndex(Axes.CHANNEL))
 
 # crop a channel
 c0=ops.image().crop(img, Intervals.createMinMax(0, 0, 0,0,xLen-1, yLen-1, 0, zLen-1))
@@ -418,10 +418,10 @@ for d in range(data.numDimensions()):
 
 img=data.getImgPlus()
 
-xLen = data.dimension(data.dimensionIndex(Axes.X));
-yLen = data.dimension(data.dimensionIndex(Axes.Y));
-zLen = data.dimension(data.dimensionIndex(Axes.Z));
-cLen = data.dimension(data.dimensionIndex(Axes.CHANNEL));
+xLen = data.dimension(data.dimensionIndex(Axes.X))
+yLen = data.dimension(data.dimensionIndex(Axes.Y))
+zLen = data.dimension(data.dimensionIndex(Axes.Z))
+cLen = data.dimension(data.dimensionIndex(Axes.CHANNEL))
 
 						</code></pre>
 					</section>
@@ -500,24 +500,24 @@ from net.imglib2.img.display.imagej import ImageJFunctions
 from ij import IJ
 
 # create a log kernel
-logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0);
+logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0)
 
 # convolve with log kernel
-logFiltered=ops.filter().convolve(inputData, logKernel);
+logFiltered=ops.filter().convolve(inputData, logKernel)
 
 # display log filter result
-ui.show("log", logFiltered);
+ui.show("log", logFiltered)
 
 # otsu threshold and display
 thresholded = ops.threshold().otsu(logFiltered)
-ui.show("thresholded", thresholded);
+ui.show("thresholded", thresholded)
 
 # convert to imagej1 imageplus so we can run analyze particles
 impThresholded=ImageJFunctions.wrap(thresholded, "wrapped")
 
 # convert to mask and analyze particles
 IJ.run(impThresholded, "Convert to Mask", "")
-IJ.run(impThresholded, "Analyze Particles...", "display add");
+IJ.run(impThresholded, "Analyze Particles...", "display add")
 
 
 					</code></pre>
@@ -553,17 +553,17 @@ from ij import IJ
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # create a log kernel
-logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0);
+logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0)
 
 # convolve with log kernel
-logFiltered=ops.filter().convolve(inputData, logKernel);
+logFiltered=ops.filter().convolve(inputData, logKernel)
 
 # display log filter result
-ui.show("log", logFiltered);
+ui.show("log", logFiltered)
 
 # otsu threshold and display
 thresholded = ops.threshold().otsu(logFiltered)
-ui.show("thresholded", thresholded);
+ui.show("thresholded", thresholded)
 
 					</code></pre>
 						<ul>
@@ -587,7 +587,7 @@ impThresholded=ImageJFunctions.wrap(thresholded, "wrapped")
 
 # convert to mask and analyze particles
 IJ.run(impThresholded, "Convert to Mask", "")
-IJ.run(impThresholded, "Analyze Particles...", "display add");
+IJ.run(impThresholded, "Analyze Particles...", "display add")
 	
 						</code></pre>
 						<ul>
@@ -636,13 +636,13 @@ from net.imagej.axis import Axes
 for d in range(data.numDimensions()):
         print "axis d: type: "+str(data.axis(d).type())+" length: "+str(data.dimension(d))
 
-xDim = data.dimensionIndex(Axes.X);
-yDim = data.dimensionIndex(Axes.Y);
-zDim = data.dimensionIndex(Axes.Z);
-cDim = data.dimensionIndex(Axes.CHANNEL);
+xDim = data.dimensionIndex(Axes.X)
+yDim = data.dimensionIndex(Axes.Y)
+zDim = data.dimensionIndex(Axes.Z)
+cDim = data.dimensionIndex(Axes.CHANNEL)
 
 # create the otsu op
-otsu=ops.op(Ops.Threshold.Otsu, data);
+otsu=ops.op(Ops.Threshold.Otsu, data)
 
 # create memory for the thresholded image
 thresholded=ops.create().img(data.getImgPlus(), BitType())
@@ -679,10 +679,10 @@ from net.imagej.axis import Axes
 for d in range(data.numDimensions()):
         print "axis d: type: "+str(data.axis(d).type())+" length: "+str(data.dimension(d))
 
-xDim = data.dimensionIndex(Axes.X);
-yDim = data.dimensionIndex(Axes.Y);
-zDim = data.dimensionIndex(Axes.Z);
-cDim = data.dimensionIndex(Axes.CHANNEL);
+xDim = data.dimensionIndex(Axes.X)
+yDim = data.dimensionIndex(Axes.Y)
+zDim = data.dimensionIndex(Axes.Z)
+cDim = data.dimensionIndex(Axes.CHANNEL)
 
 				</code></pre>
 					</section>
@@ -692,7 +692,7 @@ cDim = data.dimensionIndex(Axes.CHANNEL);
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # create the otsu op
-otsu=ops.op(Ops.Threshold.Otsu, data);
+otsu=ops.op(Ops.Threshold.Otsu, data)
 
 # create memory for the thresholded image
 thresholded=ops.create().img(data.getImgPlus(), BitType())
@@ -762,7 +762,7 @@ from net.imagej.ops import Ops
 from net.imagej.axis import Axes
 
 # get the dimension to project
-pDim = data.dimensionIndex(Axes.Z);
+pDim = data.dimensionIndex(Axes.Z)
 
 # generate the projected dimension
 projectedDimensions=[data.dimension(x) for x in range(0, data.numDimensions()) if x!=pDim]
@@ -812,7 +812,7 @@ from net.imagej.axis import Axes
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # get the dimension to project
-pDim = data.dimensionIndex(Axes.Z);
+pDim = data.dimensionIndex(Axes.Z)
 
 # generate the projected dimension
 projectedDimensions=[data.dimension(x) for x in range(0, data.numDimensions()) if x!=pDim]
@@ -898,13 +898,13 @@ for which the code and images can be found
 https://github.com/imglib/imglib2-tutorials
 '''
 
-from net.imglib2.img.display.imagej import ImageJFunctions;
-from net.imglib2.type.numeric.complex import ComplexFloatType;
-from net.imglib2.outofbounds import OutOfBoundsMirrorExpWindowingFactory;
+from net.imglib2.img.display.imagej import ImageJFunctions
+from net.imglib2.type.numeric.complex import ComplexFloatType
+from net.imglib2.outofbounds import OutOfBoundsMirrorExpWindowingFactory
 
-from net.imglib2.converter import ComplexImaginaryFloatConverter;
-from net.imglib2.converter import ComplexPhaseFloatConverter;
-from net.imglib2.converter import ComplexRealFloatConverter;
+from net.imglib2.converter import ComplexImaginaryFloatConverter
+from net.imglib2.converter import ComplexPhaseFloatConverter
+from net.imglib2.converter import ComplexRealFloatConverter
 
 # perform fft of the template
 
@@ -913,27 +913,27 @@ from net.imglib2.converter import ComplexRealFloatConverter;
 
 # alternatively to pass an outofbounds factory we have to pass every parameter.  We want:
 # output='None', input=template, borderSize=10 by 10, fast='True', outOfBoundsFactor=OutOfBoundsMirrorExpWindowingFactory
-templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfBoundsMirrorExpWindowingFactory(0.25));
+templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfBoundsMirrorExpWindowingFactory(0.25))
 
 # display fft (by default in generalized log power spectrum)
-ImageJFunctions.show(templateFFT).setTitle("fft power spectrum");
+ImageJFunctions.show(templateFFT).setTitle("fft power spectrum")
 
 # display fft phase spectrum
-ImageJFunctions.show( templateFFT,ComplexPhaseFloatConverter() ).setTitle( "fft phase spectrum" );
+ImageJFunctions.show( templateFFT,ComplexPhaseFloatConverter() ).setTitle( "fft phase spectrum" )
 
 # display fft real values
-ImageJFunctions.show( templateFFT,ComplexRealFloatConverter() ).setTitle( "fft real values" );
+ImageJFunctions.show( templateFFT,ComplexRealFloatConverter() ).setTitle( "fft real values" )
         
 # display fft imaginary values
-ImageJFunctions.show( templateFFT, ComplexImaginaryFloatConverter() ).setTitle( "fft imaginary values" );
+ImageJFunctions.show( templateFFT, ComplexImaginaryFloatConverter() ).setTitle( "fft imaginary values" )
 
 # complex invert the fft of the template
-c = ComplexFloatType();
+c = ComplexFloatType()
 for  t in templateFFT:
-	c.set(t);
-	t.complexConjugate();
-	c.mul(t);
-	t.div(c);
+	c.set(t)
+	t.complexConjugate()
+	c.mul(t)
+	t.div(c)
 
 # create Img memory for inverse FFT and compute inverse 
 templateInverse=ops.create().img([template.dimension(0), template.dimension(1)])
@@ -942,7 +942,7 @@ ops.filter().ifft(templateInverse, templateFFT)
 ui.show("template inverse", templateInverse)
 
 # convolve templateInverse with image
-final=ops.filter().convolve(image, templateInverse);
+final=ops.filter().convolve(image, templateInverse)
 ui.show("final", final)
 						</code></pre>
 					</section>
@@ -979,7 +979,7 @@ from net.imglib2.converter import ComplexRealFloatConverter
 
 # alternatively to pass an outofbounds factory we have to pass every parameter.  We want:
 # output='None', input=template, borderSize=10 by 10, fast='True', outOfBoundsFactor=OutOfBoundsMirrorExpWindowingFactory
-templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfBoundsMirrorExpWindowingFactory(0.25));
+templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfBoundsMirrorExpWindowingFactory(0.25))
 
 					</code></pre>
 					</section>
@@ -989,16 +989,16 @@ templateFFT=ops.filter().fft(None, template.getImgPlus(), [10, 10], True, OutOfB
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # display fft (by default in generalized log power spectrum)
-ImageJFunctions.show(templateFFT).setTitle("fft power spectrum");
+ImageJFunctions.show(templateFFT).setTitle("fft power spectrum")
 
 # display fft phase spectrum
-ImageJFunctions.show( templateFFT,ComplexPhaseFloatConverter() ).setTitle( "fft phase spectrum" );
+ImageJFunctions.show( templateFFT,ComplexPhaseFloatConverter() ).setTitle( "fft phase spectrum" )
 
 # display fft real values
-ImageJFunctions.show( templateFFT,ComplexRealFloatConverter() ).setTitle( "fft real values" );
+ImageJFunctions.show( templateFFT,ComplexRealFloatConverter() ).setTitle( "fft real values" )
         
 # display fft imaginary values
-ImageJFunctions.show( templateFFT, ComplexImaginaryFloatConverter() ).setTitle( "fft imaginary values" );
+ImageJFunctions.show( templateFFT, ComplexImaginaryFloatConverter() ).setTitle( "fft imaginary values" )
 						</code></pre>
 					</section>
 					<section>
@@ -1007,12 +1007,12 @@ ImageJFunctions.show( templateFFT, ComplexImaginaryFloatConverter() ).setTitle( 
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # complex invert the fft of the template
-c = ComplexFloatType();
+c = ComplexFloatType()
 for  t in templateFFT:
-	c.set(t);
-	t.complexConjugate();
-	c.mul(t);
-	t.div(c);
+	c.set(t)
+	t.complexConjugate()
+	c.mul(t)
+	t.div(c)
 
 						</code></pre>
 					</section>
@@ -1028,7 +1028,7 @@ ops.filter().ifft(templateInverse, templateFFT)
 ui.show("template inverse", templateInverse)
 
 # convolve templateInverse with image
-final=ops.filter().convolve(image, templateInverse);
+final=ops.filter().convolve(image, templateInverse)
 ui.show("final", final)
 							</code></pre>
 					</section>
