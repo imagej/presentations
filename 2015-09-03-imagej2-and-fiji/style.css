@@ -66,3 +66,12 @@ table.acknowledgements img {
   -0.02em 0.02em 0 #000,
   0.02em 0.02em 0 #000;
 }
+
+.guide {
+  border-top: 1px solid gray !important;
+  border-bottom: 1px solid gray !important;
+  padding: 5px 0 5px 0 !important;
+  color: gray;
+  font-size: 0.8em !important;
+  white-space: nowrap;
+}
