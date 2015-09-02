@@ -41,7 +41,7 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h1>ImageJ2 scripts</h1>
 					<h3>Parameters + ImageJ Ops</h3>
 					<p>
@@ -70,7 +70,7 @@
 					</p>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Why parameterize?</h2>
 					<section></section>
 					<section>
@@ -145,7 +145,7 @@ run()
 					</section>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Getting started</h2>
 					<section></section>
 					<section>
@@ -187,7 +187,7 @@ greeting = "Hello, " + name + "!"
 					</section>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Supported types</h2>
 					<section></section>
 					<section>
@@ -296,7 +296,7 @@ greeting = "Hello, " + name + "!"
                                         </section>
                                 </section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Crop N-Dimensional Image</h2>
 					<section></section>
 					<section>
@@ -447,7 +447,7 @@ display.createDisplay("roiC0z12", roiC0z12)
 					</section>	
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Ops Segment - IJ1 Analyze</h2>
 					<section></section>
 					<section>
@@ -590,7 +590,7 @@ IJ.run(impThresholded, "Analyze Particles...", "display add");
 					</section>
 				</section>	
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Threshold Hyperslice</h2>
 					<section></section>
 					<section>
@@ -712,7 +712,7 @@ display.createDisplay("thresholded", thresholdedPlus)
 					</section>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Projections</h2>
 					<section></section>
 					<section>
@@ -854,7 +854,7 @@ display.createDisplay("sum projection", sumProjection)
 					</section>	
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>FFT template matching using Ops and Imglib2</h2>
 					<section></section>
 					<section>
@@ -1025,7 +1025,7 @@ display.createDisplay("final", final)
 					</section>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Acknowledgments</h2>
 					<p style="text-align: center; margin-bottom: 0">
 					<small>SciJava principal investigators:</small>
@@ -1132,7 +1132,7 @@ display.createDisplay("final", final)
 				controls: true,
 				progress: true,
 				history: true,
-				center: true,
+				center: false,
 
 				transition: 'none', // none/fade/slide/convex/concave/zoom
 
