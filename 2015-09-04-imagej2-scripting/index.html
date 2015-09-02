@@ -346,7 +346,7 @@ greeting = "Hello, " + name + "!"
 						<pre><code class="python small" data-trim contenteditable>
 				
 # @OpService ops
-# @net.imagej.Dataset data
+# @Dataset data
 # @UIService ui
 
 # to run this tutorial run 'file->Open Samples->Confocal Series' and make sure that
@@ -394,7 +394,7 @@ ui.show("roiC0z12", roiC0z12)
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
 # @DisplayService display
-# @net.imagej.Dataset inputData
+# @Dataset inputData
 
 from net.imglib2.util import Intervals
 from net.imagej.axis import Axes
@@ -494,7 +494,7 @@ ui.show("roiC0z12", roiC0z12)
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
 # @UIService ui
-# @net.imagej.Dataset inputData
+# @Dataset inputData
 
 from net.imglib2.img.display.imagej import ImageJFunctions
 from ij import IJ
@@ -529,7 +529,7 @@ IJ.run(impThresholded, "Analyze Particles...", "display add")
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
 # @UIService ui
-# @net.imagej.Dataset inputData
+# @Dataset inputData
 						</code></pre>
 					</section>
 					<section>
@@ -623,7 +623,7 @@ IJ.run(impThresholded, "Analyze Particles...", "display add")
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
-# @net.imagej.Dataset data
+# @Dataset data
 # @UIService ui
 
 from net.imagej.ops import Ops
@@ -666,7 +666,7 @@ ui.show("thresholded", thresholdedPlus)
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
-# @net.imagej.Dataset data
+# @Dataset data
 # @UIService ui
 
 from net.imagej.ops import Ops
@@ -756,7 +756,7 @@ ops.slicewise(thresholded, data.getImgPlus(), otsu, [xDim,yDim,zDim])
 
 # @OpService ops
 # @UIService ui
-# @net.imagej.Dataset data
+# @Dataset data
 
 from net.imagej.ops import Ops
 from net.imagej.axis import Axes
@@ -799,7 +799,7 @@ ui.show("sum projection", sumProjection)
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
 # @UIService ui
-# @net.imagej.Dataset data
+# @Dataset data
 
 from net.imagej.ops import Ops
 from net.imagej.axis import Axes
@@ -885,8 +885,8 @@ ui.show("sum projection", sumProjection)
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
 # @UIService ui
-# @net.imagej.Dataset image
-# @net.imagej.Dataset template
+# @Dataset image
+# @Dataset template
 
 '''
 This example is an 'ops' version of:
@@ -953,8 +953,8 @@ ui.show("final", final)
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
 # @UIService ui
-# @net.imagej.Dataset image
-# @net.imagej.Dataset template
+# @Dataset image
+# @Dataset template
 
 from net.imglib2.img.display.imagej import ImageJFunctions
 from net.imglib2.type.numeric.complex import ComplexFloatType
