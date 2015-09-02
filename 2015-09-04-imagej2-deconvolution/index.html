@@ -52,34 +52,33 @@
 				</section>
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Outline</h2>
-					<section></section>
 					<section>
 						<ul>
-							<li class="fragment">What is deconvolution?</li>
-							<li class="fragment">Point Spread Function (PSF)</li>
-							<li class="fragment">Noise Handling (Regularization)</li>
-							<li class="fragment">Edge Handling</li>
-							<li class="fragment">How do we make it run fast?</li>
-							<li class="fragment">Why imagej-ops??</li>
+							<li>What is deconvolution?</li>
+							<li>Point Spread Function (PSF)</li>
+							<li>Noise Handling (Regularization)</li>
+							<li>Edge Handling</li>
+							<li>How do we make it run fast?</li>
+							<li>How do we test it??</li>
+							<li>Why imagej-ops??</li>
 						</ul>
 					</section>
 				</section>	
 			
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>What is Deconvolution?</h2>
-					<section></section>
 					<section>
 						<ul>
-							<li class="fragment">A procedure used to reverse convolution</li>
-						<li class="fragment">Convolution (Blurring)  $i(s) = o(s)*h(s)$</li>
+							<li>A procedure used to reverse convolution</li>
+						<li>Convolution (Blurring)  $i(s) = o(s)*h(s)$</li>
 						<ul>
-							<li class="fragment">$i$ is the observed image</li>
-							<li class="fragment">$o$ is the true representation of the object</li>
-							<li class="fragment">$h$ is the point spread function (PSF)</li>
+							<li>$i$ is the observed image</li>
+							<li>$o$ is the true representation of the object</li>
+							<li>$h$ is the point spread function (PSF)</li>
 						</ul>
-						<li class="fragment">Deconvolution (deblurring)</li>
+						<li>Deconvolution (deblurring)</li>
 						<ul>
-							<li class="fragment"> improves measurements</li>
+							<li> improves measurements</li>
 						</ul>
 						
 						</ul>
@@ -87,7 +86,6 @@
 				</section>	
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Point Spread Function (PSF)</h2>
-					<section></section>
 					<section>
 						<p>Describes response of imaging system to a point like object</p>
 
@@ -96,10 +94,11 @@
 					</section>
 					<section>
 						<ul>
-							<li class="fragment">Need a point spread function to deconvolve</li>
-							<li class="fragment">Measured (image of subresolution object)</li>
-							<li class="fragment">Theoretical Calculation</li>
-							<li class="fragment">Cosmos</li>
+							<li>Need a point spread function to deconvolve</li>
+							<li>Measured (image of subresolution object)</li>
+							<li>Theoretical Calculation</li>
+							<li><a href="http://cirl.memphis.edu/cosmos.php">COSMOS</a></li>
+							<li><a href="http://bigwww.epfl.ch/algorithms/psfgenerator/">PSF Generator</a></li>
 						</ul>
 					</section>
 				
@@ -121,13 +120,12 @@
 			
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Noise</h2>
-					<section></section>
 					<section>
 						<p>Images also contain noise</p>
 						<ul>
-							<li class="fragment">Convolution attenuates high frequencies</li>
-							<li class="fragment">Deconvolution restores high frenquencies</li>
-							<li class="fragment">Deconvolution can amplify noise</li>
+							<li>Convolution attenuates high frequencies</li>
+							<li>Deconvolution restores high frenquencies</li>
+							<li>Deconvolution can amplify noise</li>
 						</ul>
 						
 						
@@ -151,49 +149,46 @@
 			
 		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Deconvolution (Simple)</h2>
-					<section></section>
 					<section>
 						<ul>
 	
-							<li class="fragment">Forward Model</li>
+							<li>Solve the equation in the frequency domain</li>
 
 							<ul>
-								<li class="fragment"> Spatial domain  $i(s) = o(s)*h(s)$</li>
-								<li class="fragment"> Frequency domain $I(f)=O(f)H(f)$</li>
+								<li> Spatial domain  $i(s) = o(s)*h(s)$</li>
+								<li> Frequency domain $I(f)=O(f)H(f)$</li>
 							</ul>
-							<li class="fragment">Simple Inverse Solution</li>
+							<li>Simple Inverse Solution</li>
 							<ul>
 									
-								<li class="fragment"> $O(f)=I(f)/H(f)$</li>
+								<li> $O(f)=I(f)/H(f)$</li>
 							</ul>
 						</ul>
 					</section>
 				</section>
 			<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Deconvolution (Better)</h2>
-					<section></section>
 					<section>
 						<ul>
 	
-							<li class="fragment">Forward Model</li>
+							<li>Use an Iterative approach</li>
 
 							<ul>
-								<li class="fragment"> Blurring + Noise $i(s) = o(s)*h(s)+n$</li>
-								<li class="fragment"> Simple inverse amplifies high frequency noise</li>
+								<li> Blurring + Noise $i(s) = o(s)*h(s)+n$</li>
+								<li> Simple inverse amplifies high frequency noise</li>
 								
 							</ul>
-							<li class="fragment">Solution</li>
+							<li>Solution</li>
 							<ul>
 									
-								<li class="fragment"> Regularized Inverse Filter (Wiener Filter)</li>
-								<li class="fragment"> Iterative Optimization based approaches</li>
+								<li> Regularized Inverse Filter (Wiener Filter)</li>
+								<li> Iterative Optimization based approaches</li>
 							</ul>
 						</ul>
 					</section>
 				</section>
 			<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Richardson Lucy</h2>
-					<section></section>
 					<section>
 						<p>
 							\begin{multline} \label{eq:tv_update}
@@ -201,8 +196,7 @@
 							\end{multline}
 						</p>
 						<ul>
-							<li class="fragment"> Iterative Optization approach</li>
-							<li class="fragment"> Many open implementations for reference</li>
+							<li> Many open implementations for reference</li>
 						</ul>
 							
 					</section>
@@ -235,7 +229,6 @@
 		
 		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Richardson Lucy Result (50 iterations)</h2>
-					<section></section>
 					<section>
 
 							<img src="images/sphere_convolved_noise_xy.jpg">
@@ -250,16 +243,14 @@
 		
 		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Regularization</h2>
-					<section></section>
 					<section>
-						<li class="fragment"> Solution is modified to better handle noise</li>
+						<li> Solution is modified to better handle noise</li>
 					</section>
 					
 			</section>
 	
 		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Richardson Lucy with Total Variation Regularization</h2>
-					<section></section>
 					<section>
 						<p>
 $$
@@ -267,7 +258,8 @@ $$
 $$						
 </p>
 						<ul>
-							<li class="fragment"> Open implementations for reference</li>
+							<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/16586486">Dey, et al. 2006</a></li>
+							<li><a href="https://github.com/pearu/iocbio">Open Implementation (IOCBIOS)</a></li>
 						</ul>
 							
 					</section>
@@ -275,7 +267,6 @@ $$
 
 		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Richardson Lucy with Total Variation Result (50 iterations)</h2>
-					<section></section>
 					<section>
 
 							<img src="images/sphere_convolved_noise_xy.jpg">
@@ -290,47 +281,101 @@ $$
 				</section>	
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Edge Handling</h2>
-					<section></section>
 					<section>
 						<ul>
-							<li class="fragment">Boundary Conditions</li>
+							<li>Boundary Conditions</li>
+							<li><a href="http://bigwww.epfl.ch/deconvolution/challenge/index.html?p=documentation/theory/richardsonlucy">Non-circulant deconvolution BIG Lab</a></li>
 						</ul>
 					</section>
 				</section>	
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>How do we make it fast?</h2>
-					<section></section>
 					<section>
 						<ul>
-							<li class="fragment">Algorithm acceleration</li>	
+							<li>Algorithm acceleration</li>	
 							<ul>
-								<li class="fragment">Take a bigger step at each iteration</li>
-								<li class="fragment">Vector Acceleration</li>
+								<li>Take a bigger step at each iteration</li>
+								<li><a href="http://www.rasmus-ischebeck.de/dr/bibliography/pdf/biggs97a.pdf">Vector Acceleration (Biggs)</a></li>
 							</ul>
 
-							<li class="fragment">Hardware acceleration</li>
+							<li>Hardware acceleration</li>
 							<ul>
-								<li class="fragment">Fast math libraries</li>
-								<li class="fragment">Multi-threading</li>
-								<li class="fragment">GPU</li>
+								<li>Fast math libraries</li>
+								<li>Multi-threading</li>
+								<li>GPU</li>
 							</ul>
 
 						</ul>
+					</section>
+				</section>	
+
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Why imagej-ops?</h2>
+					<section>
+						<ul>
+							<li>Easy to implement and test different methods</li>
+							<li>Powerful underlying math and FFT libraries (Imglib2)</li>
+							<li>Can integrate into different software (ImageJ, KNIME, CellProfiler)</li>
+							<li>Powerful scripting (evaluate measurements)</li>
+							<li>Mature community</li>
+						</ul>
+					</section>
+				</section>
+	
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>How do we test it?</h2>
+					<section>
+						<ul>
+							<li>Phantoms</li>
+							<li>Community based testing on real images</li>
+						</ul>
+					</section>
+				</section>
+	
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Preliminary Results</h2>
+					<section></section>
+					<section>
+					
+					</section>
+							<li><a href="http://works.bepress.com/gmcnamara/31/">McNamara set</a></li>
+					<section>
+							<img src="images/CY3/CY3_Orig_ZY.png">
+							<img src="images/CY3/CY3_Cuda_ZY.png">
+							<img src="images/CY3/CY3_RLTV100_0.0001_ZY.png">
+							<p>Left to right: Original, Bruce and Butte (CUDA), ImageJ-Ops</p>
+					</section>
+					
+					<section>
+							<img src="images/CY3/CY3_Orig_LP.png">
+							<p>Original Image</p>
+					</section>
+					<section>
+							<img src="images/CY3/CY3_Cuda_LP.png">
+							<p>Bruce (Cuda)</p>
+					</section>
+					<section>
+							<img src="images/CY3/CY3_RLTV100_0.0001_LP.png">
+							<p>Imagej-ops RLTV 100 iterations</p>
+					</section>
 					</section>
 				</section>	
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<h2>Why imagej-ops?</h2>
-					<section></section>
+					<h2>Preliminary Results</h2>
+				
 					<section>
-						<ul>
-							<li class="fragment">Easy to implement and test different methods</li>
-							<li class="fragment">Powerful underlying math library</li>
-							<li class="fragment">Can integrate into different software (ImageJ, KNIME, CellProfiler)</li>
-							<li class="fragment">Powerful scripting (evaluate measurements)</li>
-						</ul>
+							<img src="images/DAPI/DAPI_Orig_XY.png">
+							<img src="images/DAPI/DAPI_Cuda_XY.png">
+							<img src="images/DAPI/DAPI_RLTV100_0.0001_XY.png">
 					</section>
+					<section>
+							<img src="images/DAPI/DAPI_Orig_YZ.png">
+							<img src="images/DAPI/DAPI_Cuda_YZ.png">
+							<img src="images/DAPI/DAPI_RLTV100_0.0001_YZ.png">
+					</section>
+				
 				</section>	
-			
+						
 	
 		</div>
 
