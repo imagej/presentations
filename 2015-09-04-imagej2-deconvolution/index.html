@@ -59,8 +59,9 @@
 							<li>Noise Handling (Regularization)</li>
 							<li>Edge Handling</li>
 							<li>How do we make it run fast?</li>
-							<li>How do we test it??</li>
 							<li>Why imagej-ops??</li>
+							<li>How do we test it??</li>
+							<li>Preliminary Results</li>
 						</ul>
 					</section>
 				</section>	
@@ -98,7 +99,15 @@
 							<li>Measured (image of subresolution object)</li>
 							<li>Theoretical Calculation</li>
 							<li><a href="http://cirl.memphis.edu/cosmos.php">COSMOS</a></li>
+								<ul>
+									<li>Written in c++/c</li>
+									<li>Open!</li>
+								</ul>
 							<li><a href="http://bigwww.epfl.ch/algorithms/psfgenerator/">PSF Generator</a></li>
+								<ul>
+									<li>Freely available as a Fiji plugin</li>
+									<li>Closed source</li>
+								</ul>
 						</ul>
 					</section>
 				
@@ -257,9 +266,19 @@ $$
         \mathbf{o}_{k+1}(s) = \left\{\left[\frac{i(s)}{(o_{k}*h)(s)}\right]*h(-s)\right\}\\\times\frac{{o}_{k}(s)}{1-\lambda_{TV}div\left({\frac{\nabla_{ok}(s)}{|\nabla_{ok}(s)|}}\right)}
 $$						
 </p>
+					</section>
+					<section>
 						<ul>
 							<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/16586486">Dey, et al. 2006</a></li>
-							<li><a href="https://github.com/pearu/iocbio">Open Implementation (IOCBIOS)</a></li>
+								<li><a href="https://github.com/pearu/iocbio">IOCBIOS</a></li>
+								<ul>
+									<li>Python implementation</li>
+									<li>Open!</li>
+								</ul><li><a href="http://bigwww.epfl.ch/algorithms/deconvolutionlab/">Deconvolution Lab</a></li>
+								<ul>
+									<li>Fiji Plugin</li>
+									<li>Closed source</li>
+								</ul>
 						</ul>
 							
 					</section>
