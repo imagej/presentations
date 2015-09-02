@@ -1,3 +1,7 @@
+.toplevel {
+  height: 100%;
+}
+
 .menu {
   color: limegreen;
 }
@@ -37,22 +41,54 @@ table.acknowledgements img {
   height: 7em !important;
 }
 
-.urlfoot {
+.url {
   background: brown;
   border-radius: 0.5em;
-  bottom: 0;
   box-shadow: 3px 3px 1px #444 !important;
   font-family: monospace !important;
   font-size: 0.6em !important;
   padding: 0.5em 2em 0.5em 2em !important;
+}
+
+.bottom {
   position: absolute;
+  bottom: 10px;
+}
+.left {
+  position: absolute;
+  left: 0;
+}
+.right {
+  position: absolute;
+  right: 80px;
+}
+.center {
+  position: absolute;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  left: 0;
   right: 0;
 }
 
+.r { color: lightcoral; }
+.o { color: lightsalmon; }
+.y { color: lightyellow; }
+.g { color: lightgreen; }
+.b { color: powderblue; }
+.i { color: lightblue; }
+.v { color: hotpink; }
+
 .graybox {
-  background-color: rgba(64,64,64,0.5) !important;
+  background-color: rgba(64,64,64,0.75) !important;
   border-radius: 1em;
   padding: 1em !important;
+}
+
+.graycolumn {
+  background: rgba(64, 64, 64, 0.75);
+  border-radius: 0.2em;
+  padding-bottom: 1em !important;
+  width: 49%
 }
 
 .outlined {
@@ -70,8 +106,31 @@ table.acknowledgements img {
 .guide {
   border-top: 1px solid gray !important;
   border-bottom: 1px solid gray !important;
+  margin-bottom: 5px !important;
   padding: 5px 0 5px 0 !important;
   color: gray;
   font-size: 0.8em !important;
   white-space: nowrap;
+}
+
+.guidefoot {
+  color: lightgray;
+  font-size: 0.7em !important;
+  font-style: italic !important;
+  margin-top: 0 !important;
+  padding-top: 0;
+  white-space: nowrap;
+}
+
+.social {
+  -webkit-text-fill-color: gold;
+  color: gold;
+}
+.overview {
+  -webkit-text-fill-color: cornflowerblue;
+  color: cornflowerblue;
+}
+.technical {
+  -webkit-text-fill-color: indianred;
+  color: indianred;
 }
