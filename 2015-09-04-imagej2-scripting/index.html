@@ -392,8 +392,8 @@ ui.show("roiC0z12", roiC0z12)
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # @OpService ops
-# @DisplayService display
-# @net.imagej.Dataset inputData
+# @net.imagej.Dataset data
+# @UIService ui
 
 from net.imglib2.util import Intervals
 from net.imagej.axis import Axes
@@ -426,10 +426,10 @@ cLen = data.dimension(data.dimensionIndex(Axes.CHANNEL));
 					</section>
 					<section>
 						<p>
-							Use ops to crop various intervals.  We use the Intervals utility class to define the region to crop
+							Use ops to crop various intervals.  
 						</p>
 						<ul>
-							<li class="fragment">the createMinMax function creates an interval defined by a start and end point</li>
+							<li class="fragment">The Intervals.createMinMax function creates an interval defined by a start and end point</li>
 						</ul>
 						
 						<pre><code class="python" data-trim contenteditable>
@@ -586,6 +586,12 @@ ui.show("thresholded", thresholded);
 							<li class="fragment">Apply automatic threshold</li>
 						</ul>			
 					</section>
+					<section style="height: 80%">
+						<div class="webpage">
+							<p><input type="text" value="http://javadoc.imagej.net/ImageJ/"></p>
+							<iframe src="http://javadoc.imagej.net/ImageJ/"></iframe>
+						</div>
+					</section>
 					<section>
 						<p>
 							Use IJ1 functions to analyze
@@ -706,7 +712,7 @@ cDim = data.dimensionIndex(Axes.CHANNEL);
 					</section>
 					<section>
 						<p>
-							Then we create an Otsu (threshold) op and memory for the result
+							Create an Otsu (threshold) op and memory for the result
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # create the otsu op
@@ -716,17 +722,10 @@ otsu=ops.op(Ops.Threshold.Otsu, data);
 thresholded=ops.create().img(data.getImgPlus(), BitType())
 
 						</code></pre>
-					</section>
-						<section>
 						<p>
-							Then we call the slicewise op passing:
+							Then call the slicewise op passing, the output, the input, the threshold op and the axes to process.
 						</p>
-						<ul>
-							<li class="fragment">The memory that was created</li>
-							<li class="fragment">The input data</li>
-							<li class="fragment">The threshold op</li>
-							<li class="fragment">The axis to process</li>
-						</ul>
+					
 						<pre><code class="python" data-trim contenteditable>
 ops.slicewise(thresholded, data.getImgPlus(), otsu, [xDim,yDim])
 
@@ -793,7 +792,7 @@ from net.imagej.axis import Axes
 pDim = data.dimensionIndex(Axes.Z);
 
 # generate the projected dimension
-projectedDimensions=[data.dimension(x) for x in range(0, data.numDimensions()) if x!=pDim]
+projectedDimensions=[data.dimension(d) for d in range(0, data.numDimensions()) if d!=pDim]
 print projectedDimensions
 
 # create memory for projections
@@ -843,7 +842,7 @@ from net.imagej.axis import Axes
 pDim = data.dimensionIndex(Axes.Z);
 
 # generate the projected dimension
-projectedDimensions=[data.dimension(x) for x in range(0, data.numDimensions()) if x!=pDim]
+projectedDimensions=[data.dimension(d) for d in range(0, data.numDimensions()) if d!=pDim]
 print projectedDimensions
 
 # create memory for projections
@@ -896,6 +895,7 @@ ui.show("sum projection", sumProjection)
 							<ul>
 								<li class="fragment">Use Ops to perform an FFT</li>
 								<li class="fragment">Use Imglib2 to view the FFT</li>
+								<li class="fragment"><a href="https://github.com/imglib/imglib2-tutorials/blob/master/src/main/java/Example6c.java">Based on imglib2-tutorials Example6c</a></li>
 							</ul>
 						</ul>
 					</section>
