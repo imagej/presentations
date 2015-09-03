@@ -353,16 +353,40 @@ $$
 	
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Preliminary Results</h2>
-					<section></section>
+				
+
 					<section>
-					
-					</section>
+						<ul>
 							<li><a href="http://works.bepress.com/gmcnamara/31/">McNamara set</a></li>
+								<li><a href="http://bigwww.epfl.ch/algorithms/psfgenerator/">PSFs created using PSF Generator</a></li>
+								<ul>
+									<li>Model=Gibson-Lanni, RI=1.4, Particle Position=6400 nm</li>
+									<li>All other parameters as described with data</li>
+								</ul>
+							<li>IJ-ops Script used for results</li>
+						</ul>
+						<p>
+						</p>
+						<pre><code class="python" data-trim contenteditable>
+
+# @OpService ops
+# @UIService ui
+# @Dataset image
+# @Dataset psf
+
+from net.imglib2.meta import ImgPlus
+
+deconvolved=ops.deconvolve().richardsonLucyTV(None, image, psf, [0,0,0], None, None, None, None, None, None, 100, 0.0001, True, True);
+ui.show("deconvolved", ImgPlus(deconvolved));	
+
+						</code></pre>
+					</section>
+					
 					<section>
 							<img src="images/CY3/CY3_Orig_ZY.png">
 							<img src="images/CY3/CY3_Cuda_ZY.png">
 							<img src="images/CY3/CY3_RLTV100_0.0001_ZY.png">
-							<p>Left to right: Original, Bruce and Butte (CUDA), ImageJ-Ops</p>
+							<p>Left to right: Original, Bruce and Butte (CUDA), ImageJ-Ops-RLTV</p>
 					</section>
 					
 					<section>
@@ -371,7 +395,7 @@ $$
 					</section>
 					<section>
 							<img src="images/CY3/CY3_Cuda_LP.png">
-							<p>Bruce (Cuda)</p>
+							<p>Bruce and Butte (Cuda)</p>
 					</section>
 					<section>
 							<img src="images/CY3/CY3_RLTV100_0.0001_LP.png">
@@ -386,15 +410,18 @@ $$
 							<img src="images/DAPI/DAPI_Orig_XY.png">
 							<img src="images/DAPI/DAPI_Cuda_XY.png">
 							<img src="images/DAPI/DAPI_RLTV100_0.0001_XY.png">
+							<p>Left to right: Original, Bruce and Butte (CUDA), ImageJ-Ops-RLTV</p>
 					</section>
 					<section>
 							<img src="images/DAPI/DAPI_Orig_YZ.png">
 							<img src="images/DAPI/DAPI_Cuda_YZ.png">
 							<img src="images/DAPI/DAPI_RLTV100_0.0001_YZ.png">
+							<p>Left to right: Original, Bruce and Butte (CUDA), ImageJ-Ops-RLTV</p>
 					</section>
 				
-				</section>	
+
 						
+				</section>
 	
 		</div>
 
