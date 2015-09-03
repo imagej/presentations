@@ -487,12 +487,14 @@ ui.show("roiC0z12", roiC0z12)
 # @OpService ops
 # @UIService ui
 # @Dataset inputData
+# @Double sigma
 
 from net.imglib2.img.display.imagej import ImageJFunctions
 from ij import IJ
+from java.lang import Integer
 
 # create a log kernel
-logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0)
+logKernel=ops.create().kernelLog(Integer(inputData.numDimensions()), sigma);
 
 # convolve with log kernel
 logFiltered=ops.filter().convolve(inputData, logKernel)
@@ -510,7 +512,7 @@ impThresholded=ImageJFunctions.wrap(thresholded, "wrapped")
 # convert to mask and analyze particles
 IJ.run(impThresholded, "Convert to Mask", "")
 IJ.run(impThresholded, "Analyze Particles...", "display add")
-					</code></pre>
+				</code></pre>
 					</section>
 					<section>
 						<p>
@@ -520,7 +522,9 @@ IJ.run(impThresholded, "Analyze Particles...", "display add")
 # @OpService ops
 # @UIService ui
 # @Dataset inputData
-						</code></pre>
+# @Double sigma
+
+					</code></pre>
 					</section>
 					<section>
 						<p>
@@ -529,7 +533,9 @@ IJ.run(impThresholded, "Analyze Particles...", "display add")
 						<pre><code class="python" data-trim contenteditable>
 from net.imglib2.img.display.imagej import ImageJFunctions
 from ij import IJ
-						</pre></code>
+from java.lang import Integer
+
+					</pre></code>
 						<ul>
 							<li class="fragment">ImageJFunctions: contains utilities used to convert between IJ2 and IJ1 data structures</li>
 							<li class="fragment">IJ: the classic IJ1 main namespace</li>
@@ -538,11 +544,11 @@ from ij import IJ
 					</section>
 					<section>
 						<p>
-							Use ops to implement a segmentation pipeline
+							Use ops to implement a segmentation pipeline (try changing the value of sigma)
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # create a log kernel
-logKernel=ops.create().kernelLog(inputData.numDimensions(), 3.0)
+logKernel=ops.create().kernelLog(Integer(inputData.numDimensions()), sigma);
 
 # convolve with log kernel
 logFiltered=ops.filter().convolve(inputData, logKernel)
@@ -553,7 +559,8 @@ ui.show("log", logFiltered)
 # otsu threshold and display
 thresholded = ops.threshold().otsu(logFiltered)
 ui.show("thresholded", thresholded)
-					</code></pre>
+
+				</code></pre>
 						<ul>
 							<li class="fragment">Create Laplacian of Gaussian Kernel</li>
 							<ul>
