@@ -18,6 +18,10 @@
   padding: 0.7em !important;
 }
 
+.doit ul {
+  margin-left: 80px !important;
+}
+
 .plain {
   background: none !important;
   border: none !important;
@@ -31,6 +35,10 @@
   box-shadow: none !important;
   padding: 0.2em 0.5em 0.2em 0.5em !important;
   vertical-align: middle !important;
+}
+
+code {
+  font-size: 0.8em !important;
 }
 
 table.acknowledgements td {
