@@ -601,10 +601,11 @@ IJ.run(impThresholded, "Analyze Particles...", "display add")
 					<section>
 						<div class="doit">
 							<ul>
-								<li>Exercise</li>
+								<li>Exercises</li>
 								<ul>
 									<li>Make sigma a parameter</li>
 									<li>Use different threshold methods</li>
+									<li>Add deconvolution</li>
 								</ul>
 							</ul>
 						</div>
@@ -618,6 +619,26 @@ IJ.run(impThresholded, "Analyze Particles...", "display add")
 						</div>
 					
 					</section>
+					<section>
+						<p>Add the option to use deconvolution as an additional preprocessing step
+						<pre><code class="python" data-trim contenteditable>
+# @OpService ops
+# @UIService ui
+# @Dataset inputData
+# @Boolean deconvolve
+
+
+from net.imglib2.img.display.imagej import ImageJFunctions
+from ij import IJ
+
+if (deconvolve):
+	gKernel=ops.create().kernelGauss(inputData.numDimensions(), 3.0)
+	inputData=ops.deconvolve().richardsonLucy(inputData, gKernel, 10)
+	ui.show("deconvolved", inputData)
+
+						</code></pre>
+					</section>
+
 				</section>	
 
 				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
