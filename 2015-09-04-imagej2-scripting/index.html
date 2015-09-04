@@ -451,6 +451,17 @@ ui.show("C0z12", c0z12)
 ui.show("roiC0z12", roiC0z12)
 					</code></pre>
 					</section>	
+					<section>	
+					
+						<div class="doit">
+							<ul>
+								<li>Exercise</li>
+								<ul>
+									<li>Crop slice 15 at channel 2</li>
+								</ul>
+							</ul://mail.google.com/mail/u/0/#inbox>
+						</div>
+					</section>	
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
@@ -544,7 +555,7 @@ from java.lang import Integer
 					</section>
 					<section>
 						<p>
-							Use ops to implement a segmentation pipeline (try changing the value of sigma)
+							Use ops to implement a segmentation pipeline.
 						</p>
 						<pre><code class="python" data-trim contenteditable>
 # create a log kernel
@@ -572,12 +583,7 @@ ui.show("thresholded", thresholded)
 							<li class="fragment">Apply automatic threshold</li>
 						</ul>			
 					</section>
-					<section style="height: 80%">
-						<div class="webpage">
-							<p><input type="text" value="http://javadoc.imagej.net/ImageJ/"></p>
-							<iframe src="http://javadoc.imagej.net/ImageJ/"></iframe>
-						</div>
-					</section>
+					
 					<section>
 						<p>
 							Use IJ1 functions to analyze
@@ -590,10 +596,27 @@ impThresholded=ImageJFunctions.wrap(thresholded, "wrapped")
 IJ.run(impThresholded, "Convert to Mask", "")
 IJ.run(impThresholded, "Analyze Particles...", "display add")
 						</code></pre>
-						<ul>
-							<li class="fragment">Convert to IJ1 ImagePlus</li>
-							<li class="fragment">Run "Analyze Particles..."</li>
-						</ul>
+						
+					</section>
+					<section>
+						<div class="doit">
+							<ul>
+								<li>Exercise</li>
+								<ul>
+									<li>Make sigma a parameter</li>
+									<li>Use different threshold methods</li>
+								</ul>
+							</ul>
+						</div>
+
+					</section>
+					<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+
+						<div class="webpage" style="height: 70%; padding-bottom: 30px">
+							<p><input id="address" type="text" value="http://javadoc.imagej.net/ImageJ/" onchange="loadPage(this.value)"></p>
+							<iframe id="browser" src="http://javadoc.imagej.net/ImageJ/"></iframe>
+						</div>
+					
 					</section>
 				</section>	
 
@@ -711,9 +734,15 @@ ui.show("thresholded", thresholdedPlus)
 						</code></pre>
 					</section>
 					<section>
-						<p>
-							Try again.  This time pass [xDim, yDim, zDim] as the axis to process.  Is the result different? Why?
-						</p>
+						<div class="doit">
+							<ul>
+								<li>Exercise</li>
+								<ul>
+									<li>Pass [xDim, yDim, zDim] as the axis to process.  Is the result different? Why?</li>
+								</ul>
+							</ul>
+						</div>
+
 						<pre><code class="python" data-trim contenteditable>
 ops.slicewise(thresholded, data.getImgPlus(), otsu, [xDim,yDim,zDim])
 						</code></pre>
@@ -840,6 +869,18 @@ ui.show("max projection", maxProjection)
 ui.show("sum projection", sumProjection)
 						</code></pre>
 					</section>	
+					<section>
+						<div class="doit">
+							<ul>
+								<li>Exercise</li>
+								<ul>
+									<li>Try projecting in a different dimension (x or y)</li>
+									<li>Try making the projection dimension a parameter</li>
+								</ul>
+							</ul>
+						</div>
+
+					</section>
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
