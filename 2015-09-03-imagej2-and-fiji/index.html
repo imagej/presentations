@@ -41,7 +41,10 @@
 
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+
+				<!-- SECTION: TITLE -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h1>ImageJ2 and Fiji</h1>
 					<h3>
 						<ul>
@@ -51,7 +54,8 @@
 					</h3>
 					<p>
 					<small><a href="http://imagej.net/User:Rueden">Curtis Rueden</a>,
-						UW-Madison <a href="http://imagej.net/LOCI">LOCI</a></small>
+						UW-Madison <a href="http://imagej.net/LOCI">LOCI</a>
+						<br><br>Tweets to <code class="g">#imagej2015</code></small>
 					</p>
 					<p style="padding-top: 1em">
 					<a href="http://imagej.net/LOCI">
@@ -70,7 +74,9 @@
 					</p>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<!-- SECTION: INTRO -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<section>
 						<p>
 						A colleague told me once:
@@ -79,6 +85,9 @@
 							It's not the code that matters&mdash;it's the community.
 						</blockquote>
 						<p class="fragment">But you can't build a house with your bare hands.</p>
+						<aside class="notes">
+							Kevin also said something similar during his introduction this morning!
+						</aside>
 					</section>
 
 					<!-- https://www.flickr.com/photos/woodycollins/4099151305/ -->
@@ -91,37 +100,35 @@
 						<h2 class="outlined" style="padding-top: 1em">...but there are limits.</h2>
 					</section>
 
-					<!-- https://www.flickr.com/photos/exploratorium/7024547639/ -->
-					<section data-background="https://farm8.staticflickr.com/7277/7024547639_d0670f77aa_b.jpg">
+					<!-- https://www.flickr.com/photos/umdwatershed/5730583150/ -->
+					<section data-background="https://farm6.staticflickr.com/5310/5730583150_8d7299a7c4_b.jpg">
 						<h3 class="outlined">
 						You can't build a house alone, either.
 						</h3>
 						<h3 class="outlined" style="padding-top: 8em">
-							Both tools, and people to create<br>and use them, are necessary.
+							Tools, and people to create<br>and use them, are both necessary.
 						</h3>
-					</section>
-
-					<!-- https://www.flickr.com/photos/calypso/2767592937/ -->
-					<section data-background="https://farm4.staticflickr.com/3283/2767592937_484c793c00_z.jpg?zz=1">
-						<h3 class="outlined">But wait...</h3>
-						<ul>
-							<li class="outlined fragment">Creating software is not like building a house!</li>
-							<li class="outlined fragment">It's more like <em>designing</em> a house.</li>
-							<li class="outlined fragment">Once you have the design, you can mass produce it.</li>
-							<li class="outlined fragment">But the design keeps evolving...</li>
-							<li class="outlined fragment">Is this analogy even helpful anymore?</li>
-						</ul>
 					</section>
 
 					<!-- https://www.flickr.com/photos/29233640@N07/12596035923/ -->
 					<section data-background="https://farm6.staticflickr.com/5498/12596035923_0821db4975_b.jpg">
-						<h2 class="outlined">No more analogies!</h2>
+						<h3 class="outlined">But wait...</h3>
+						<ul>
+							<li class="outlined fragment">Creating software is not like building a house!</li>
+							<li class="outlined fragment">It's more like <em>designing</em> a house.</li>
+							<li class="outlined fragment">Once designed, you can mass produce it.</li>
+							<li class="outlined fragment">But the design keeps changing...</li>
+							<li class="outlined fragment">Is this analogy even helpful anymore?</li>
+							<li class="outlined fragment">No more analogies!</li>
+						</ul>
 					</section>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+				<!-- SECTION: HISTORY -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>A brief history of ImageJ</h2>
-					<div class="urlfoot"><a href="http://imagej.net/History">http://imagej.net/History</a></div>
+					<div class="url bottom right"><a href="http://imagej.net/History">http://imagej.net/History</a></div>
 					<table>
 						<tr class="fragment">
 							<td><big>1997</big></td>
@@ -163,8 +170,236 @@
 					</table>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<h2>Who is SciJava?</h2>
+				<!-- SECTION: MILESTONES -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>ImageJ2 milestones</h2>
+					<div class="url bottom right"><a href="http://imagej.net/News">http://imagej.net/News</a></div>
+					<table>
+						<tr>
+							<td><big>2011</big></td>
+							<td><a href="http://imagej.net/Update_Sites">Update sites</a></td>
+						</tr>
+						<tr>
+							<td><big>2012</big></td>
+							<td><a href="http://imagej.net/2012-04-09_-_First_beta_of_ImageJ2_is_out">First ImageJ2 beta version</a></td>
+						</tr>
+						<tr>
+							<td><big>2013</big></td>
+							<td><a href="http://imagej.net/2013-09-27_-_Personal_Update_Sites"><em style="color: yellow">Personal</em> update sites</a></td>
+						</tr>
+						<tr>
+							<td rowspan=3><big>2014</big></td>
+							<td><a href="http://imagej.net/2015-02-04_-_ImageJ_in_2014_and_2015">Fiji Is Just ImageJ2</a></td>
+						</tr>
+						<tr>
+							<td><a href="http://imagej.net/2014-12-10_-_ImgLib2_released">ImgLib2 comes out of beta</a></td>
+						</tr>
+						<tr>
+							<td><a href="http://imagej.net/2015-02-04_-_ImageJ_in_2014_and_2015">Fiji builds become reproducible</a></td>
+						</tr>
+						<tr>
+							<td><big>2015</big></td>
+							<td><a href="http://imagej.net/2015-02-04_-_ImageJ_in_2014_and_2015">Several major goals</a></td>
+						</tr>
+					</table>
+					<aside class="notes">
+						Lately, I also tweet major things, and post them on Google+.
+					</aside>
+				</section>
+
+				<!-- SECTION: MISSION -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>ImageJ2's Mission</h2>
+
+					<section>
+						<ul style="position: absolute; top: 0; left: 3em; white-space: nowrap">
+							<li class="r">Create the next ImageJ, based on community needs</li>
+							<li class="o">Collaborate with others whenever beneficial</li>
+							<li class="y">Make ImageJ useful to a broad community</li>
+							<li class="g">Maintain backwards compatibility with ImageJ 1.x</li>
+							<li class="b">Provide a central online resource for ImageJ</li>
+							<li class="v">Lead ImageJ development with a clear vision</li>
+						</ul>
+					</section>
+
+					<section>
+						<ul style="position: absolute; top: 0; left: 3em; white-space: nowrap; color: rgba(128, 128, 128, 0.5)">
+							<li>Create the next ImageJ, based on community needs</li>
+							<li>Collaborate with others whenever beneficial</li>
+							<li>Make ImageJ useful to a broad community</li>
+							<li>Maintain backwards compatibility with ImageJ 1.x</li>
+							<li>Provide a central online resource for ImageJ</li>
+							<li>Lead ImageJ development with a clear vision</li>
+						</ul>
+						<ul style="position: absolute; top: 0; left: 3em">
+							<li><strong class="social">DESIGN</strong></li>
+							<li class="fragment"><strong class="social">COLLABORATE</strong></li>
+							<li class="fragment"><strong class="social">BROADEN</strong></li>
+							<li class="fragment"><strong class="social">MAINTAIN</strong></li>
+							<li class="fragment"><strong class="social">UNIFY</strong></li>
+							<li class="fragment"><strong class="social">LEAD</strong></li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">&nbsp;</p>
+					<h3 class="social">GOLD = Social</h3>
+					<h3 class="overview">BLUE = Architectural</h3>
+					<h3 class="technical">RED = Technical</h3>
+				</section>
+
+				<!-- SECTION: DESIGN -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					<span class="social">DESIGN</span> | COLLABORATE | BROADEN | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Create the next version of ImageJ, based on the needs of the community
+					</p>
+					<img class="plain bottom center" style="background-color: white !important; border-radius: 0.2em; padding: 10px" src="imagej-strengths.png">
+					<section>
+						<h3>What's great about ImageJ?</h3>
+						<ul>
+							<li class="fragment">Extensibility</li>
+							<li class="fragment">Available functions</li>
+						</ul>
+					</section>
+					<section>
+						<h3>What else is needed?</h3>
+						<ul class="fragment">
+							<li>Generality [<a href="https://groups.google.com/d/msg/imagejx/lD4s32M5als/HZiEA02LhXsJ">1</a>, <a href="https://groups.google.com/d/msg/imagejx/_yaczl4UWK4/_w6dCnGcJ1QJ">2</a>]</li>
+							<li>Modularity [<a href="https://groups.google.com/d/msg/imagejx/gz7cgytSRuA/emlJLp8o7XYJ">3</a>]</li>
+							<li>Interoperability+integration [<a href="http://imagej.net/ImageJ2_grant_proposal#Aim_II_.E2.80.93_Expand_functionality_by_interfacing_ImageJ_with_existing_open-source_programs">4</a>]</li>
+							<li><em>More</em> extensibility! [<a href="https://groups.google.com/d/msg/imagejx/F3gWc_Ndz_U/UTKiut-HuQMJ">5</a>]</li>
+						</ul>
+					</section>
+				</section>
+
+				<!-- https://www.flickr.com/photos/thomasthomas/268846488/ -->
+				<section class="toplevel" data-background="https://farm1.staticflickr.com/109/268846488_4b6882d35e_b.jpg">
+					<p class="guide outlined">
+					<span class="overview">DESIGN</span> | COLLABORATE | BROADEN | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Create the next version of ImageJ, based on the needs of the community
+					</p>
+					<h2 class="outlined">What is ImageJ2?</h2>
+					<section>
+						<aside class="notes">No one can tell you what ImageJ2 is. You have to see it for yourself.</aside>
+					</section>
+					<section>
+						<img class="plain" style="width: 20em" src="imagej-app.png">
+						<h3 class="outlined">An end-user application</h3>
+					</section>
+					<section>
+						<pre><code class="java" data-trim data-trim>
+/** Loads and displays a dataset using the ImageJ API. */
+public void loadAndDisplayDataset(final File file) {
+	// create the ImageJ application context with all available services
+	final ImageJ ij = new ImageJ();
+
+	// load the dataset
+	final Dataset dataset = ij.scifio().datasetIO().open(file.getAbsolutePath());
+
+	// display the dataset
+	ij.ui().show(dataset);
+}
+						</code></pre>
+						<h3 class="outlined">A reusable library</h3>
+					</section>
+					<section>
+						<img class="logo" style="background-color: rgba(255, 255, 255, 0.5) !important; height: 4em" src="http://imagej.net/_images/0/05/Scijava-logo.png">
+						<h3 class="outlined">An extensible collection<br>of services &amp; plugins</h3>
+					</section>
+					<section>
+						<img style="height: 7em" src="scijava-integration.png">
+						<h3 class="outlined">"Write once, run anywhere"<br>image processing routines</h3>
+					</section>
+					<section>
+						<ul class="graybox" style="padding-left: 2em !important">
+							<li class="r">A new, supremely extensible plugin framework</li>
+							<li class="o">Dimensions beyond X, Y, Z, time and channel</li>
+							<li class="y">Planes larger than 2 gigapixels</li>
+							<li class="g">Pixel types beyond uint8, uint16 and float32</li>
+							<li class="b">Access data beyond only files on disk</li>
+							<li class="v">Beyond one user, one desktop, one machine</li>
+						</ul>
+						<h3 class="outlined" style="padding-top: 0.5em">An effort to overcome<br>the constraints of ImageJ</h2>
+						<aside class="notes">
+							Quantitative over qualitative. Not just for looking at images,
+							but also for turning images into knowledge. Which means numbers.
+						</aside>
+					</section>
+				</section>
+
+				<!-- https://www.flickr.com/photos/joshb/320870259/ -->
+				<section class="toplevel" data-background="https://farm1.staticflickr.com/134/320870259_35f7952e8a_b.jpg">
+					<p class="guide outlined">
+					<span class="technical">DESIGN</span> | COLLABORATE | BROADEN | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Create the next version of ImageJ, based on the needs of the community
+					</p>
+					<h2 class="outlined">Components of ImageJ2</h2>
+					<div class="fragment graycolumn" style="float: left">
+						<div class="url bottom left" style="bottom: 3.5em"><a href="http://imagej.net/ImageJ2">http://imagej.net/ImageJ2</a></div>
+						<div class="logo">
+							<img class="logo" style="height: 2.5em; padding-left: 0 !important; padding-right: 0 !important" src="http://imagej.net/_images/d/d1/Imagej2-icon.png">
+							<span style="color: brown; font-size: 2em; font-weight: bold; vertical-align: middle">ImageJ</span>
+						</div>
+						<p>Image-specific components</p>
+						<ul style="font-size: 0.8em">
+							<li><a href="http://imagej.net/ImageJ_Common">ImageJ Common</a></li>
+							<li><a href="http://imagej.net/Ops">ImageJ Ops</a></li>
+							<li><a href="http://imagej.net/Updater">ImageJ Updater</a></li>
+							<li><a href="http://imagej.net/ImageJ_legacy">ImageJ Legacy</li>
+							<li><a href="http://imagej.net/SCIFIO">SCIFIO</a></li>
+						</ul>
+					</div>
+					<div class="fragment graycolumn" style="float: right">
+						<div class="url bottom right" style="bottom: 3.5em"><a href="http://imagej.net/SciJava_Common">http://imagej.net/SciJava_Common</a></div>
+						<div class="logo">
+							<img class="logo" style="height: 2.5em" src="http://imagej.net/_images/0/05/Scijava-logo.png">
+						</div>
+						<p>More general than images</p>
+						<ul style="font-size: 0.8em">
+							<li>Application container</li>
+							<li>Plugin framework</li>
+							<li>Module framework</li>
+							<li>Display and UI frameworks</li>
+							<li>Scripting framework and plugins</li>
+						</ul>
+					</div>
+					<div class="fragment url bottom left" style="right: 80px"><a href="http://imagej.net/Architecture">http://imagej.net/Architecture</a></div>
+					<aside class="notes">
+						<ul>
+							<li>Let's talk about plugins!</li>
+							<li>Each plugin type is a tool for a particular job</li>
+							<li>Easily define new plugin types as needed</li>
+							<li>ImageJ2 and SCIFIO are both plugin-driven</li>
+							<li>Supreme extensibility with the SciJava library</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- SECTION: COLLABORATE -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | <span class="social">COLLABORATE</span> | BROADEN | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Collaborate with others whenever beneficial
+					</p>
+					<h2>The SciJava consortium</h2>
 					<table class="acknowledgements">
 						<tr>
 							<td>
@@ -191,10 +426,6 @@
 					</table>
 					<table class="acknowledgements">
 						<tr>
-							<td>
-								<img src="http://imagej.net/_images/c/c9/Barry-dezonia.jpg">
-								<br>Barry<br>DeZonia
-							</td>
 							<td>
 								<img src="http://imagej.net/_images/d/d0/Christian-dietz.jpg">
 								<br>Christian<br>Dietz
@@ -234,85 +465,505 @@
 						</tr>
 					</table>
 					<p>
-					And everyone supporting open science and open software!
+					And everyone supporting
+					<a href="http://loci.wisc.edu/software/oss">open science + open software</a>!
 					</p>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<h2>ImageJ2's Mission</h2>
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | <span class="overview">COLLABORATE</span> | BROADEN | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Collaborate with others whenever beneficial
+					</p>
+					<h2>The SciJava pledge</h2>
+					<p>Work together, reuse code and synergize</p>
+					<div class="logo" style="opacity: 0.75">
+						<div>
+							<img class="plain" style="height: 4em; padding-right: 0.5em" src="http://imagej.net/_images/c/cd/Cellprofiler-logo.png">
+							<img class="plain" style="height: 2.2em; padding-right: 1em" src="http://zementis.com/wp-content/uploads/2014/06/knime-logo.jpg">
+							<img class="plain" style="height: 3em" src="http://imagej.net/_images/5/52/Icy-logo.png">
+						</div>
+						<div style="float: left; padding-left: 0.5em">
+							<img class="plain" style="height: 1em" src="http://imagej.net/_images/6/6f/Scifio-logo.png">
+							<br><img class="plain" style="height: 1em" src="http://imagej.net/_images/c/cc/Bio-formats-logo.png">
+							<br><img class="plain" style="height: 1em" src="http://imagej.net/_images/5/59/Omero-logo.png">
+						</div>
+						<div style="padding-top: 0.5em">
+							<img class="plain" style="height: 4em" src="http://imagej.net/_images/1/19/Imglib2-logo.png">
+							<img class="plain" style="height: 4em" src="http://imagej.net/_images/d/d1/Imagej2-icon.png">
+							<img class="plain" style="height: 4em; padding-right: 1em" src="http://imagej.net/_images/a/ae/Fiji-icon.png">
+							<img class="plain" style="height: 3em" src="http://imagej.net/_images/7/7e/Alida-logo.jpg">
+							<img class="plain" style="height: 3em" src="http://imagej.net/_images/9/99/MiToBo-logo.png">
+						</div>
+						<div style="clear: left; padding-bottom: 0.5em"></div>
+					</div>
+					<aside class="notes">
+						<ul>
+							<li>Reuse </li>
+							<li>Historical perspective, hackathons</li>
+							<li>Stand on each other's shoulders</li>
+							<li>OPEN SOURCE</li>
+						</ul>
+					</aside>
+				</section>
 
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | <span class="technical">COLLABORATE</span> | BROADEN | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Collaborate with others whenever beneficial
+					</p>
+					<h2>Interoperability + integration</h2>
+					<p>
+					SciJava Modules: parameterized commands and scripts
+					</p>
+					<img src="cellprofiler-imagej.png" style="float: left; width: 49%">
+					<div style="float: right; width: 49%">
+						<pre><code class="java" style="font-size: 0.8em" data-trim>
+@Parameter(label="Input image")
+private ImagePlus original;
+
+@Parameter(label="Sigma")
+private double sigma = 1.0;
+
+@Parameter(label="Use calibration")
+private boolean useCalibration;
+
+@Parameter(type=ItemIO.OUTPUT, label="Output image")
+private ImagePlus result;
+						</code></pre>
+					</div>
+					<aside class="notes">
+						Tomorrow morning, there will be a workshop exploring parameterized scripts!
+					</aside>
+				</section>
+
+				<!-- SECTION: BROADEN -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | <span class="social">BROADEN</span> | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Make ImageJ useful to a broad community
+					</p>
+					<h2>Who is the target audience?</h2>
+					<ul>
+						<li class="r">Scientific users</li>
+						<li class="y">Casual users</li>
+						<li class="b">Software developers</li>
+						<li class="v">Image processing experts</li>
+					</ul>
+					<h3 style="padding-top: 1em">Need
+						<a href="http://blog.codinghorror.com/boyds-law-of-iteration/">rapid iteration</a>
+						+ <em>communication</em></h3>
+					<aside class="notes">
+						<ul>
+							<li>Goal: want everyone to consume ImageJ!</li>
+							<li>How to target everyone successfully? See next slide!</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | <span class="overview">BROADEN</span> | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Make ImageJ useful to a broad community
+					</p>
+					<h2>Separation of concerns</h2>
+					<p style="center">
+					<img class="logo" style="height: 3em" src="http://imagej.net/_images/9/93/Scijava-icon.png">
+					<img class="logo" style="height: 3em" src="http://imagej.net/_images/0/0a/Imglib2-icon.png">
+					<img class="logo" style="height: 3em" src="http://imagej.net/_images/a/a6/Scifio-icon.png">
+					<img class="logo" style="height: 3em" src="http://imagej.net/_images/d/d1/Imagej2-icon.png">
+					<img class="logo" style="height: 3em" src="http://imagej.net/_images/a/ae/Fiji-icon.png">
+					</p>
+					<ul>
+						<li class="r">Migrate non-life-sciences code from Fiji to ImageJ2</li>
+						<li class="g">Migrate image processing algorithms to ImageJ Ops</li>
+						<li class="b">Broaden the image metadata model beyond microscopy</li>
+						<li class="y">Migrate non-image-specific code from ImageJ to SciJava Common</li>
+					</ul>
+					<aside class="notes">
+						<ul>
+							<li>Sensible defaults at every level</li>
+							<li>Extensibility everywhere
+								<ul>
+									<li>E.g.: SCIFIO lets you plug in your own data models!
+								</ul>
+							</li>
+							<li>Scope as broad as possible, but no broader
+								<ul>
+									<li>Even the name "SciJava" is unfortunately exclusionary...</li>
+								</ul>
+							</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- https://www.flickr.com/photos/jonthegm/5963582091/ -->
+				<section class="toplevel" data-background="https://farm7.staticflickr.com/6124/5963582091_3c3143fa8d_b.jpg">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | <span class="technical">BROADEN</span> | MAINTAIN | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Make ImageJ useful to a broad community
+					</p>
+					<div class="url bottom left"><a href="http://imagej.net/ImgLib2">http://imagej.net/ImgLib2</a></div>
+					<div class="url bottom right"><a href="http://imagej.net/Ops">http://imagej.net/Ops</a></div>
 					<section>
-						<ol style="position: absolute; top: 0; left: 3em; white-space: nowrap">
-							<li>Lead ImageJ development with a clear vision</li>
-							<li>Create the next ImageJ, based on community needs</li>
-							<li>Collaborate with others whenever beneficial</li>
-							<li>Make ImageJ useful to a broad community</li>
-							<li>Maintain backwards compatibility with ImageJ 1.x</li>
-							<li>Provide a central online resource for ImageJ</li>
-						</ol>
+						<h2 class="outlined">
+							N-dimensional data model
+							<img class="logo" style="height: 3em" src="http://imagej.net/_images/1/19/Imglib2-logo.png">
+						</h2>
+					</section>
+					<section>
+						<h2 class="outlined">ImageJ Ops</h2>
+						<div class="graybox">
+							<small><h2 class="outlined">"Write once, run anywhere" image processing</h2></small>
+							<ol style="white-space: nowrap">
+								<li>Powerful and general</li>
+								<li>Easy to use and extend</li>
+								<li>Good performance</li>
+							</ol>
+						</div>
+					</section>
+					<section>
+						<div style="float: left; width: 33%">
+							<pre><code class="python" data-trim>
+# @OpService ops
+ops.help("math.add")
+							</code></pre>
+						</div>
+						<div style="float: right; width: 66%">
+							<pre><code class="java" style="font-size: 0.75em" data-trim>
+(ArrayImg image) =
+net.imagej.ops.math.add.AddConstantToArrayDoubleImageP(
+	ArrayImg image,
+	double value)
+(ArrayImg image) =
+net.imagej.ops.math.add.AddConstantToArrayByteImageP(
+	ArrayImg image,
+	byte value)
+(ArrayImg image) =
+net.imagej.ops.math.add.AddConstantToArrayDoubleImage(
+	ArrayImg image,
+	double value)
+(ArrayImg image) =
+net.imagej.ops.math.add.AddConstantToArrayByteImage(
+	ArrayImg image,
+	byte value)
+(Img out?) =
+net.imagej.ops.math.add.AddIterableIntervalToImg(
+	Img out?,
+	Img in,
+	IterableInterval ii)
+(int result) =
+net.imagej.ops.math.PrimitiveMath$IntegerAdd(
+	int a,
+	int b)
+(long result) =
+net.imagej.ops.math.PrimitiveMath$LongAdd(
+	long a,
+	long b)
+(float result) =
+net.imagej.ops.math.PrimitiveMath$FloatAdd(
+	float a,
+	float b)
+(double result) =
+net.imagej.ops.math.PrimitiveMath$DoubleAdd(
+	double a,
+	double b)
+(IterableRealInterval image) =
+net.imagej.ops.math.add.AddConstantToImageInPlace(
+	IterableRealInterval image,
+	NumericType value)
+(IterableInterval a) =
+net.imagej.ops.math.add.AddRandomAccessibleIntervalToIterableInterval(
+	IterableInterval a,
+	RandomAccessibleInterval b)
+(PlanarImg image) =
+net.imagej.ops.math.add.AddConstantToPlanarDoubleImage(
+	PlanarImg image,
+	double value)
+(RealType out) =
+net.imagej.ops.math.RealMath$Add(
+	RealType out,
+	RealType in,
+	double constant)
+(RealType out?) =
+net.imagej.ops.math.RealBinaryMath$Add(
+	RealType out?,
+	RealType in,
+	RealType b)
+(NumericType out?) =
+net.imagej.ops.math.add.AddConstantToNumericType(
+	NumericType out?,
+	NumericType in,
+	NumericType value)
+(RandomAccessibleInterval out) =
+net.imagej.ops.math.add.AddConstantToImageFunctional(
+	RandomAccessibleInterval out,
+	IterableInterval in,
+	NumericType value)
+						</pre></code>
+					</section>
+				</section>
+
+				<!-- SECTION: MAINTAIN -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | <span class="social">MAINTAIN</span> | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Maintain backwards compatibility with ImageJ1
+					</p>
+					<img class="logo" style="height: 10em" src="http://imagej.net/_images/a/a8/Imagej1-icon.png">
+					<aside class="notes">
+						<p>
+						ImageJ1 has a wealth of functionality, with more continually added.
+						How can we develop a new API without forking?
+						</p>
+						<p>
+						It is a huge challenge! At Fiji hackathon in March 2010,
+						we discussed and explored several ways of doing it.
+						</p>
+					</aside>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | <span class="overview">MAINTAIN</span> | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Maintain backwards compatibility with ImageJ1
+					</p>
+					<div class="url bottom right"><a href="http://imagej.net/Compatibility">http://imagej.net/Compatibility</a></div>
+					<small><h2 class="graybox">ImageJ2 <em>is</em> ImageJ 1.x, <em>plus</em> the new stuff</h2></small>
+					<ul>
+						<li class="o">ImageJ2 includes ImageJ version 1.x</li>
+						<li class="y">ImageJ2 user interfaces (UIs) are plugins</li>
+						<li class="g">ImageJ2's <code>LegacyUI</code> = ImageJ 1.x as a plugin</li>
+						<li class="b">IJ1 and IJ2 data structures are translated on the fly</li>
+						<li class="v">"Mix and match" ImageJ 1.x and ImageJ2 capabilities</li>
+					</ul>
+					<aside class="notes">
+						<small>
+							<ul>
+								<li>ImageJ 1.x features continue to work</li>
+								<li>New features of ImageJ 1.x developed by Wayne Rasband also work in this way</li>
+								<li>But ImageJ2 does <em>depend</em> on ImageJ 1.x&mdash;it also stands alone.</li>
+								<li>This design took many iterations to achieve!</li>
+							</ul>
+						</small>
+					</aside>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | <span class="technical">MAINTAIN</span> | UNIFY | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Maintain backwards compatibility with ImageJ1
+					</p>
+					<div class="url bottom right"><a href="http://imagej.net/Versioning">http://imagej.net/Versioning</a></div>
+
+					<!-- https://www.flickr.com/photos/stasiland/467444438/ -->
+					<section data-background="https://farm1.staticflickr.com/199/467444438_3d160cb531_b.jpg">
+						<div class="graybox" style="padding-top: 0 !important">
+						<h3 class="outlined">
+							<img class="plain" style="height: 3em" src="http://imagej.net/_images/a/ae/Fiji-icon.png">
+							Maintaining the stack
+						</h3>
+						<ul class="outlined">
+							<li>Everything on <a href="http://imagej.net/GitHub">GitHub</a></li>
+							<li><a href="http://imagej.net/Versioning">Versioned with SemVer</a></li>
+							<li>Organized using a <a href="http://imagej.net/BOM">Bill of Materials</a></li>
+							<li><em>NEW</em>: the <a href="https://github.com/scijava/scijava-scripts/blob/4b6a85e0a39db0c457928ed55107a53d90b7e553/melting-pot.sh">SciJava melting pot</a></li>
+						</ul>
+						</div>
+						<aside class="notes">
+							<p>"Maintenance" is more than just backwards compatibility</p>
+							<ul>
+								<li>How to keep components from falling out of sync?</li>
+								<li>How to manage &gt;200 GitHub repositories with two full-time devs?</li>
+								<li>How to track and organize so many issues?</li>
+								<li>How to maintain and communicate a coherent roadmap?</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+
+				<!-- SECTION: UNIFY -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | MAINTAIN | <span class="social">UNIFY</span> | LEAD
+					</p>
+					<p class="guidefoot outlined">
+					Provide central online resources for ImageJ
+					</p>
+
+					<!-- https://www.flickr.com/photos/marcsardon/6483434801/ -->
+					<section style="height: 80%" data-background="https://farm8.staticflickr.com/7004/6483434801_7a011a081d_b.jpg">
+						<h3 class="outlined" style="margin-top: 5em">Plugins</h3>
+						<small><ul class="graybox">
+							<li>http://imagej.nih.gov/ij/plugins/</li>
+							<li>http://imagejdocu.tudor.lu/doku.php?id=plugin:start</li>
+							<li>http://fiji.sc/Category:Plugins</li>
+							<li>http://imagej.nih.gov/ij/plugins/mbf/</li>
+							<li>http://sourceforge.net/projects/ij-plugins/</li>
+							<li>And dozens of other lists and collections</li>
+							</ul></small>
+						<aside class="notes">
+							<ul>
+								<li>Oh no, another analogy!</li>
+								<li>In ImageJ1, all these plugins must be installed and updated manually.</li>
+							</ul>
+						</aside>
 					</section>
 
-					<section>
-						<ol style="position: absolute; top: 0; left: 3em; white-space: nowrap; color: rgba(128, 128, 128, 0.5)">
-							<li>Lead ImageJ development with a clear vision</li>
-							<li>Create the next ImageJ, based on community needs</li>
-							<li>Collaborate with others whenever beneficial</li>
-							<li>Make ImageJ useful to a broad community</li>
-							<li>Maintain backwards compatibility with ImageJ 1.x</li>
-							<li>Provide a central online resource for ImageJ</li>
-						</ol>
-						<ol style="position: absolute; top: 0; left: 3em">
-							<li><strong style="color: gold">COMMUNICATE</strong></li>
-							<li class="fragment"><strong style="color: gold">DESIGN</strong></li>
-							<li class="fragment"><strong style="color: gold">COLLABORATE</strong></li>
-							<li class="fragment"><strong style="color: gold">GENERALIZE</strong></li>
-							<li class="fragment"><strong style="color: gold">MAINTAIN</strong></li>
-							<li class="fragment"><strong style="color: gold">UNIFY</strong></li>
-						</ol>
+					<!-- https://www.flickr.com/photos/marcsardon/6483436377/ -->
+					<section data-background="https://farm8.staticflickr.com/7005/6483436377_14fd19d639_b.jpg" data-background-size="auto 100%">
+						<img class="plain fragment" style="height: 400px" src="imagej-updater.png">
+						<div>
+							<small><ul class="graybox">
+									<li>http://imagej.net/List_of_update_sites/</li>
+									<li>http://sites.imagej.net/</li>
+								</ul></small>
+						</div>
+						<aside class="notes">
+							<ul>
+								<li>By the way, this idea of standing on each others' shoulders applies equally to many other aspects.</li>
+								<li>But it's still a flawed analogy!</li>
+							</ul>
+						</aside>
 					</section>
 
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<p class="guide">
-					<span style="color: gold">COMMUNICATE</span> | DESIGN | COLLABORATE | GENERALIZE | MAINTAIN | UNIFY
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | MAINTAIN | <span class="overview">UNIFY</span> | LEAD
 					</p>
-					<h2>Communication</h2>
+					<p class="guidefoot outlined">
+					Provide central online resources for ImageJ
+					</p>
+					<h2>Online resources</h2>
+					<table>
+						<tr><td><a href="http://imagej.net/">imagej.net</a></td><td>primary portal</a></td></tr>
+						<tr style="font-size: 0.75em"><td><a href="http://mirror.imagej.net/">mirror.imagej.net</a></td><td>ImageJ 1.x website</td></tr>
+						<tr style="font-size: 0.75em"><td><a href="http://wiki.imagej.net/">wiki.imagej.net</a></td><td>ImageJ documentation</td></tr>
+						<tr style="padding-top: 0.5em"><td><a href="http://search.imagej.net/">search.imagej.net</a></td><td>towards a unified search</td></tr>
+						<tr style="padding-top: 0.5em"><td><a href="http://sites.imagej.net/">sites.imagej.net</a></td><td>personal update sites</td></tr>
+					</table>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<p class="guide">
-					COMMUNICATE | <span style="color: gold">DESIGN</span> | COLLABORATE | GENERALIZE | MAINTAIN | UNIFY
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | MAINTAIN | <span class="technical">UNIFY</span> | LEAD
 					</p>
-					<h2>Design</h2>
+					<p class="guidefoot outlined">
+					Provide central online resources for ImageJ
+					</p>
+					<h2>Developer resources</h2>
+					<table>
+						<tr><td><a href="http://javadoc.imagej.net/">javadoc.imagej.net</a></td><td>developer documentation</td></tr>
+						<tr><td><a href="http://status.imagej.net/">status.imagej.net</a></td><td>tracking releases</td></tr>
+						<tr><td><a href="http://maven.imagej.net/">maven.imagej.net</a></td><td>release binaries</td></tr>
+						<tr><td><a href="http://jenkins.imagej.net/">jenkins.imagej.net</a></td><td>continuous integration</td></tr>
+					</table>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<p class="guide">
-					COMMUNICATE | DESIGN | <span style="color: gold">COLLABORATE</span> | GENERALIZE | MAINTAIN | UNIFY
+				<!-- SECTION: LEAD -->
+
+				<!-- https://www.flickr.com/photos/revjim/4520782224/ -->
+				<section class="toplevel" data-background="https://farm3.staticflickr.com/2758/4520782224_2c63cdeef5_b.jpg">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | MAINTAIN | UNIFY | <span class="social">LEAD</span>
 					</p>
-					<h2>Collaboration</h2>
+					<p class="guidefoot outlined">
+					Lead ImageJ development with a clear vision
+					</p>
+					<h2 class="outlined">Managing expectations</h2>
+					<ul class="outlined">
+						<li><a href="http://imagej.net/Contributors">Who develops these projects?</a></li>
+						<li class="fragment"><a href="http://imagej.net/Governance">Who maintains the software?</a></li>
+						<li class="fragment"><a href="http://imagej.net/Help">How do I get help?</a></li>
+						<li class="fragment"><a href="http://imagej.net/Issues">How are issues handled?</a></li>
+						<li class="fragment"><a href="http://imagej.net/Contributing">How do I contribute?</a></li>
+						<li class="fragment"><a href="http://imagej.net/Development">How do I develop the code?</a></li>
+						<li class="fragment"><a href="http://imagej.net/Fiji_contribution_requirements">How do I include my plugin with Fiji?</a></li>
+						<li class="fragment"><a href="http://imagej.net/FAQ">?!?!?!?!?!?</a></li>
+					</ul>
+					<aside class="notes">
+						As anyone with a toddler knows, managing expectations is very important!
+					</aside>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<p class="guide">
-					COMMUNICATE | DESIGN | COLLABORATE | <span style="color: gold">GENERALIZE</span> | MAINTAIN | UNIFY
+				<!-- https://www.flickr.com/photos/nuevededos/4323958128/ -->
+				<section class="toplevel" data-background="https://farm5.staticflickr.com/4055/4323958128_358d4d8a66_b.jpg">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | MAINTAIN | UNIFY | <span class="overview">LEAD</span>
 					</p>
-					<h2>Generalization</h2>
+					<p class="guidefoot outlined">
+					Lead ImageJ development with a clear vision
+					</p>
+					<h2 class="outlined">The future of ImageJ</h2>
+					<aside class="notes">
+						<ul>
+							<li>Polish the end user experience
+								<ul style="font-size: 0.75em">
+									<li>Deployment issues: Java 3D, Java 8, OS X...</li>
+									<li>A JavaFX-based UI some day?</li>
+								</ul>
+							</li>
+							<li>Get components out of beta, from the bottom up</li>
+							<li>Enrich the ImageJ Ops library with tons of awesome image processing routines</li>
+							<li>Continue to "train the trainers"</li>
+						</ul>
+					</aside>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<p class="guide">
-					COMMUNICATE | DESIGN | COLLABORATE | GENERALIZE | <span style="color: gold">MAINTAIN</span> | UNIFY
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<p class="guide outlined">
+					DESIGN | COLLABORATE | BROADEN | MAINTAIN | UNIFY | <span class="technical">LEAD</span>
 					</p>
-					<h2>Maintenance</h2>
+					<p class="guidefoot outlined">
+					Lead ImageJ development with a clear vision
+					</p>
+					<aside class="notes">
+						<small>
+							<ul>
+								<li>Notice the missing slide: like IJ2, this talk is unfinished</li>
+								<li>ImageJ2 has taught me valuable lessons about biting vs. chewing!</li>
+							</ul>
+						</small>
 				</section>
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<p class="guide">
-					COMMUNICATE | DESIGN | COLLABORATE | GENERALIZE | MAINTAIN | <span style="color: gold">UNIFY</span>
-					</p>
-					<h2>Unification</h2>
+				<!-- SECTION: CONCLUSION -->
+
+				<!-- https://www.flickr.com/photos/tumainigroup/5662317626/ -->
+				<section class="toplevel" data-background="https://farm6.staticflickr.com/5189/5662317626_6a11bff743_b.jpg">
+					<h2 class="outlined">Join us!</h2>
+					<aside class="notes">
+						<small>
+							<ul>
+								<li>We have a fantastic, well-structured base of software tools</li>
+								<li>We have several software gurus working together</li>
+								<li>But very few of us are paid to work on this</li>
+								<li>We need help from <em>you</em> and <em>your</em> group!</li>
+								<li>Allocate some resources!</li>
+								<li>Together, everyone achieves more! ;-)</li>
+							</ul>
+						</small>
+					</aside>
 				</section>
 
 			</div>
