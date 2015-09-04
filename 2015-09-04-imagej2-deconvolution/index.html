@@ -72,12 +72,7 @@
 					<section>
 						<ul>
 							<li>A procedure used to reverse convolution</li>
-						<li>Convolution (Blurring)  $i(s) = o(s)*h(s)$</li>
-						<ul>
-							<li>$i$ is the observed image</li>
-							<li>$o$ is the true representation of the object</li>
-							<li>$h$ is the point spread function (PSF)</li>
-						</ul>
+						<li>Convolution (Blurring)</li>
 						<li>Deconvolution (deblurring)</li>
 						<ul>
 							<li> improves measurements</li>
@@ -161,15 +156,6 @@
 	
 							<li>Solve the equation in the frequency domain</li>
 
-							<ul>
-								<li> Spatial domain  $i(s) = o(s)*h(s)$</li>
-								<li> Frequency domain $I(f)=O(f)H(f)$</li>
-							</ul>
-							<li>Simple Inverse Solution</li>
-							<ul>
-									
-								<li> $O(f)=I(f)/H(f)$</li>
-							</ul>
 						</ul>
 					</section>
 				</section>
@@ -181,26 +167,12 @@
 							<li>Use an Iterative approach</li>
 
 							<ul>
-								<li> Blurring + Noise $i(s) = o(s)*h(s)+n$</li>
-								<li> Simple inverse amplifies high frequency noise</li>
+								<li> Richardson Lucy</li>
 							</ul>		
 						</ul>
 					</section>
 				</section>
-			<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<h2>Richardson Lucy</h2>
-					<section>
-						<p>
-							\begin{multline} \label{eq:tv_update}
-        						\mathbf{o}_{k+1}(s) = \left\{\left[\frac{i(s)}{(o_{k}*h)(s)}\right]*h(-s)\right\}o_{k}(s)
-							\end{multline}
-						</p>
-						<ul>
-							<li> Many open implementations for reference</li>
-						</ul>
-							
-					</section>
-			</section>
+		
 		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Richardson Lucy Iterations</h2>
 					<section></section>
@@ -241,21 +213,14 @@
 					</section>
 			</section>
 		
-		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<h2>Regularization</h2>
-					<section>
-						<li> Solution is modified to better handle noise</li>
-					</section>
-					
-			</section>
-	
+
 		<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Richardson Lucy with Total Variation Regularization</h2>
 					<section>
 						<p>
-$$
-        \mathbf{o}_{k+1}(s) = \left\{\left[\frac{i(s)}{(o_{k}*h)(s)}\right]*h(-s)\right\}\\\times\frac{{o}_{k}(s)}{1-\lambda_{TV}div\left({\frac{\nabla_{ok}(s)}{|\nabla_{ok}(s)|}}\right)}
-$$						
+
+						<li> Solution is modified to better handle noise</li>
+						
 </p>
 					</section>
 					<section>
