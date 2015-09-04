@@ -55,12 +55,9 @@
 					<section>
 						<ul>
 							<li>What is deconvolution?</li>
-							<li>Point Spread Function (PSF)</li>
-							<li>Noise Handling (Regularization)</li>
-							<li>Edge Handling</li>
-							<li>How do we make it run fast?</li>
-							<li>Why imagej-ops??</li>
-							<li>How do we test it??</li>
+							<li>PSF, Noise, Edges, Speed</li>
+							<li>Ops Deconvolution, current + future</li>
+							<li>Future goals</li>
 							<li>Preliminary Results</li>
 						</ul>
 					</section>
@@ -104,10 +101,7 @@
 									<li>Open!</li>
 								</ul>
 							<li><a href="http://bigwww.epfl.ch/algorithms/psfgenerator/">PSF Generator</a></li>
-								<ul>
-									<li>Freely available as a Fiji plugin</li>
-									<li>Closed source</li>
-								</ul>
+							<li><a href="http://icy.bioimageanalysis.org/index.php?display=detailTag&tagId=90">Widefield PSF (Icy)</a></li>
 						</ul>
 					</section>
 				
@@ -130,7 +124,7 @@
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
 					<h2>Noise</h2>
 					<section>
-						<p>Images also contain noise</p>
+						<h3>Images also contain noise</h3>
 						<ul>
 							<li>Convolution attenuates high frequencies</li>
 							<li>Deconvolution restores high frenquencies</li>
@@ -185,14 +179,7 @@
 							<ul>
 								<li> Blurring + Noise $i(s) = o(s)*h(s)+n$</li>
 								<li> Simple inverse amplifies high frequency noise</li>
-								
-							</ul>
-							<li>Solution</li>
-							<ul>
-									
-								<li> Regularized Inverse Filter (Wiener Filter)</li>
-								<li> Iterative Optimization based approaches</li>
-							</ul>
+							</ul>		
 						</ul>
 					</section>
 				</section>
@@ -328,25 +315,28 @@ $$
 					</section>
 				</section>	
 
-				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<h2>Why imagej-ops?</h2>
+					<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Current status</h2>
 					<section>
+						<p>Currently implemented in Ops (beta)</p>
 						<ul>
-							<li>Easy to implement and test different methods</li>
-							<li>Powerful underlying math and FFT libraries (Imglib2)</li>
-							<li>Can integrate into different software (ImageJ, KNIME, CellProfiler)</li>
-							<li>Powerful scripting (evaluate measurements)</li>
-							<li>Mature community</li>
+							<li>Richardson Lucy</li>
+							<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/16586486">Richardson Lucy Total Variation</a></li>
+							<li><a href="http://www.rasmus-ischebeck.de/dr/bibliography/pdf/biggs97a.pdf">Vector Acceleration</a></li>
+							<li><a href="http://bigwww.epfl.ch/deconvolution/challenge/index.html?p=documentation/theory/richardsonlucy">Non-circulant edge handling</a></li>
 						</ul>
 					</section>
 				</section>
 	
 				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
-					<h2>How do we test it?</h2>
+					<h2>Future Goals</h2>
 					<section>
 						<ul>
-							<li>Phantoms</li>
-							<li>Community based testing on real images</li>
+							<li>Optimize memory use and speed</li>
+							<li>Diffraction based PSF</li>
+							<li><a href="http://icy.bioimageanalysis.org/index.php?display=detailTag&tagId=90">Integrate Icy Algorithms</a></li>
+							<li>GPU</li>
+							<li>Phantoms for testing</li>
 						</ul>
 					</section>
 				</section>
@@ -356,18 +346,25 @@ $$
 				
 
 					<section>
-						<ul>
 							<li><a href="http://works.bepress.com/gmcnamara/31/">McNamara set</a></li>
+					</section>
+					<section>
 								<li><a href="http://bigwww.epfl.ch/algorithms/psfgenerator/">PSFs created using PSF Generator</a></li>
-								<ul>
-									<li>Model=Gibson-Lanni, RI=1.4, Particle Position=6400 nm</li>
-									<li>All other parameters as described with data</li>
-								</ul>
-							<li>IJ-ops Script used for results</li>
-						</ul>
-						<p>
-						</p>
+					</section>
+					<section>
+								<img src="images/screen_shots/PSFLab.jpg">
+					</section>
+					<section>
+						<p>IJ Macro to crop (to center) and reverse PSF</p>
 						<pre><code class="python" data-trim contenteditable>
+run("Make Substack...", "  slices=28-155");
+run("Reverse");
+						</code></pre>
+					</section>
+					<section>
+							</li>
+							<li>IJ-ops Script used for results</li>
+							<pre><code class="python" data-trim contenteditable>
 
 # @OpService ops
 # @UIService ui
@@ -376,27 +373,27 @@ $$
 
 from net.imglib2.meta import ImgPlus
 
-deconvolved=ops.deconvolve().richardsonLucyTV(None, image, psf, [0,0,0], None, None, None, None, None, None, 100, 0.0001, True, True);
+deconvolved=ops.deconvolve().richardsonLucyTV(None, image, psf, [0,0,0], None, \
+None, None, None, None, None, 100, 0.0001, True, True);
+
 ui.show("deconvolved", ImgPlus(deconvolved));	
 
-						</code></pre>
+						</code></pre>					</ul>
+
+					</section>
 					</section>
 					
 					<section>
 							<img src="images/CY3/CY3_Orig_ZY.png">
-							<img src="images/CY3/CY3_Cuda_ZY.png">
 							<img src="images/CY3/CY3_RLTV100_0.0001_ZY.png">
-							<p>Left to right: Original, Bruce and Butte (CUDA), ImageJ-Ops-RLTV</p>
+							<p>Left to right: Original, ImageJ-Ops-RLTV</p>
 					</section>
 					
 					<section>
 							<img src="images/CY3/CY3_Orig_LP.png">
 							<p>Original Image</p>
 					</section>
-					<section>
-							<img src="images/CY3/CY3_Cuda_LP.png">
-							<p>Bruce and Butte (Cuda)</p>
-					</section>
+					
 					<section>
 							<img src="images/CY3/CY3_RLTV100_0.0001_LP.png">
 							<p>Imagej-ops RLTV 100 iterations</p>
@@ -408,20 +405,44 @@ ui.show("deconvolved", ImgPlus(deconvolved));
 				
 					<section>
 							<img src="images/DAPI/DAPI_Orig_XY.png">
-							<img src="images/DAPI/DAPI_Cuda_XY.png">
 							<img src="images/DAPI/DAPI_RLTV100_0.0001_XY.png">
-							<p>Left to right: Original, Bruce and Butte (CUDA), ImageJ-Ops-RLTV</p>
+							<p>Left to right: Original, ImageJ-Ops-RLTV</p>
 					</section>
 					<section>
 							<img src="images/DAPI/DAPI_Orig_YZ.png">
-							<img src="images/DAPI/DAPI_Cuda_YZ.png">
 							<img src="images/DAPI/DAPI_RLTV100_0.0001_YZ.png">
-							<p>Left to right: Original, Bruce and Butte (CUDA), ImageJ-Ops-RLTV</p>
+							<p>Left to right: Original, ImageJ-Ops-RLTV</p>
 					</section>
 				
 
 						
 				</section>
+			
+				<section data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<small>Acknowledgement:</small>
+                                        </p>
+                                        <table class="acknowledgements">
+                                                <tr>
+                                                       <td>
+                                                                <img src="http://imagej.net/_images/d/d0/Christian-dietz.jpg">
+                                                                <br>Christian<br>Dietz
+                                                        </td>
+                                                        <td>
+                                                                <img src="http://imagej.net/_images/f/f5/Mark-hiner.jpg">
+                                                                <br>Mark<br>Hiner
+                                                        </td>
+                                                       <td>
+                                                                <img src="http://imagej.net/_images/9/92/Curtis-rueden-2010.jpg">
+                                                                <br>Curtis<br>Rueden
+                                                        </td>
+                                                       <td>
+                                                                <img src="http://imagej.net/_images/a/a9/Johannes-schindelin.jpg">
+                                                                <br>Johannes<br>Schindelin
+                                                        </td>
+                                                </tr>
+                                        </table>
+				</section>
+
 	
 		</div>
 
