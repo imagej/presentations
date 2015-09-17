@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Introducing the ImageJ OPS framework</title>
+
+		<meta name="description" content="A framework for generic, flexible and fast image processing">
+		<meta name="author" content="Johannes Schindelin">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>The ImageJ&nbsp;OPS framework</h1>
+					<h3>Image Processing Made Easy</h3>
+					<p>
+						<small>Johannes Schindelin, Christian Dietz &amp; Curtis Rueden</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>What's the problem?</h2>
+					<ul>
+						<li class="fragment">image processing consists of a pipeline</li>
+						<li class="fragment">each pipeline consists of operations</li>
+						<li class="fragment">many users find it complicated to build pipelines for their tasks</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Options for image processing and analysis:</h2>
+					<ul>
+						<li class="fragment">easy-to-use applications for most common operations</li>
+						<li class="fragment">extensions (modules, plugins)</li>
+						<li class="fragment">scripting</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Wouldn't it be nice if we had something...</h2>
+					<ul>
+						<li class="fragment">easy to use, to extend and to maintain?</li>
+						<li class="fragment">that handles large amounts of data?</li>
+						<li class="fragment">that is blazing fast?</li>
+					</ul>
+				</section>
+
+				<section>
+					<img style="width: 12em; height: 12em; border: 0;" src="Bulb01-Yellow.svg" />
+					<ul>
+						<li class="fragment">We have a community!</li>
+						<li class="fragment">We have experience with collaborative development!</li>
+						<li class="fragment">We have the SciJava framework and ImgLib2!</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>A little excursion</h2>
+						<h3>The SciJava framework</h3>
+						<ul>
+							<li class="fragment">Reuse</li>
+							<li class="fragment">Extend</li>
+							<li class="fragment">Be empowered!</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Defining a plugin&nbsp;type</h2>
+						<pre>
+						<code lang="java" data-trim contenteditable>
+public interface Greeter extends SciJavaPlugin {
+	public String sayHello();
+}
+						</code>
+						</pre>
+					</section>
+
+					<section>
+						<h2>Implementing a plugin type</h2>
+						<pre>
+						<code lang="java" data-trim contenteditable>
+@Plugin(type = Greeter.class)
+public class HelloWorld implements Greeter {
+	@Override
+	public String sayHello() {
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "Hello, world!";
+	}
+}
+						</code>
+						</pre>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Easy to use</h2>
+						<pre>
+							<code lang="python" data-trim contenteditable>
+# @ImageJ ij
+
+blank = ij.op().createImg(150, 100)
+formula = "10 * (Math.cos(0.3*p[0]) + Math.sin(0.3*p[1]))"
+sinusoid = ij.op().equation(blank, formula)
+
+ij.op().add(sinusoid, 13.0)
+
+gradient = ij.op().equation(ij.op().createImg(150, 100), "p[0]+p[1]")
+
+composite = ij.op().createImg(150, 100)
+ij.op().add(composite, sinusoid, gradient)
+
+ij.ui().show("sinusoid", sinusoid)
+ij.ui().show("gradient", gradient)
+ij.ui().show("composite", composite)
+							</code>
+						</pre>
+						<small class="fragment">Note: Due to heavy development, this code does not currently work in Fiji.</small>
+					</section>
+
+					<section>
+						<h2>Easy to extend</h2>
+						<pre>
+							<code lang="python" data-trim contenteditable>
+@Plugin(type = Op.class, name = "narf")
+public static class Narf implements Op {
+
+	@Parameter(type = ItemIO.BOTH)
+	private String string;
+
+	@Override
+	public void run() {
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;string = "Egads! " + string.toUpperCase();
+	}
+}
+							</code>
+						</pre>
+					</section>
+				</section>
+
+				<section>
+					<h2>Large data</h2>
+					<p class="fragment">Of course! Thanks to <a href="http://imglib2.net/">ImgLib2</a>!</p>
+				</section>
+
+				<section>
+					<h2>Fast?</h2>
+					<ul>
+						<li class="fragment">Well, yes!<span class="fragment"> (The trick is code generation...)</span></li>
+						<li class="fragment">What about CUDA (GPU computing)?<span class="fragment"> ... SciJava plugins!</span></li>
+						<li class="fragment">Balancing development time vs execution time<br/><small>Compare <a href="http://xkcd.com/1205">xkcd: Is It Worth the Time?</a></small></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Status: alpha</h2>
+					<ul>
+						<li class="fragment">Under heavy development</li>
+						<li class="fragment">API changes</li>
+						<li class="fragment">A lot of fun!</li>
+						<li class="fragment"><a href="https://github.com/imagej/imagej-ops">https://github.com/imagej/imagej-ops</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Thanks!</h2>
+					<ul>
+						<li>The ImgLib2 developers<br/><small>(Tobias Pietzsch, Stephan Preibisch, Stephan Saalfeld, Barry DeZonia, Curtis Rueden, Albert Cardona, Jean-Yves Tinevez, ...)</small></li>
+						<li>The designers of ImageJ OPS' architecture<br/><small>(Curtis Rueden, Christian Dietz, Martin Horn, Michael Zinsmaier)</small></li>
+						<li>The visionaries funding hackathons:<br/><small>Pavel Tomancak, Kevin Eliceiri, Michael Berthold</small></li>
+					</ul>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
