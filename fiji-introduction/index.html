@@ -64,7 +64,7 @@
 						<img class="image" style="width: 350px" src="http://imagej.net/_images/d/d1/Imagej2-icon.png">
 					</div>
 					<p>A tool for <strong><em>scientific</em></strong> image analysis</p>
-					<ul style="padding-left: 2em; font-size: 0.8em">
+					<ul style="padding-left: 2em; font-size: 0.75em">
 						<li><a href="http://imagej.net/Open_Source">Open source</a>
 							<ul>
 								<li>You wouldn't write:
@@ -115,13 +115,18 @@
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
 					<h2>Teach me how to fish!</h2>
 					<div class="url bottom center"><a href="http://forum.imagej.net/">http://forum.imagej.net/</a></div>
-					<p><img style="margin-top: -12px; width: 77%" src="imagej-forum.jpg"></p>
+					<section>
+						<p><img style="margin-top: -60px; width: 77%" src="imagej-forum.jpg"></p>
+					</section>
+					<section>
+						<p><img style="margin-top: -51px; width: 97%" src="fiji-usage-map.jpg"></p>
+					</section>
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
 					<h2>The main window</h2>
 					<div class="url bottom center"><a href="http://imagej.net/Getting_started">http://imagej.net/Getting_started</a></div>
-					<p><img style="padding-left: 1.5em; width: 77%" src="fiji-main-window.png"></p>
+					<p><img style="background-color: white; padding-left: 1.5em; width: 77%" src="fiji-main-window.png"></p>
 					<ul style="margin-top: -30px">
 						<li>Tip: click on the status bar</li>
 						<li>Tip: right / double-click on Tools</li>
@@ -148,10 +153,90 @@
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Opening data</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Importing_Image_Files">http://imagej.net/Importing_Image_Files</a></div>
+						<p style="margin-top: -15px"><img class="image" style="width: 40%" src="imagej-drag-and-drop-virtual.png"></p>
+						<p style="margin-top: -20px"><small>Drag and Drop<br><em>File &#9654; Open...</em></small></p>
+						<p style="margin-top: -35px"><img class="image" style="width: 70%" src="bio-formats-importer-dialog.png"></p>
+						<p style="margin-top: -62px"><small><em>File &#9654; Import &#9654; Bio-Formats</em></small></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Pixel types</h2>
+					<div class="url bottom center"><a href="http://imagej.net/docs/guide/146-7.html">http://imagej.net/docs/guide/146-7.html</a></div>
+					<p><img class="image" style="width: 60%" src="image-type-menu.png"></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Pixel type pitfalls</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Principles">http://imagej.net/Principles</a></div>
+					<div style="float: right; width: 30%"><img class="image" style="width: 300px" src="new-image-dialog.png"></div>
+					<ul style="padding-top: 35px; width: 65%">
+						<li>Know the limitations of your data
+							<small>
+								<ul>
+									<li><em>File &#9654; New &#9654; Image...</em> (32-bit, ramp, 20x20)</li>
+									<li><em>Process &#9654; Math &#9654; Multiply...</em> : 100,000,000</li>
+									<li>Probe values</li>
+									<li><em>Process &#9654; Math &#9654; Add...</em> : 1</li>
+									<li>Probe values</li>
+								</ul>
+							</small>
+						</li>
+						<li style="padding-top: 0.5em">Can you find any problems?</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Get to know your data</h2>
+					<div class="url bottom center"><a href="http://imagej.net/docs/guide/146-30.html">http://imagej.net/docs/guide/146-30.html</a></div>
+					<div style="float: right; width: 30%"><img class="image" style="width: 300px" src="histogram-boats.jpg"></div>
+					<ul style="padding-top: 1em">
+						<li><em>File &#9654; Open Samples &#9654; Boats</em></li>
+						<li><em>Analyze &#9654; Histogram</em></li>
+						<li>Compare histograms:<br>
+							<em>File &#9654; Open Samples &#9654; Blobs</em>
+						</li>
+					</ul>
+					<br style="clear: right">
+					<div style="float: right; width: 30%"><img class="image" style="width: 300px" src="histogram-suspicious.png"></div>
+					<p style="padding-top: 1em">What would cause this histogram? &#10137;</p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Profile Plots</h2>
+					<div class="url bottom center"><a href="http://imagej.net/docs/guide/146-28.html">http://imagej.net/docs/guide/146-28.html</a></div>
+					<div style="float: right; width: 50%"><img class="image" style="width: 350px" src="profile-plot.png"></div>
+					<ul style="padding-top: 1em">
+						<li>Open Blobs (Shift + B)</li>
+						<li>Use any Line tool</li>
+						<li><em>Analyze &#9654; Plot Profile</em></li>
+					</ul>
+					<br style="clear: right">
+					<div style="float: right; width: 30%"><img class="image" style="width: 250px" src="z-axis-profile.png"></div>
+					<p style="padding-top: 1em"><em>Image &#9654; Stacks &#9654; Plot Z-Axis Profile...</em></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Thresholding</h2>
+					<div class="url bottom center"><a style="font-size: 0.8em" href="http://imagej.net/docs/guide/146-28.html#sub:Threshold...[T]">http://imagej.net/docs/guide/146-28.html#sub:Threshold...[T]</a></div>
+					<div style="float: right; width: 30%">
+						<p><img class="image" style="width: 250px" src="threshold-dialog.png"></p>
+						<p style="margin-top: -100px"><img class="image" style="width: 350px" src="blobs-thresholded.png"></p>
+					</div>
+					<p>Isolate values of interest</p>
+					<ul>
+						<li>Open Blobs (Shift + B)</li>
+						<li>Use any Line tool</li>
+						<li><em>Image &#9654; Adjust &#9654; Threshold...</em> (Shift + T)</li>
+				</ul>
+					<p>Which method is best?</p>
+					<p><em>Image &#9654; Adjust &#9654; Auto Threshold</em>, Try All</p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
 					<h2>Image processing principles</h2>
 					<div class="url bottom center"><a href="http://imagej.net/Principles">http://imagej.net/Principles</a></div>
-					<section>
-					</section>
 					<section>
 						<p><img style="width: 60%" src="pipette.jpg"></p>
 						<p><small>What does this image tell us about the volume of this pipette?</small></p>
@@ -195,6 +280,7 @@
 						</p>
 					</section>
 					<section>
+						<div class="url bottom center" style="bottom: 30px"><a href="https://youtu.be/QCLm1PvVTY8">https://youtu.be/QCLm1PvVTY8</a></div>
 						<div style="float: left; width: 522px">
 							<p><small>1x</small></p>
 							<p style="margin-top: -70px"><img class="image" style="width: 522px" src="striped-circles.png"></p>
@@ -202,10 +288,12 @@
 						<div style="float: left; width: 250px">
 							<p><small>1/4x</small></p>
 							<p style="margin-top: -70px"><img class="image" style="width: 250px" src="striped-circles-25%.png"></p>
+							<p style="margin-top: -75px"><small>No stripes?</small></p>
 						</div>
 						<div style="float: left; width: 185px">
 							<p><small>1/12x</small></p>
-							<p style="margin-top: -70px"><img class="image" style="width: 370px" src="striped-circles-8.3%.png"></p>
+							<p style="margin-top: -63px"><img class="image" style="width: 370px" src="striped-circles-8.3%.png"></p>
+							<p style="margin-top: -55px"><small>WTF?</small></p>
 						</div>
 					</section>
 					<section>
