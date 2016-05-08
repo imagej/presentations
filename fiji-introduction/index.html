@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Introduction to Fiji</title>
+
+		<meta name="description" content="A workshop for getting started with Fiji">
+		<meta name="author" content="Curtis Rueden, Mark Hiner, Ellen Arena, Johannes Schindelin">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/reveal.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/theme/white.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../reveal.js-3.1.0/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js-3.1.0/css/print/pdf.css' : '../reveal.js-3.1.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../reveal.js-3.1.0/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<div style="padding-top: 2em">
+						<img class="image" style="width: 20%" src="http://imagej.net/_images/a/ae/Fiji-icon.png">
+					</div>
+					<h2>Image Analysis with Fiji</h2>
+
+					<p style="padding-top: 3em">
+					<a href="http://imagej.net/LOCI">
+						<img class="logo" src="http://imagej.net/_images/6/62/Loci-logo.png" style="height: 1.8em">
+					</a>
+					<a href="http://wisc.edu/">
+						<img class="logo" src="http://imagej.net/_images/b/bf/UW-logo.png" style="height: 1.8em">
+					</a>
+					</p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>What is ImageJ?</h2>
+					<div class="url bottom center"><a href="http://imagej.net/">http://imagej.net/</a></div>
+					<div style="float: right">
+						<img class="image" style="width: 350px" src="http://imagej.net/_images/d/d1/Imagej2-icon.png">
+					</div>
+					<p>A tool for <strong><em>scientific</em></strong> image analysis</p>
+					<ul style="padding-left: 2em; font-size: 0.8em">
+						<li><a href="http://imagej.net/Open_Source">Open source</a>
+							<ul>
+								<li>You wouldn't write:
+									<blockquote style="padding-top: 0.7em; padding-left: 2em"><small>Added 500mg of unknown chemical.</small></blockquote>
+								</li>
+								<li>So don't put your data in a black box!</li>
+							</ul>
+						</li>
+						<li style="padding-top: 1em">Rich ecosystem: thousands of
+							<a href="http://imagej.net/Plugins">plugins</a>
+							<ul>
+								<li>Science = <a href="http://imagej.net/Reproducibility">reproducibility</a></li>
+							</ul>
+						</li>
+					</ul>
+					<p><em>Plugins &#9654; Utilities &#9654; Make Fiji Package</em></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>
+						<span class="hilite">F</span>iji
+						<span class="hilite">I</span>s
+						<span class="hilite">J</span>ust
+						<span class="hilite">I</span>mageJ
+					</h2>
+					<div class="url bottom center"><a href="http://fiji.sc/">http://fiji.sc/</a></div>
+					<p><img style="background-color: white !important; padding: 10px; margin-top: -24px; width: 83%" src="techniques.jpg"></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Ctrl+L to find commands</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Command_Finder">http://imagej.net/Command_Finder</a></div>
+					<p><img class="image" style="margin-top: -25px; width: 90%" src="command-finder.png"></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Learn how to fish</h2>
+					<div class="url bottom center"><a href="http://imagej.net/">http://imagej.net/</a></div>
+					<p><img style="margin-top: -12px; width: 65%" src="imagej-wiki.jpg"></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Learn how to fish</h2>
+					<div class="url bottom center"><a href="http://search.imagej.net/">http://search.imagej.net/</a></div>
+					<p><img style="margin-top: -12px; width: 85%" src="search.jpg"></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Teach me how to fish!</h2>
+					<div class="url bottom center"><a href="http://forum.imagej.net/">http://forum.imagej.net/</a></div>
+					<p><img style="margin-top: -12px; width: 77%" src="imagej-forum.jpg"></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>The main window</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Getting_started">http://imagej.net/Getting_started</a></div>
+					<p><img style="padding-left: 1.5em; width: 77%" src="fiji-main-window.png"></p>
+					<ul style="margin-top: -30px">
+						<li>Tip: click on the status bar</li>
+						<li>Tip: right / double-click on Tools</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Staying up-to-date</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Updater">http://imagej.net/Updater</a></div>
+					<p><img class="image" style="margin-top: 0; width: 100%" src="help-update-menu.jpg"></p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Memory management</h2>
+					<div class="url bottom center"><a style="font-size: 0.8em" href="http://imagej.net/docs/guide/146-27.html#sub:Memory-&-Threads...">http://imagej.net/docs/guide/146-27.html#sub:Memory-&-Threads...</a></div>
+					<div style="float: left; width: 49%">
+						<p><img class="image" style="width: 100%" src="options-memory.png"></p>
+						<p style="margin-top: -70px"><small><em>Edit &#9654; Options &#9654; Memory &amp; Threads</em></small></p>
+					</div>
+					<div style="float: right; width: 49%">
+						<p><img class="image" style="width: 100%" src="monitor-memory.png"></p>
+						<p style="margin-top: -62px"><small><em>Plugins &#9654; Utilities &#9654; Monitor Memory</em></small></p>
+					</div>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Image processing principles</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Principles">http://imagej.net/Principles</a></div>
+					<section>
+					</section>
+					<section>
+						<p><img style="width: 60%" src="pipette.jpg"></p>
+						<p><small>What does this image tell us about the volume of this pipette?</small></p>
+					</section>
+					<section>
+						<p><img style="width: 70%" src="jpeg-artifacts.jpg"></p>
+						<p>Image formats are not created equal!</p>
+					</section>
+					<section>
+						<ul>
+							<li>Pixels are not little squares
+								<dd><small><tt><a href="http://alvyray.com/Memos/CG/Microsoft/6_pixel.pdf">http://alvyray.com/Memos/CG/Microsoft/6_pixel.pdf</a></tt></small></dd>
+							</li>
+							<li>Can think of detectors as sampling a Gaussian</li>
+						</ul>
+						<p><em>Edit &#9654; Options &#9654; Appearance...</em></p>
+						<p>
+						<img class="image" style="width: 32%" src="zoom-nearest.png">
+						<img class="image" style="width: 18%" src="options-appearance.png">
+						<img class="image" style="width: 32%" src="zoom-interpolate.png">
+						</p>
+					</section>
+					<section>
+						<p style="margin-top: -70px"><img class="image" style="width: 60%" src="adelsons-squares.png"></p>
+						<p style="margin-top: -70px"><em>File &#9654; Open Samples &#9654; Adelsons Squares</em></p>
+					</section>
+					<section>
+						<p style="margin-top: -60px">
+						<img class="image" style="width: 45%" src="comparing-lengths.png">
+						<img class="image" style="width: 45%" src="straight-lines.png">
+						</p>
+						<p style="margin-top: -60px"><em>File &#9654; Open Samples &#9654; Comparing Lengths</em></p>
+						<p style="margin-top: -25px"><em>File &#9654; Open Samples &#9654; Straight Lines</em></p>
+					</section>
+					<section>
+						<p style="margin-top: 0"><img style="width: 60%" src="color-constancy.jpg"></p>
+						<p style="text-align: left; margin-top: -40px; padding-left: 200px; font-size: 13px">
+						Purves, D., Lotto, R. B., &amp; Nundy, S. (2002).
+						<a href="https://scholar.google.com/scholar?cluster=17733224852221465869">Why we see what we do</a>.
+						<em>American Scientist</em>, 90(3), 236-243.
+						</p>
+					</section>
+					<section>
+						<p><img style="width: 50%" src="color-blindness.jpg"></p>
+						<p><em>Image &#9654; Color &#9654; Simulate Color Blindness</em></p>
+					</section>
+					<section>
+						<p style="margin-top: -40px"><img style="background-color: white; padding: 0.5em; width: 65%" src="image-analysis-basics.png"></p>
+						<p style="margin-top: -40px; font-size: 20px">
+							Many more details:
+							<a href="http://workshops.imagej.net/Basics-of-Quantitative-image-analysis.pdf">Basics of Quantitative Image Analysis</a>
+						</p>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Image registration</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Registration">http://imagej.net/Registration</a></div>
+					<p>Unify coordinates of 2+ images</p>
+					<div style="float: right; margin-top: -30px">
+						<img class="image" style="width: 300px" src="centipede-drawing.png">
+					</div>
+					<div style="float: right; margin-top: -30px">
+						<img class="image" style="width: 200px" src="align-images-dialog.png">
+					</div>
+					<ul style="font-size: 20px; margin-left: 60px">
+						<li><em>File &#9654; Open Samples &#9654; Centipede Drawing</em></li>
+						<li><em>File &#9654; Open Samples &#9654; Centipede Mivart</em></li>
+						<li>Draw lines between equivalent points</li>
+						<li><em>Plugins &#9654; Registration &#9654; Align Image by line ROI</em></li>
+					</ul>
+					<p>
+						<img class="image" style="width: 65%; margin-top: -20px" src="centipede-mivart.png">
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="../reveal.js-3.1.0/lib/js/head.min.js"></script>
+		<script src="../reveal.js-3.1.0/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: false,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: '../reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true },
+					{ src: '../reveal.js-3.1.0/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
