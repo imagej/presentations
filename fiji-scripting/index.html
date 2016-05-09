@@ -60,12 +60,11 @@
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
 					<h2>Why are scripts useful?</h2>
 					<div class="url bottom center"><a href="http://imagej.net/Scripting">http://imagej.net/Scripting</a></div>
+					<p>They facilitate <a href="http://imagej.net/Reproducibility">reproducible</a> science:</p>
 					<div style="float: right">
-						<img class="image" style="width: 350px" src="http://imagej.net/_images/d/d1/Imagej2-icon.png">
+						<img class="image" style="width: 500px; margin-top: -20px" src="script.png">
 					</div>
-					<p>A tool for <strong><em>scientific</em></strong> image analysis</p>
-					<ul style="padding-left: 2em; font-size: 0.75em">
-						<li>Do <a href="http://imagej.net/Reproducibility">reproducible</a> science</li>
+					<ul>
 						<li>Document your work</li>
 						<li>Automate your analysis</li>
 						<li><a href="http://imagej.net/Distribution">Share</a> with the world</li>
@@ -75,8 +74,9 @@
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
 					<div class="url bottom center"><a href="http://imagej.net/Recorder">http://imagej.net/Recorder</a></div>
-					<h2>Exercise: Record a Macro!</h2>
+					<h2>Macro Recorder</h2>
 					<section>
+						<p style="margin: 0">1. Launch the Recorder</p>
 						<p style="float: right; width: 45%">
 						<img class="image" style="width: 100%" src="macro-recorder.png">
 						</p>
@@ -87,6 +87,7 @@
 						</ul>
 					</section>
 					<section>
+						<p style="margin: 0">2. Execute operations</p>
 						<div style="float: right; width: 45%">
 							<p><img class="image" style="width: 100%" src="recorded-macro.png"></p>
 							<p class="tip"><small>Use the Command Finder (Ctrl+L)!</small></p>
@@ -101,6 +102,24 @@
 								<ul style="font-size: 0.8em">
 									<li>Show: Nothing</li>
 									<li>Add to Manager</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<p style="margin: 0">3. Spruce it up</p>
+						<div style="float: right; width: 45%">
+							<p><img class="image" style="width: 100%" src="spruced-up-macro.png"></p>
+						</div>
+						<ul style="font-size: 0.8em; margin-top: 60px">
+							<li>Click the "Create" button</li>
+							<li>Use <a href="http://imagej.net/Script_parameters">script parameters</a></li>
+							<li><code><a href="http://imagej.net/developer/macro/functions.html#setBatchMode">setBatchMode(true)</a></code></li>
+							<li>Use <a href="http://imagej.net/developer/macro/functions.html#getImageID">image IDs</a></li>
+							<li>Store in <code>plugins/Scripts</code>
+								<ul style="font-size: 0.8em">
+									<li>Include an underscore in the name</li>
+									<li>In a folder matching the desired menu</li>
 								</ul>
 							</li>
 						</ul>
