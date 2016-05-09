@@ -1,0 +1,80 @@
+.toplevel {
+  height: 100%;
+}
+
+.url {
+  background: palegoldenrod;
+  border-radius: 0.5em;
+  box-shadow: 3px 3px 1px #444 !important;
+  font-family: monospace !important;
+  font-size: 0.6em !important;
+  padding: 0.5em 2em 0.5em 2em !important;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 27px;
+}
+.left {
+  position: absolute;
+  left: 0;
+}
+.right {
+  position: absolute;
+  right: 80px;
+}
+.center {
+  position: absolute;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  left: 2em;
+  right: 2em;
+}
+
+.blurb {
+  font-size: 0.6em !important;
+  margin-top: -20px !important;
+}
+
+.image {
+  width: 40%;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  vertical-align: middle !important;
+}
+
+.logo {
+  background: white !important;
+  border: 1px solid gray !important;
+  border-radius: 0.2em;
+  box-shadow: none !important;
+  padding: 0.2em 0.5em 0.2em 0.5em !important;
+  vertical-align: middle !important;
+}
+
+.hilite {
+  color: red;
+  font-weight: bold;
+  font-size: 1.3em !important;
+}
+
+code {
+  font-size: 0.8em !important;
+}
+
+.tip {
+  background-color: palegreen;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/c/c5/Emoji_u1f4a1.svg");
+  background-repeat: no-repeat;
+  background-size: 48px 48px;
+  background-position: 5px 5px;
+  border-radius: 0.7em;
+  border: 2px solid darkgray;
+  font-size: 0.8em !important;
+  padding: 0.7em !important;
+}
+
+.tip ul {
+  margin-left: 80px !important;
+}
