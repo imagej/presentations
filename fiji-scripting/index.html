@@ -282,7 +282,7 @@ while (getBoolean("Are you sick of my questions yet?")) {
 // this example makes a stack of blurred versions of the
 // current slice with a range of radii.
 
-radius = getNumber("Maximal radius?");
+radius = getNumber("Maximal radius?", 5);
 
 title = "Blurred stack of " + getTitle();
 run("Duplicate...", "title=[" + title + "]");
