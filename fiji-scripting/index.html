@@ -234,16 +234,16 @@ run("Duplicate...", "title=[with spaces]");
 					<h2>Macros: strings</h2>
 					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Macros</a></div>
 					<pre><code class="javascript" data-trim contenteditable>
-number = 1;
+me = "copy";
 
 // you can concatenate strings, and strings and numbers
-text = "The number is " + number;
+text = "The name is " + name;
 
 // what happens when we run this?
-run("My plugin", "does_not_work=number");
+run("Duplicate...", "title=name");
 
 // what's different with this line?
-run("My plugin", "this_works=" + number);
+run("Duplicate...", "title=" + name);
 					</code></pre>
 				</section>
 
