@@ -265,13 +265,19 @@ showMessage(hint);
 					<h2>Macros: loops</h2>
 					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Macros</a></div>
 					<pre><code class="javascript" data-trim contenteditable>
+// For loops:
+// They use assignment, test, increment
+// Use when you know the # of times to loop
 for (i = 1; i <= 10; i++) {
     print("Counter: " + i);
 }
 
-while (getBoolean("Are you sick of my questions yet?")) {
-    print("You know, I really have all day to keep asking...");
+// While loops:
+// Use when you do not necessarily know they # of times the loop will run
+while (getBoolean("Do you want me to keep going?")) {
+    print("Ok, I'm still going...");
 }
+showMessage("Ok, I'm done!");
 					</code></pre>
 				</section>
 
