@@ -251,13 +251,15 @@ run("Duplicate...", "title=" + name);
 					<h2>Macros: conditionals</h2>
 					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Macros</a></div>
 					<pre><code class="javascript" data-trim contenteditable>
-if (getBoolean("Is Curtis going too fast?")) {
-    hint = "Tell him!";
+// @String instructor
+
+if (getBoolean("Is " + instructor + " going too fast?")) {
+    hint = "Tell them to to slow down!";
 }
 else {
     hint = "Try to modify the code, play with it...";
 }
-showMessage(hint);
+showMessage("Advice:", hint);
 					</code></pre>
 				</section>
 
