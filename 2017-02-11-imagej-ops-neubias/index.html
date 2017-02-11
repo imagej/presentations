@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Scripting with ImageJ</title>
+
+		<meta name="description" content="An introduction to ImageJ Ops">
+		<meta name="author" content="Curtis Rueden">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/reveal.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/theme/moon.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../reveal.js-3.1.0/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js-3.1.0/css/print/pdf.css' : '../reveal.js-3.1.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../reveal.js-3.1.0/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- TITLE SLIDE -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h1>Scripting with ImageJ</h1>
+					<h2>An introduction to ImageJ Ops</h2>
+					<p>
+					<small><a href="http://imagej.net/User:Rueden">Curtis Rueden</a>,
+						UW-Madison <a href="http://imagej.net/LOCI">LOCI</a>
+						<br><br>Tweets to <code class="g">#neubias</code></small>
+					</p>
+					<p style="padding-top: 1em">
+					<a href="http://imagej.net/LOCI">
+						<img class="logo" src="http://imagej.net/_images/6/62/Loci-logo.png" style="height: 1.8em">
+					</a>
+					<a href="http://wisc.edu/">
+						<img class="logo" src="http://imagej.net/_images/b/bf/UW-logo.png" style="height: 1.8em">
+					</a>
+					<a href="https://morgridge.org/">
+						<img class="logo" src="http://imagej.net/_images/9/94/Morgridge-logo.jpg" style="height: 1.8em">
+					</a>
+					<br>
+					<a href="http://eubias.org/NEUBIAS/neubias2020-conference/symposium2017-lisbon/">
+						<img class="logo" style="width: 45%" src="http://eubias.org/NEUBIAS/wp-content/uploads/2016/12/NEUBIAS_COST_Logos.png">
+					</a>
+					</p>
+				</section>
+
+				<!-- MAIN SLIDES -->
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>GET READY</h2>
+					<section>
+						<ol>
+							<li>Everyone installed <a href="http://beakernotebook.com/">Beaker</a>, right? Great! &#x1F44D;</li>
+							<br>
+							<li>
+								Now clone the <a href="https://github.com/imagej/tutorials">ImageJ tutorials</a> repository:
+								<pre><code class="shell" data-trim contenteditable>
+git clone git://github.com/imagej/tutorials
+								</code></pre>
+							</li>
+							<br>
+							<li>
+								Finally, start Beaker and open this notebook:
+								<pre><code data-trim contenteditable>
+ImageJ Tutorials and Demo.bkr
+								</code></pre>
+								It will take a few minutes (!) to initialize.
+							</li>
+						</ol>
+					</section>
+					<section>
+						<h3>Troubleshooting</h3>
+						<ul>
+							<li><b><em>Notebook fails to initialize?</em></b>
+								<ol>
+									<li>Borrow a thumb drive.</li>
+									<li>Copy <code>imagej-ops.zip</code> to your home folder.</li>
+									<li>Unzip it.</li>
+									<li>Check for <code>~/.groovy/grapes</code> and <code>~/data</code>.</li>
+									<li>Copy the <code>.bkr</code> notebooks too if you like.</li>
+									<li><em>Give back</em> the thumb drive. &#x1F609;</li>
+								</ol>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Troubleshooting</h3>
+						<ul>
+							<li><b><em>Beaker launches, but nothing happens?</em></b>
+								<ol>
+									<li>Try <a href="http://127.0.0.1:8801/beaker/#/control">this link</a> to open a local Beaker web page.</li>
+								</ol>
+							</li>
+							<br>
+							<li><b><em>Beaker cannot install, or crashes?</em></b>
+								<ol>
+									<li>Try restarting Beaker.</li>
+									<li>Use the <a href="https://imagej.github.io/tutorials/">online static version</a>.</li>
+								</ol>
+							</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>Working state to working state</h2>
+					<section>
+						<div style="font-size: 30px; text-align: left">
+						<p>A <em>software engineer</em>, a <em>hardware engineer</em> and a
+						<em>department manager</em> were on their way to a meeting in
+						Switzerland. They were driving down a steep mountain road when
+						suddenly the brakes on their car failed. The car careened almost
+						out of control down the road, bouncing off the crash barriers,
+						until it miraculously ground to a halt scraping along the
+						mountainside.</p>
+						<p>
+						The car's occupants, shaken but unhurt, now had a problem: they
+						were stuck halfway down a mountain in a car with no brakes. What
+						were they to do?
+						</p>
+						</div>
+					</section>
+					<section>
+						<h3>What should they do?</h3>
+						<div style="font-size: 30px; text-align: left">
+							<p class="fragment"><strong>Department manager</strong><br>
+								Have a meeting, propose a Vision, formulate a Mission
+								Statement, define some Goals and by a process of Continuous
+								Improvement find a solution to the Critical Problems.
+							</p>
+							<p class="fragment">
+							<strong>Hardware engineer</strong><br>
+								Strip down the car's braking system, isolate the fault,
+								and fix it.</p>
+							<p class="fragment"><strong>Software engineer</strong><br>
+								Push the car back up the road and see if it happens again.</p>
+						</div>
+					</section>
+					<section>
+						<h3>Why?</h3>
+						<ul>
+							<li>Compare working to non-working: what changed?</li>
+							<li>Needed for <a href="https://imagej.net/Bug_reporting_best_practices">effective bug reports</a>.</li>
+							<li>Works great with the scientific method, too.</li>
+						</ul>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Motivation</h2>
+					<p>
+					Why should you care about ImageJ?<br>
+					Why not use Imaris and MATLAB for everything?
+					</p>
+					<ul>
+						<li class="fragment"><B>Pragmatic:</B> You can fix bugs, add features</li>
+						<li class="fragment"><b>Scientific:</b> See and understand how it works</li>
+						<li class="fragment"><b>Selfish:</b> ImageJ is free and cross-platform</li>
+						<li class="fragment"><b>Ethical:</b> Fully reproducible, better science</li>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>How to be effective</h2>
+					<ul>
+						<li>VCS &ndash; Version Control System</li>
+						<li>IDE &ndash; Integrated Development Environment</li>
+						<li>CLI &ndash; Command Line Tools</li>
+						<li>Build systems and dependency management</li>
+						<li>Debuggers</li>
+					</ul>
+					<h2 style="padding-top: 0.5em">Further reading</h2>
+					<ul>
+						<li><a href="http://imagej.net/User:Rueden#Recommended_development_tools">My favorite development tools</a></li>
+						<li><a href="http://loci.wisc.edu/software/developing-loci-software">Key tools of the (software) trade</a></li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Get involved</h2>
+					<ul>
+						<li class="fragment">Edit and improve the <a href="https://imagej.net/">ImageJ wiki</a></li>
+						<li class="fragment">Make your science <a href="http://loci.wisc.edu/software/oss">open and reproducible</a></li>
+						<li class="fragment">Add your favorite/new algorithms as Ops</li>
+						<li class="fragment">Help others to <em>avoid repeating your pain</em></li>
+						<li class="fragment">Discuss ideas publicly to help <em>all of us</em></li>
+						<li class="fragment"><em>You</em> are custodians of the OSS ecosystem!</li>
+					</ul>
+					<aside class="notes">
+						<small>
+							<ul>
+								<li>We have a fantastic, well-structured base of software tools</li>
+								<li>We have several software gurus working together</li>
+								<li>But very few of us are paid to work on this</li>
+								<li>Allocate some resources!</li>
+								<li>Together, everyone achieves more! ;-)</li>
+							</ul>
+						</small>
+					</aside>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Workshop caveats</h2>
+					<section>
+						<ul>
+							<li><h3 class="fragment">I cannot show you real workflows.</h3></li>
+							<li><h3 class="fragment">Ops is still not stable.</h3></li>
+						</ul>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Data science observations</h2>
+					<ul>
+						<li>Tools are always changing, improving</li>
+						<li>Different tools have different strengths</li>
+						<li>No one language is poised to dominate</li>
+					</ul>
+					<aside class="notes">
+						The closest languages to domination in our field are probably:
+						Python, MATLAB, R, Java/JVM (Scala/Groovy/etc.) and Julia.
+					</aside>
+					<h3 class="fragment" style="padding-top: 1em">Conclusion:</b> use polyglot tools!</h3>
+					<aside class="notes">
+						<ul>
+							<li>Tools that can mix and match languages, features, etc.</li>
+							<li>"Meta" tools: tools for using tools and combining them</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Which tools are "polyglot"?</h2>
+					<section>
+						<a href="https://imagej.net/KNIME">
+							<img class="logo" style="padding: 30px !important" src="knime-logo.jpg">
+						</a>
+						<p>Look forward to Martin's <a href="https://imagej.net/KNIME">KNIME</a> workshop tomorrow!</p>
+					</section>
+					<section>
+						<a href="http://beakernotebook.com/">
+							<img class="plain" style="height: 10em" src="beaker-icon.png">
+						</a>
+						<p>We will use <a href="http://beakernotebook.com/">Beaker Notebook</a> to explore ImageJ today.</p>
+					</section>
+					<section>
+						<h3>More will emerge. Always keep looking!</h3>
+					</section>
+				</section>
+
+				<section>
+					<h2>Beaker vs. Jupyter Notebook</h2>
+					<ul>
+						<li class="fragment">
+							<img class="plain" style="height: 1em" src="beaker-icon.png">
+							<a href="http://jupyter.org/">Jupyter</a> has only one language kernel at a time.
+						</li>
+						<li class="fragment">
+							<img class="plain" style="height: 1em" src="beaker-icon.png">
+							Beaker is (IMHO) easier to install.
+						</li>
+						<li class="fragment">
+							<img class="plain" style="height: 1em" src="beaker-icon.png">
+							Beaker works better for Java code.
+						</li>
+						<li class="fragment">
+							<img class="plain" style="height: 1em" src="jupyter-icon.png">
+							Jupyter works better (?) for Python code.
+						</li>
+						<li class="fragment">
+							<img class="plain" style="height: 1em" src="jupyter-icon.png">
+							GitHub renders Jupyter notebooks, but not Beaker ones.
+						</li>
+						<li class="fragment">
+							<img class="plain" style="height: 1em" src="jupyter-icon.png">
+							Jupyter has a much larger community.
+						</li>
+					</ul>
+					<aside class="notes">
+						Jupyter is not truly "polyglot" in a mix-and-match sense.
+						You must select a language, and craft the notebook in that language.
+						If/when that changes, Jupyter will be another effective option.
+						But until then, we have chosen Beaker because it allows mixing.
+					</aside>
+					<aside class="notes">
+						There is a Jupyter Groovy kernel (two, actually) and you can write
+						Groovy code, but in my tests it worked less well&mdash;it did not
+						display images as expected, etc. That said: the Scala kernel for
+						Jupyter works well, and can display images; see: link to Jupyter
+						example notebooks... kmader's? Or ours if we have them.
+					</aside>
+					<aside class="notes">
+						(as time allows, Curtis will explore autoconversion of all Beaker
+						notebooks into a Jupyter format that GitHub renders. Alternately,
+						Beaker has a publication server, which does the same. It is just
+						less accessible than GitHub because the notebooks would be
+						published external to GitHub.)
+					</aside>
+				</section>
+
+				<section>
+					<h2>Strengths of Beaker</h2>
+					<ul>
+						<li>Groovy, Python, R</li>
+						<li>Charts (Groovy and Python APIs)</li>
+						<li>Language switching</li>
+					</ul>
+					<h2 style="padding-top: 0.5em">Beaker Examples and Help</h2>
+					<ul>
+						<li><a href="https://pub.beakernotebook.com/publications/560eb102-736b-4477-98d3-ebeeb5772efa">A nice example notebook</a></li>
+						<li>Help &rarr; Tutorials</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Script tools inside ImageJ</h2>
+					<section>
+						<ul>
+							<li><a href="http://imagej.net/Script_Editor">Script Editor</a></li>
+							<li>Script Interpreter</li>
+						</ul>
+						<aside class="notes">
+							These tutorials will change. Code you see today might require
+							syntax changes in the future. We are doing our best to minimize
+							this, but only when it won't harm the quality of the design.
+							Expect ImageJ Ops 1.0.0 stable release before the end of 2017.
+							After that, code will break less often and less badly.
+						</aside>
+					</section>
+				</section>
+
+				<section>
+					<h2>Beaker Time!</h2>
+					<img class="plain" style="height: 10em" src="beaker-icon.png">
+				</section>
+
+				<section>
+					<h2>Our first ImageJ plugin</h2>
+					<p>
+					<a href="https://imagej.net/Eclipse">
+						<img class="logo" style="height: 3em" src="http://imagej.net/_images/6/6b/Eclipse-luna.png">
+					</a>
+					<a href="https://imagej.net/NetBeans">
+						<img class="logo" style="height: 3em" src="http://imagej.net/_images/c/c3/Netbeans.png">
+					</a>
+					<a href="https://imagej.net/IDEA">
+						<img class="logo" style="height: 3em" src="http://imagej.net/_images/1/1b/Intellij-idea.png">
+					</a>
+					<a href="https://imagej.net/Command_line">
+						<img class="logo" style="height: 3em" src="http://imagej.net/_images/4/4a/Command-line.png">
+					</a>
+					</p>
+
+					<div class="url" style="padding-top: 20px"><a href="https://github.com/imagej/example-imagej-command">https://github.com/imagej/example-imagej-command</a></div>
+				</section>
+
+				<section>
+					<h2>Further reading about ImageJ</h2>
+					<blockquote>
+						Rueden, C. T., et al. "<a href="https://arxiv.org/abs/1701.05940">ImageJ2: ImageJ for the next generation of scientific image data</a>." arXiv preprint (2017).
+					</blockquote>
+					<div class="url" style="padding-top: 20px"><a href="https://imagej.net/">https://imagej.net/</a></div>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="../reveal.js-3.1.0/lib/js/head.min.js"></script>
+		<script src="../reveal.js-3.1.0/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: false,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: '../reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true },
+					{ src: '../reveal.js-3.1.0/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
