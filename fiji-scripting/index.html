@@ -88,19 +88,25 @@
 					<section>
 						<p style="margin: 0">2. Execute operations</p>
 						<div style="float: right; width: 45%">
-							<p><img class="image" style="width: 100%" src="recorded-macro.png"></p>
-							<p class="tip"><small>Use the Command Finder (Ctrl+L)!</small></p>
+							<p><img class="image" style="width: 100%; margin: -30px 0" src="openImage_url.png"></p>
+							<p><img class="image" style="width: 100%; margin: -30px 0" src="recorded-macro.png"></p>
+							<p class="tip" style="margin: -10px 0"><small>Use the Command Finder (Ctrl+L)!</small></p>
 						</div>
 						<ul style="font-size: 0.8em; margin-top: 60px">
-							<li>Open Blobs (Shift+B)</li>
+							<li>Open <a href="http://workshops.imagej.net/">sample image</a></li>
+								<ul style="font-size: 0.8em">
+									<li>Right click "images/C3-jw-30min.zip"</li>
+									<li>Copy Link Address</li>
+									<li><em>File &#9654; Import &#9654; URL</em></li>
+								</ul>
+							<li>Apply Gaussian blur</li>
 							<li>Apply a threshold (Shift+T)</li>
 							<li>Create Mask</li>
-							<li>Dilate</li>
 							<li>Watershed</li>
 							<li>Analyze Particles...
 								<ul style="font-size: 0.8em">
-									<li>Show: Nothing</li>
-									<li>Add to Manager</li>
+									<li>Size: 200-Infinity</li>
+									<li>Exclude on edges; Add to Manager</li>
 								</ul>
 							</li>
 						</ul>
