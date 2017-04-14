@@ -160,6 +160,57 @@
 						<div class="tip" style="margin-top: -40px"><em>Templates &#9654; ImageJ 1.x &#9654; Examples &#9654; Process Folder (IJ1 Macro)</em></div>
 						<p><img class="image" style="margin-top: -30px; width: 59%" src="process-folder.png"></p>
 					</section>
+
+					<section>
+						<p style="font-size: 0.75em;">Example script to count nuclei in multiple images in a folder/subfolders:</p>
+					<pre><code class="javascript" data-trim contenteditable>
+// @File(label = "Input directory", style = "directory") input
+// @File(label = "Output directory", style = "directory") output
+// @String(label = "File suffix", value = ".tif") suffix
+
+/*
+* Macro to count nuclei in multiple images in a folder/subfolders.
+*/
+	
+processFolder(input);
+	
+// function to scan folders/subfolders/files to find files with correct suffix
+function processFolder(input) {
+	list = getFileList(input);
+	for (i = 0; i < list.length; i++) {
+		if(File.isDirectory(input + list[i]))
+			processFolder("" + input + list[i]);
+		if(endsWith(list[i], suffix))
+			processFile(input, output, list[i]);
+	}
+	//saves results for all images in a single file
+	saveAs("Results", output + "/All_Results.tsv"); 
+}
+
+function processFile(input, output, file) {
+	setBatchMode(true); // prevents image windows from opening while the script is running
+	// open image using Bio-Formats
+	run("Bio-Formats", "open=[" + input + "/" + file +"] autoscale color_mode=Default rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT");
+
+	// create binary image
+	run("Gaussian Blur...", "sigma=2");
+	setAutoThreshold("Default dark");
+	//run("Threshold...");
+	run("Create Mask");
+	run("Watershed");
+	run("Analyze Particles...", "size=200-Infinity display exclude add");
+
+	// save ROIs for current image
+	roiManager("Deselect");
+	roiManager("Save", output+ "/" + file + "_ROI.zip"); // saves Rois zip file
+	roiManager("Deselect");
+	roiManager("Delete"); // clear ROI Manager for next image
+	
+	// save current binary image
+	save(output + "/Binary_OUTPUT_" + file);
+}
+					</code></pre>
+					</section>
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
