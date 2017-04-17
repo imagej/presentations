@@ -88,19 +88,25 @@
 					<section>
 						<p style="margin: 0">2. Execute operations</p>
 						<div style="float: right; width: 45%">
-							<p><img class="image" style="width: 100%" src="recorded-macro.png"></p>
-							<p class="tip"><small>Use the Command Finder (Ctrl+L)!</small></p>
+							<p><img class="image" style="width: 100%; margin: -30px 0" src="openImage_url.png"></p>
+							<p><img class="image" style="width: 100%; margin: -30px 0" src="recorded-macro.png"></p>
+							<p class="tip" style="margin: -10px 0"><small>Use the Command Finder (Ctrl+L)!</small></p>
 						</div>
 						<ul style="font-size: 0.8em; margin-top: 60px">
-							<li>Open Blobs (Shift+B)</li>
+							<li>Open <a href="http://workshops.imagej.net/">sample image</a></li>
+								<ul style="font-size: 0.8em">
+									<li>Right click "images/C3-jw-30min.zip"</li>
+									<li>Copy Link Address</li>
+									<li><em>File &#9654; Import &#9654; URL</em></li>
+								</ul>
+							<li>Apply Gaussian blur</li>
 							<li>Apply a threshold (Shift+T)</li>
 							<li>Create Mask</li>
-							<li>Dilate</li>
 							<li>Watershed</li>
 							<li>Analyze Particles...
 								<ul style="font-size: 0.8em">
-									<li>Show: Nothing</li>
-									<li>Add to Manager</li>
+									<li>Size: 200-Infinity</li>
+									<li>Exclude on edges; Add to Manager</li>
 								</ul>
 							</li>
 						</ul>
@@ -154,6 +160,57 @@
 						<div class="tip" style="margin-top: -40px"><em>Templates &#9654; ImageJ 1.x &#9654; Examples &#9654; Process Folder (IJ1 Macro)</em></div>
 						<p><img class="image" style="margin-top: -30px; width: 59%" src="process-folder.png"></p>
 					</section>
+
+					<section>
+						<p style="font-size: 0.75em;">Example script to count nuclei in multiple images in a folder/subfolders:</p>
+					<pre><code class="javascript" data-trim contenteditable>
+// @File(label = "Input directory", style = "directory") input
+// @File(label = "Output directory", style = "directory") output
+// @String(label = "File suffix", value = ".tif") suffix
+
+/*
+* Macro to count nuclei in multiple images in a folder/subfolders.
+*/
+	
+processFolder(input);
+	
+// function to scan folders/subfolders/files to find files with correct suffix
+function processFolder(input) {
+	list = getFileList(input);
+	for (i = 0; i < list.length; i++) {
+		if(File.isDirectory(input + list[i]))
+			processFolder("" + input + list[i]);
+		if(endsWith(list[i], suffix))
+			processFile(input, output, list[i]);
+	}
+	//saves results for all images in a single file
+	saveAs("Results", output + "/All_Results.tsv"); 
+}
+
+function processFile(input, output, file) {
+	setBatchMode(true); // prevents image windows from opening while the script is running
+	// open image using Bio-Formats
+	run("Bio-Formats", "open=[" + input + "/" + file +"] autoscale color_mode=Default rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT");
+
+	// create binary image
+	run("Gaussian Blur...", "sigma=2");
+	setAutoThreshold("Default dark");
+	//run("Threshold...");
+	run("Create Mask");
+	run("Watershed");
+	run("Analyze Particles...", "size=200-Infinity display exclude add");
+
+	// save ROIs for current image
+	roiManager("Deselect");
+	roiManager("Save", output+ "/" + file + "_ROI.zip"); // saves Rois zip file
+	roiManager("Deselect");
+	roiManager("Delete"); // clear ROI Manager for next image
+	
+	// save current binary image
+	save(output + "/Binary_OUTPUT_" + file);
+}
+					</code></pre>
+					</section>
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
@@ -173,8 +230,10 @@
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<h2>Macros: comments</h2>
-					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Macros</a></div>
+					<h2>Macros</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Introduction_into_Macro_Programming">http://imagej.net/Introduction_into_Macro_Programming</a></div>
+				<section>
+					<h3>Comments</h3>
 					<pre><code class="javascript" data-trim contenteditable>
 // Comments allow you to put human-readable thoughts
 // into your code.
@@ -190,9 +249,8 @@ value = 2; // Comments can be added to any line!
 					</code></pre>
 				</section>
 
-				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<h2>Macros: variables</h2>
-					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Macros</a></div>
+				<section>
+					<h3>Variables</h3>
 					<pre><code class="javascript" data-trim contenteditable>
 // what sorts of values can we assign?
 title = "Hello, World!";                // string
@@ -212,9 +270,8 @@ intensity = intensity * 2;
 					</code></pre>
 				</section>
 
-				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<h2>Macros: functions</h2>
-					<div class="url bottom center"><a href="http://imagej.net/developer/macro/functions.html">http://imagej.net/developer/macro/functions.html</a></div>
+				<section>	
+				<h3>Functions</h3>
 					<pre><code class="javascript" data-trim contenteditable>
 print("Hello, world!");
 
@@ -228,11 +285,13 @@ run("Duplicate...", "title=New");
 // for arguments with spaces, enclose in square brackets
 run("Duplicate...", "title=[with spaces]");
 					</code></pre>
+				<div style="margin-top: 50px">
+					<a style=" font size : 0.75em;" href=http://imagej.net/developer/macro/functions.html>Built-in Macro Functions</a>
+				</div>	
 				</section>
 
-				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<h2>Macros: strings</h2>
-					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Macros</a></div>
+				<section>
+					<h3>Strings</h3>
 					<pre><code class="javascript" data-trim contenteditable>
 name = "copy";
 
@@ -247,9 +306,8 @@ run("Duplicate...", "title=" + name);
 					</code></pre>
 				</section>
 
-				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<h2>Macros: conditionals</h2>
-					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Macros</a></div>
+				<section>
+					<h3>Conditionals</h3>
 					<pre><code class="javascript" data-trim contenteditable>
 // @String instructor
 
@@ -263,9 +321,8 @@ showMessage("Advice:", hint);
 					</code></pre>
 				</section>
 
-				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<h2>Macros: loops</h2>
-					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Macros</a></div>
+				<section>
+					<h3>Loops</h3>
 					<pre><code class="javascript" data-trim contenteditable>
 // For loops:
 // They use assignment, test, increment
@@ -283,10 +340,9 @@ showMessage("Ok, I'm done!");
 					</code></pre>
 				</section>
 
-				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<h2>Macros: tying it together</h2>
-					<h4>Do you notice a bug in this code?</h4>
-					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Macros</a></div>
+				<section>
+					<h3>Tying it all together</h3>
+					<p>Do you notice a bug in this code?</p>
 					<pre><code class="javascript" data-trim contenteditable>
 // this example makes a stack of blurred versions of the
 // current slice with a range of radii.
@@ -303,6 +359,7 @@ for (i = 1; i <= radius; i++) {
         run("Gaussian Blur...", "radius=" + radius);
 }
 					</code></pre>
+				</section>
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
