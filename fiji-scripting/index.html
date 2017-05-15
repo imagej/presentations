@@ -147,94 +147,6 @@
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<h2>Batch processing</h2>
-					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Batch</a></div>
-
-					<section>
-						<div class="tip" style="margin-top: -40px"><em>Process &#9654; Batch &#9654; Macro...</em></div>
-						<p><img class="image" style="margin-top: 5px; width: 50%" src="http://imagej.net/_images/e/e8/BatchProcess.png"></p>
-					</section>
-
-					<section>
-						<div class="tip" style="margin-top: -40px"><em>Templates &#9654; ImageJ 1.x &#9654; Examples &#9654; Process Folder (IJ1 Macro)</em></div>
-						<p><img class="image" style="margin-top: -30px; width: 59%" src="process-folder.png"></p>
-					</section>
-
-					<section>
-						<p style="font-size: 0.75em;">Example script to count nuclei in multiple images in a folder/subfolders:</p>
-					<pre><code class="javascript" data-trim contenteditable>
-// @File(label = "Input directory", style = "directory") input
-// @File(label = "Output directory", style = "directory") output
-// @String(label = "File suffix", value = ".tif") suffix
-
-/*
-* Macro to count nuclei in multiple images in a folder/subfolders.
-*/
-	
-processFolder(input);
-	
-// function to scan folders/subfolders/files to find files with correct suffix
-function processFolder(input) {
-	list = getFileList(input);
-	for (i = 0; i < list.length; i++) {
-		if(File.isDirectory(input + list[i]))
-			processFolder("" + input + list[i]);
-		if(endsWith(list[i], suffix))
-			processFile(input, output, list[i]);
-	}
-	//saves results for all images in a single file
-	saveAs("Results", output + "/All_Results.tsv"); 
-}
-
-function processFile(input, output, file) {
-	setBatchMode(true); // prevents image windows from opening while the script is running
-	// open image using Bio-Formats
-	run("Bio-Formats", "open=[" + input + "/" + file +"] autoscale color_mode=Default rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT");
-  id = getImageID(); // get original image id
-	run("Duplicate...", " "); // duplicate original image and work on the copy
-	
-	// create binary image
-	run("Gaussian Blur...", "sigma=2");
-	setAutoThreshold("Default dark");
-	//run("Threshold...");
-	run("Create Mask");
-	run("Watershed");
-	// save current binary image
-	save(output + "/Binary_OUTPUT_" + file);
-	
-	run("Analyze Particles...", "size=200-Infinity exclude add");
-  selectImage(id); // activate original image
-  roiManager("Show All with labels"); // overlay ROIs
-	roiManager("Deselect");
-	roiManager("Measure"); // measure on original image
-	
-	// save ROIs for current image
-	roiManager("Deselect");
-	roiManager("Save", output+ "/" + file + "_ROI.zip"); // saves Rois zip file
-	roiManager("Deselect");
-	roiManager("Delete"); // clear ROI Manager for next image
-}
-					</code></pre>
-					</section>
-				</section>
-
-				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<h2>Script parameters</h2>
-					<div class="url bottom center"><a href="http://imagej.net/Script_parameters">http://imagej.net/Script_parameters</a></div>
-					<div style="margin-top: -50px; float: right"><img class="image" style="width: 350px" src="widgets.png"></div>
-					<ul style="font-size: 0.7em">
-						<li><em>Templates &#9654; Intro &#9654; Widgets (JavaScript)</em></li>
-						<li>Run</li>
-						<li>Fix the bugs!</li>
-						<li>To the <code>boundedInteger</code> parameter, add:
-							<br><dd><code>style="scroll bar"</code></li>
-						<li>To the <code>string</code> parameter, add:
-							<br><dd><code>choices={"quick fox", "lazy dog"}</code></li>
-						<li>Run again</li>
-					</ul>
-				</section>
-
-				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
 					<h2>Macros</h2>
 					<div class="url bottom center"><a href="http://imagej.net/Introduction_into_Macro_Programming">http://imagej.net/Introduction_into_Macro_Programming</a></div>
 				<section>
@@ -365,6 +277,93 @@ for (i = 1; i <= radius; i++) {
 }
 					</code></pre>
 				</section>
+				</section>
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Batch processing</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Batch</a></div>
+
+					<section>
+						<div class="tip" style="margin-top: -40px"><em>Process &#9654; Batch &#9654; Macro...</em></div>
+						<p><img class="image" style="margin-top: 5px; width: 50%" src="http://imagej.net/_images/e/e8/BatchProcess.png"></p>
+					</section>
+
+					<section>
+						<div class="tip" style="margin-top: -40px"><em>Templates &#9654; ImageJ 1.x &#9654; Examples &#9654; Process Folder (IJ1 Macro)</em></div>
+						<p><img class="image" style="margin-top: -30px; width: 59%" src="process-folder.png"></p>
+					</section>
+
+					<section>
+						<p style="font-size: 0.75em;">Example script to count nuclei in multiple images in a folder/subfolders:</p>
+					<pre><code class="javascript" data-trim contenteditable>
+// @File(label = "Input directory", style = "directory") input
+// @File(label = "Output directory", style = "directory") output
+// @String(label = "File suffix", value = ".tif") suffix
+
+/*
+* Macro to count nuclei in multiple images in a folder/subfolders.
+*/
+	
+processFolder(input);
+	
+// function to scan folders/subfolders/files to find files with correct suffix
+function processFolder(input) {
+	list = getFileList(input);
+	for (i = 0; i < list.length; i++) {
+		if(File.isDirectory(input + list[i]))
+			processFolder("" + input + list[i]);
+		if(endsWith(list[i], suffix))
+			processFile(input, output, list[i]);
+	}
+	//saves results for all images in a single file
+	saveAs("Results", output + "/All_Results.tsv"); 
+}
+
+function processFile(input, output, file) {
+	setBatchMode(true); // prevents image windows from opening while the script is running
+	// open image using Bio-Formats
+	run("Bio-Formats", "open=[" + input + "/" + file +"] autoscale color_mode=Default rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT");
+  id = getImageID(); // get original image id
+	run("Duplicate...", " "); // duplicate original image and work on the copy
+	
+	// create binary image
+	run("Gaussian Blur...", "sigma=2");
+	setAutoThreshold("Default dark");
+	//run("Threshold...");
+	run("Create Mask");
+	run("Watershed");
+	// save current binary image
+	save(output + "/Binary_OUTPUT_" + file);
+	
+	run("Analyze Particles...", "size=200-Infinity exclude add");
+  selectImage(id); // activate original image
+  roiManager("Show All with labels"); // overlay ROIs
+	roiManager("Deselect");
+	roiManager("Measure"); // measure on original image
+	
+	// save ROIs for current image
+	roiManager("Deselect");
+	roiManager("Save", output+ "/" + file + "_ROI.zip"); // saves Rois zip file
+	roiManager("Deselect");
+	roiManager("Delete"); // clear ROI Manager for next image
+}
+					</code></pre>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Script parameters</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Script_parameters">http://imagej.net/Script_parameters</a></div>
+					<div style="margin-top: -50px; float: right"><img class="image" style="width: 350px" src="widgets.png"></div>
+					<ul style="font-size: 0.7em">
+						<li><em>Templates &#9654; Intro &#9654; Widgets (JavaScript)</em></li>
+						<li>Run</li>
+						<li>Fix the bugs!</li>
+						<li>To the <code>boundedInteger</code> parameter, add:
+							<br><dd><code>style="scroll bar"</code></li>
+						<li>To the <code>string</code> parameter, add:
+							<br><dd><code>choices={"quick fox", "lazy dog"}</code></li>
+						<li>Run again</li>
+					</ul>
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
