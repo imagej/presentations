@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>What's New in ImageJ2?</title>
+
+		<meta name="description" content="This talk discusses ImageJ2, the new version of ImageJ for the next generation of scientific image data. It covers: what ImageJ2 is; its modular architecture; features ImageJ2 offers beyond the stable version of ImageJ 1.x; the Fiji distribution of ImageJ; recent development efforts; future directions of the project; and concrete ways we can work together as a community for everyone's benefit.">
+		<meta name="author" content="Curtis Rueden">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/reveal.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/theme/moon.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../reveal.js-3.1.0/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js-3.1.0/css/print/pdf.css' : '../reveal.js-3.1.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../reveal.js-3.1.0/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- TITLE SLIDE -->
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h1>What's New in ImageJ2?</h1>
+					<h2>Reproducible science with open tools</h2>
+					<p>
+					<small><a href="https://imagej.net/User:Rueden">Curtis Rueden</a>,
+						UW-Madison <a href="https://imagej.net/LOCI">LOCI</a></small>
+					<p style="margin-top: -10px">
+					<a style="font-size: 22px" href="https://imagej.github.io/presentations/2017-06-01-imagej2-loci">https://imagej.github.io/presentations/2017-06-01-imagej2-loci</a>
+					</p>
+					</p>
+					<p style="padding-top: 1em; margin-top: -30px">
+					<a href="https://imagej.net/LOCI">
+						<img class="logo" src="https://imagej.net/_images/6/62/Loci-logo.png" style="height: 1.8em">
+					</a>
+					<a href="http://wisc.edu/">
+						<img class="logo" src="https://imagej.net/_images/b/bf/UW-logo.png" style="height: 1.8em">
+					</a>
+					<a href="https://morgridge.org/">
+						<img class="logo" src="https://imagej.net/_images/9/94/Morgridge-logo.jpg" style="height: 1.8em">
+					</a>
+					</p>
+				</section>
+
+				<!-- MAIN SLIDES -->
+
+				<!-- What is LOCI? -->
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Laboratory for Optical and Computational Instrumentation</h2>
+					<div class="round-box">
+						<img src="https://imagej.net/_images/6/62/Loci-logo.png" class="logo" style="float: left; height: 3em; margin: 0.5em 0.3em 0 1.5em">
+						<p style="padding-right: 1em">
+						LOCI develops advanced optical and computational techniques for
+						imaging and experimentally manipulating living specimens.
+						</p>
+					</div>
+					<p style="float: left; font-size: 28px; padding-left: 120px">
+					<a href="http://loci.wisc.edu/equipment/spectral-lifetime-multiphoton-microscope-slim"><img src="SLIM-system.jpg" style="height: 200px"></a>
+					<br>Scopes
+					</p>
+					<p style="float: left; font-size: 28px; padding-left: 10px">
+					<a href="http://loci.wisc.edu/research/two-photon"><img src="Multiphoton-image.png" style="height: 200px"></a>
+					<br>Science
+					</p>
+					<p style="float: left; font-size: 28px; padding-left: 10px">
+					<a href="http://loci.wisc.edu/software"><img src="https://imagej.net/_images/a/ae/Fiji-icon.png" style="height: 200px"></a>
+					<br>Software
+					</p>
+					<div class="url" style="clear: left; padding-top: 20px"><a href="https://loci.wisc.edu/">https://loci.wisc.edu/</a></div>
+					<aside class="notes">
+					LOCI creates open source scientific software. While the primary
+					motivation is to facilitate development of computational techniques
+					for imaging and manipulating living specimens, our software efforts
+					are broader in scope, with the goal of benefiting the entire
+					scientific community. LOCI founded and co-develops the ImageJ2,
+					Bio-Formats, SCIFIO and SciJava projects. LOCI also maintains the
+					Fiji distribution of ImageJ.
+					</aside>
+				</section>
+
+				<!-- What is ImageJ? -->
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>What is ImageJ?</h2>
+					<div style="padding-left: 150px">
+						<h2 class="fragment" style="float: left">
+							<img class="icon" style="height: 0.6em" src="https://imagej.net/_images/a/ae/Fiji-icon.png">
+							Fiji?
+						</h2>
+						<h2 class="fragment">
+							<img class="icon" style="height: 0.6em" src="https://imagej.net/_images/d/d1/Imagej2-icon.png">
+							ImageJ2?
+						</h2>
+						<h2 class="fragment" style="float: left">
+							<img class="icon" style="height: 0.6em" src="https://imagej.net/_images/a/a8/Imagej1-icon.png">
+							ImageJ1?
+						</h2>
+						<h2 class="fragment">
+							<img class="icon" style="height: 0.6em" src="https://imagej.net/_images/0/0a/Imglib2-icon.png">
+							ImgLib2?
+						</h2>
+						<h2 class="fragment" style="float: left">
+							<img class="icon" style="height: 0.6em" src="https://imagej.net/_images/9/93/Scijava-icon.png">
+							SciJava?
+						</h2>
+						<h2 class="fragment">
+							<img class="icon" style="height: 0.6em" src="https://imagej.net/_images/a/a6/Scifio-icon.png">
+							SCIFIO?
+						</h2>
+						<div class="fragment outlined" style="position: absolute; top: 50px; left: 150px; font-size: 127px">
+							<h1>WAT</h1>
+						</div>
+					</div>
+				</section>
+
+				<section class="toplevel" data-background="imagej-screenshot.png">
+					<h2 class="outlined" style="padding-top: 250px">An application</h2>
+				</section>
+
+				<section class="toplevel" data-background="imagej-fiji-functions.png" data-background-size="100%">
+					<h2 class="outlined" style="padding-top: 250px">A tool for image science</h2>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>A reusable library</h2>
+					<img src="lowpass.png" style="position: absolute; height: 40%; margin-top: 150px; margin-left: -100px; z-index: 1">
+					<pre><code class="groovy" data-trim contenteditable>
+// Create a new ImageJ gateway with all available services.
+ij = new ImageJ()
+
+// Load a dataset from somewhere.
+dataset = ij.io().open(imageSource)
+
+// Filter the image.
+fft = ij.op().fft(dataset)
+lowpass(fft, 10)
+result = ij.op().ifft(fft)
+
+// Display the result.
+ij.ui().show(result)
+					</code></pre>
+					<div class="url" style="margin-top: 150px"><a href="https://imagej.github.io/tutorials">https://imagej.github.io/tutorials</a></div>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>An extensible collection<br>of services & plugins</h2>
+					<div class="round-box" style="background: white">
+						<img class="plain" style="width: 40%; padding-right: 2em" src="https://imagej.net/_images/0/05/Scijava-logo.png">
+						<img class="plain" src="plug.png">
+						<br>
+						<img class="plain" src="imagej-strengths.png">
+					</div>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>A shared framework for<br>image processing</h2>
+					<img src="ops-framework.png" class="logo" style="width: 80%">
+					<p>"Write once, run anywhere" image processing</p>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2 style="margin-top: 200px">Yes, ImageJ is all of that!</h2>
+					<h2>But most importantly...</h2>
+				</section>
+
+				<section class="toplevel" data-background="happy-bioimage-analysts.jpg">
+					<h2 class="outlined">ImageJ is a community!</h2>
+					<blockquote style="margin-top: 400px; background-color:rgba(0, 0, 0, 0.7);">
+						Schindelin, J., et al. "<a href="http://onlinelibrary.wiley.com/doi/10.1002/mrd.22489/full">The ImageJ ecosystem: an open platform for biomedical image analysis.</a>" Molecular reproduction and development 82.7-8 (2015): 518-529.
+					</blockquote>
+				</section>
+
+				<section class="toplevel" data-background="imagej-usage-2017-02-15.png" data-background-size="100%">
+					<h2 class="outlined" style="float: left">A sizable community...</h2>
+					<img src="imagej-webstats-2016.png" style="position: absolute; top: 0; right: 0; width: 35%">
+					<div class="square-box" style="position: absolute; bottom: 70px; ">^ ImageJ update checks, week of 2017-Feb-09</div>
+					<div class="url" style="position: absolute; bottom: 70px; right: 0"><a href="https://imagej.net/Usage">https://imagej.net/Usage</a></div>
+				</section>
+
+				<!-- Open Science -->
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Motivation</h2>
+					<p>
+						Why use ImageJ? Why improve ImageJ?<br>
+						Why not use Imaris and MATLAB for everything?<br>
+						<strong><em>Why join this community?</em></strong>
+					</p>
+					<ul>
+						<li class="fragment"><b>Frugal:</b> ImageJ is free and cross-platform</li>
+						<li class="fragment"><B>Pragmatic:</B> You can fix bugs, add features</li>
+						<li class="fragment"><b>Scientific:</b> See and understand how it works</li>
+						<li class="fragment"><b>Ethical:</b> Fully reproducible, better science</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2 class="outlined">Better science?</h2>
+					<p>Why do science in the first place?</p>
+					<ul class="fragment">
+						<li><img class="clip" src="human-condition.png"> Improve the human condition</li>
+						<li><img class="clip" src="discover-knowledge.png"> Discover new knowledge</li>
+						<li><img class="clip" src="stand-on-shoulders.png"> Stand on each other's shoulders</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>21st century science requirements</h2>
+					<ul>
+						<li class="fragment"><img class="clip" src="quantitative-research.png"> Quantitative research</li>
+						<li class="fragment"><img class="clip" src="write-stuff-down.png"> Keep track of everything</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Information provenance</h2>
+					<ul>
+						<li class="fragment"><img class="clip" style="width: 150px" src="remember.png"> Remember what you did, and how</li>
+						<li class="fragment"><img class="clip" style="width: 150px" src="explain.png"> Explain it to someone else</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Reproducibility</h2>
+					<ul>
+						<li>Validate others' work</li>
+					</ul>
+					<section></section>
+					<section>
+						<p>
+						<img class="plain" style="height: 400px" src="bad-segmentation.png"> 
+						<br><span style="font-size: 24px">Is this a good segmentation?
+							(<a href="http://forum.imagej.net/t/finding-ellipses-with-incomplete-boundaries/843/6">source</a>)</span>
+						</p>
+					</section>
+					<section>
+						<blockquote style="text-align: left">
+							Using 'Otsu' I find  ---  not a little difference ---  but a big
+							one. A little difference caused by the binning, a big one between
+							implementations. Which is the 'real' Otsu threshold?
+							<br>—Robert Atwood (<a href="http://imagej.1557.x6.nabble.com/Autothresholding-results-was-FW-Threshold-is-giving-an-incomplete-range-tp5018760.html">source</a>)
+						</blockquote>
+					</section>
+					<section>
+						<blockquote style="font-size: 20px; text-align: left">
+							The Otsu algorithm had indeed an issue only with certain 16bit
+							histograms where the computation of the variance could cause an
+							overflow that carried on without triggering an error.
+							<span class="highlight">I checked Emre Celebi's library (Fourier
+							0.8) and his C++ version does not have the problem</span> so I
+							replaced the previous version with Emre's. 8 bit images were not
+							affected. I just checked and it finds the ball in your sample
+							image now.
+							<br><br>
+							The Huang method is a different issue. The original code by Emre
+							was <span class="highlight">rewritten in 2011 by Johannes
+							Schindelin to use more efficiently the 16bit data and has a
+							massive execution speed advantage</span>. However I just noted
+							that in some cases it does return exactly the same values as the
+							original even in some 8bit images. I therefore
+							<span class="highlight">added back the original code</span> and
+							kept Johannes' method as "Huang2" for the time being until I have
+							time to look at it in more depth.
+							<br><br>
+							I also found that the Mean method (again in 16bits only) had a
+							potential for overflow that could go without triggering errors,
+							so I fixed that too.
+							<br><br>—Gabriel Landini (<a href="http://imagej.1557.x6.nabble.com/Autothresholding-results-was-FW-Threshold-is-giving-an-incomplete-range-tp5018760p5018774.html">source</a>)
+						</blockquote>
+						</p>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Sharing information</h2>
+					<img class="plain" style="float: right; width: 300px" src="internet.png">
+					<p>The Internet makes sharing easy</p>
+					<ul>
+						<li>Wikipedia: public encyclopedia</li>
+						<li>Stack Exchange: public Q &amp; A</li>
+						<li>GitHub: public source control</li>
+						<li>Twitter: public social interaction</li>
+						<li>Google: public etc.</li>
+					</ul>
+					<blockquote style="text-align: left">
+						"When in doubt, make it public."
+						<br>&mdash;Jeff Atwood (co-creator of Stack Overflow)
+					</blockquote>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Beyond open results</h2>
+					<p>Publish a compendium, not just a result</p>
+					<ul>
+						<li>Protocols &amp; methodology</li>
+						<li>Raw data</li>
+						<li>Computer code</li>
+					</ul>
+					<blockquote style="text-align: left; font-size: 24px">
+						"An article about computational science in a scientific publication
+						is <em style="color: pink"><strong>not the scholarship</strong></em> itself, it is
+						merely <em style="color: pink"><strong>advertising</strong></em> of the scholarship."
+						<br>&mdash;David Donoho, "Wavelab and Reproducible Research," 1995
+					</blockquote>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Science Code Manifesto</h2>
+					<p>Deep reproducibility demands the source code</p>
+					<section>
+						<img class="plain" style="margin-top: -20px; height: 380px" src="science-code-manifesto.png">
+						<blockquote style="text-align: left; font-size: 24px">
+							"Software is a cornerstone of science. Without software,
+							twenty-first century science would be impossible. Without better
+							software, science cannot progress."
+							<br>&mdash;<a href="http://sciencecodemanifesto.org/">Science Code Manifesto</a>
+						</blockquote>
+					</section>
+					<section>
+						<p style="margin-top: -30px">And it is good for your career:</p>
+						<blockquote style="text-align: left; font-size: 24px">
+							"Papers describing software published as <em style="color: pink"><strong>open source</strong></em> are amongst the <em style="color: pink"><strong>most widely cited publications</strong></em> (e.g., BLAST, and Clustal-W), suggesting many scientific studies may not have been possible without some kind of open software to collect observations, analyze data, or present results."
+							<br>&mdash;Andreas Prlić &amp; James Procter
+							<br>"<a href="http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1002802">Ten Simple Rules for the Open Development of Scientific Software</a>"
+						</blockquote>
+					</section>
+					<section>
+						<p style="margin-top: -30px">And it is good for your career:</p>
+						<blockquote style="text-align: left; font-size: 24px">
+							<span style="font-size: 48px">
+								"Science is hard enough already."
+							</span>
+							<br>&mdash;Andreas Prlić &amp; James Procter
+							<br>"<a href="http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1002802">Ten Simple Rules for the Open Development of Scientific Software</a>"
+						</blockquote>
+					</section>
+					<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+						<p style="margin-top: -30px">And it is good for your career:</p>
+						<p style="margin-top: -20px">Seriously.</p>
+						<img class="plain" style="height: 350px" src="software-citations.png"> 
+						<aside class="notes">
+							The point here is that the Fiji paper has more than
+							<em>eight times</em> the citations of the most cited biology
+							paper&mdash;that that biology paper was one of our group's most
+							significant findings to date.
+							<p>
+							I am <em>not</em> an author of the "NIH Image to ImageJ" paper...
+							but again, it shows the impact of OSS papers.</p>
+						</aside>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Open software is a <em>process</em></h2>
+					<ul>
+						<li>Ongoing open development</li>
+						<li>Improve software as a community</li>
+						<li>Open access resources</li>
+						<li>Responsive, reliable maintainers</li>
+						<li>Powerful collaboration tools (GitHub!)</li>
+					</ul>
+					<p style="float: right; width: 30%; margin-top: -20px; font-size: 24px">
+					<img class="plain" src="scientific-method.png">
+					<br>^ Look familiar? ;-)
+					</p>
+				</section>
+
+				<!-- What is ImageJ? -->
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>ImageJ Software Stack</h2>
+					<h3 style="margin-top: -25px">Modular and extensible components</h3>
+					<div style="color: white; font-size: 24px">
+						<p style="position: absolute; top: 260px; left: 50px">
+						<img class="logo" style="height: 150px" src="https://imagej.net/_images/d/d1/Imagej2-icon.png">
+						<br>ImageJ2
+						</p>
+						<span style="font-size: 200px; position: absolute; top: 230px; left: 250px">=</span>
+						<p style="position: absolute; top: 150px; left: 400px">
+						<img class="logo" style="height: 120px" src="https://imagej.net/_images/9/93/Scijava-icon.png">
+						<br>SciJava
+						<br>(base)
+						</p>
+						<p style="position: absolute; top: 150px; left: 600px">
+						<img class="logo" style="height: 120px" src="https://imagej.net/_images/0/0a/Imglib2-icon.png">
+						<br>ImgLib2
+						<br>(data model)
+						</p>
+						<p style="position: absolute; top: 380px; left: 400px">
+						<img class="logo" style="height: 120px" src="https://imagej.net/_images/a/a6/Scifio-icon.png">
+						<br>SCIFIO
+						<br>(image I/O)
+						</p>
+						<p style="position: absolute; top: 380px; left: 580px">
+						<img class="logo" style="height: 120px" src="https://imagej.net/_images/d/d1/Imagej2-icon.png">
+						<br>Ops
+						<br>(image processing)
+						</p>
+						<p style="position: absolute; top: 250px; left: 800px">
+						<img class="logo" style="height: 120px" src="https://imagej.net/_images/a/a8/Imagej1-icon.png">
+						<br>ImageJ Legacy
+						<br>(compatibility)
+						</p>
+					</div>
+					<div class="url" style="margin-top: 480px"><a href="https://imagej.net/Architecture">https://imagej.net/Architecture</a></div>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>SciJava Pledge</h2>
+					<p>A pledge to cooperate and reuse code</p>
+					<img class="logo" src="scijava-pledge.png">
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>SciJava Component Collection</h2>
+					<p>A collection of software components curated together</p>
+					<img class="logo" style="width: 80%; padding-right: 2em" src="https://imagej.net/_images/0/05/Scijava-logo.png">
+					<p>A promise of compatibility</p>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>
+						<span style="color: #68a5e1">F</span>iji
+						<span style="color: #68a5e1">I</span>s
+						<span style="color: #68a5e1">J</span>ust
+						<span style="color: #68a5e1">I</span>mageJ
+					</h2>
+					<p style="float: left">
+						<a href="http://fiji.sc/"><img class="icon" src="https://imagej.net/_images/a/ae/Fiji-icon.png" style="height: 200px; margin-top: -20px"></a>
+					</p>
+					<ul>
+						<li>A <a href="https://imagej.net/Distribution">distribution</a> of ImageJ for the life sciences</li>
+						<li>A community of ImageJ developers</li>
+						<li>Built on the ImageJ2 platform</li>
+						<li>Includes over 700 additional commands</li>
+					</ul>
+					<div class="url" style="margin-top: 50px"><a href="https://imagej.net/">https://fiji.sc/</a></div>
+					<p>
+					<a href="https://imagej.net/LOCI"><img class="logo" src="https://imagej.net/_images/6/62/Loci-logo.png" style="height: 1.8em"></a>
+					<a href="https://mpi-cbg.de/"><img class="logo" src="mpicbg.jpg" style="height: 1.8em"></a>
+					<a href="https://imagej.net/DAIS"><img class="logo" src="https://imagej.net/_images/0/09/Dais_csbd_color.png" style="height: 1.8em"></a>
+					<a href="https://www.janelia.org/"><img class="logo" src="janelia.png" style="height: 1.8em; background: black !important"></a>
+					</p>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>What's New in ImageJ2?</h2>
+					<table class="features" style="margin-top: -30px">
+						<tr>
+							<th>&nbsp;</th>
+							<th style="text-align: center"><img class="plain" style="height: 3em" src="https://imagej.net/_images/a/a8/Imagej1-icon.png"> ImageJ 1.x</th>
+							<th style="text-align: center"><img class="plain" style="height: 3em" src="https://imagej.net/_images/d/d1/Imagej2-icon.png"> ImageJ2</th>
+						</tr>
+						<tr>
+							<td>Image types</th>
+							<td>
+								uint8,
+								uint16,
+								float32,
+								rgb
+							</td>
+							<td>
+								bit,
+								uint2,
+								uint4,
+								uint8,
+								uint12,
+								uint16,
+								uint32,
+								uint64,
+								uint128,
+								int8,
+								int16,
+								int32,
+								int64,
+								float32,
+								float64,
+								cfloat32,
+								cfloat64,
+								bigint,
+								bigdec,
+								argb,
+								&lt;your-image-type-here&gt;
+							</td>
+						</tr>
+						<tr>
+							<td>Plugin types</td>
+							<td>
+								PlugIn,
+								PlugInFilter,
+								PlugInTool
+							</td>
+							<td>
+								Command,
+								Op,
+								Tool,
+								IOPlugin,
+								Service,
+								Converter,
+								Codec,
+								Format,
+								DataHandle,
+								TextFormat,
+								ScriptLanguage,
+								Display,
+								UserInterface,
+								Platform,
+								App,
+								Gateway,
+								ModulePreprocessor,
+								ModulePostprocessor,
+								CodeRunner,
+								...,
+								&lt;your-plugin-type-here&gt;
+							</td>
+						</tr>
+						<tr>
+							<td>Dimensions</td>
+							<td>5D&mdash;XYZCT</td>
+							<td>N-dimensional&mdash;X, Y, Z, time, channel, emission spectra, lifetime, cell polarity, &lt;your-dimension-here&gt;</td>
+						</tr>
+						<tr>
+							<td>Image formats</td>
+							<td>HandleExtraFileTypes</td>
+							<td>SCIFIO&mdash;including Bio-Formats plugin; &lt;your-format-here&gt;</td>
+						</tr>
+						<tr>
+							<td>Parameters</td>
+							<td>GenericDialog</td>
+							<td>SciJava module <a href="https://imagej.net/Script_Parameters"><code>@</code> parameter syntax</a>&mdash;callable from ImageJ, KNIME, OMERO, CellProfiler, ..., &lt;your-tool-here&gt;</td>
+						</tr>
+						<tr>
+							<td>Script languages</td>
+							<td>
+								IJ1 macro,
+								JavaScript,
+								BeanShell,
+								Java
+							</td>
+							<td>
+								BeanShell,
+								Clojure (Lisp),
+								Groovy,
+								Java,
+								JavaScript,
+								JRuby,
+								Jython (Python),
+								Renjin (R),
+								Scala,
+								&lt;your-language-here&gt;</td>
+						</tr>
+						<tr>
+							<td>User interface</td>
+							<td>AWT</td>
+							<td>
+								Legacy,
+								Swing,
+								AWT,
+								Apache Pivot,
+								Eclipse SWT,
+								JavaFX,
+								KNIME,
+								CellProfiler,
+								OMERO,
+								&lt;your-ui-here&gt;
+							</td>
+						</tr>
+						<tr>
+							<td><a href="https://imagej.net/Distribution">Distribution</a></td>
+							<td>Download, install and update manually</td>
+							<td>Hundreds of update sites; receive updates automatically (when you want!)</td>
+						</tr>
+					</table>
+					<div class="url" style="margin-top: 10px"><a href="https://arxiv.org/abs/1701.05940">https://arxiv.org/abs/1701.05940</a></div>
+					<aside class="notes">
+						I actually hate these "feature comparison" tables. The bias is
+						inescapable. But ImageJ2 really does bring a truckload of
+						great new things. Please read the paper for full details!
+					</aside>
+				</section>
+
+				<section class="toplevel" data-background="imagej-in-a-notebook.png">
+					<h2 class="outlined" style="margin-left: 400px; margin-top: 100px">What's Newer??</h2>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Future directions</h2>
+					<blockquote style="margin-top: 120px">
+						"Of course there is plans..."
+						<br>&mdash;Florian Jug
+					</blockquote>
+					<div class="url" style="margin-top: 120px"><a href="https://imagej.net/User:Rueden#Primary_projects">https://imagej.net/User:Rueden#Primary_projects</a></div>
+					<aside class="notes">
+						Of course, that link only highlights what <em>I</em> am working on these days.
+						Many people in the community are doing many awesome things. So many plans!
+					</aside>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>The rise of polyglot tools</h2>
+					<p style="float: left; margin-left: 200px">
+						<a href="https://imagej.net/KNIME">
+							<img class="logo" style="height: 120px; padding: 22px !important" src="https://imagej.net/_images/5/54/Knime-icon.png">
+							<br>KNIME
+						</a>
+					</p>
+					<p style="float: left; padding-left: 50px">
+						<a href="http://jupyter.org/">
+							<img class="logo" style="height: 150px; background: black !important" src="jupyter-icon.png">
+							<br>Jupyter<br>Notebook
+						</a>
+					</p>
+					<p style="float: left; padding-left: 50px">
+						<a href="http://beakernotebook.com/">
+							<img class="plain" style="height: 165px" src="beaker-icon.png">
+							<br>Beaker<br>Notebook
+						</a>
+					</p>
+					<h3 style="clear: left; padding-top: 20px">More will emerge. Always keep looking!</h3>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>How to get involved</h2>
+					<ul>
+						<li class="fragment">Edit and improve the <a href="https://imagej.net/">ImageJ wiki</a>.</li>
+						<li class="fragment">Adopt a <a href="https://imagej.net/Category:Plugins">plugin</a>. <span class="fragment">Or ten!</span></li>
+						<li class="fragment">Make your science <a href="http://loci.wisc.edu/software/oss">open and reproducible</a>.</li>
+						<li class="fragment">Code your favorite/new algorithms with <a href="https://imagej.net/ImgLib2">ImgLib2</a>.</li>
+						<li class="fragment">Discuss ideas <a href="https://imagej.net/Communication">publicly</a> to help <strong><em>all of us</em></strong>.</li>
+					</ul>
+					<p class="fragment">
+					Help others to <strong><em>avoid repeating your pain</em></strong>.<br>
+					<strong><em>You</em></strong> are custodians of the OSS ecosystem!</li>
+					</p>
+					<p class="fragment">PIs: write grants to fund ImageJ-based development!</p>
+					<aside class="notes">
+						<small>
+							<ul>
+								<li>We have a fantastic, well-structured base of software tools</li>
+								<li>We have several software gurus working together</li>
+								<li>But very few of us are paid to work on this</li>
+								<li>Allocate some resources!</li>
+								<li>Together, everyone achieves more! ;-)</li>
+							</ul>
+						</small>
+					</aside>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Further reading about ImageJ</h2>
+					<div style="width: 50%; float: left">
+						<p>Academic paper</p>
+						<blockquote style="font-size: 24px">
+							Rueden, C. T., et al. "<a href="https://arxiv.org/abs/1701.05940">ImageJ2: ImageJ for the next generation of scientific image data</a>." arXiv preprint (2017).
+						</blockquote>
+					</div>
+					<div style="width: 50%; float: right">
+						<p>45-minute presentation</p>
+						<blockquote style="font-size: 24px">
+							Rueden, C. T. "ImageJ2 and Fiji: The ImageJ2 platform, and the Fiji distribution of ImageJ." ImageJ Conference 2015.
+							<a href="https://vimeo.com/140929687">video</a>, <a href="https://imagej.github.io/presentations/2015-09-03-imagej2-and-fiji/">slides</a>
+						</blockquote>
+					</div>
+					<div style="clear: both">
+						Website
+						<div class="url" style="margin-top: 20px"><a href="https://imagej.net/">https://imagej.net/</a></div>
+					</div>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Thanks!</h2>
+					<p class="ack" style="padding-left: 120px !important">
+						<img class="plain" src="eliceiri.png">
+						<br>Kevin<br>Eliceiri
+					</p>
+					<p class="ack">
+						<img class="plain" src="tomancak.png">
+						<br>Pavel<br>Tomancak
+					</p>
+					<p class="ack">
+						<img class="plain" src="swedlow.png">
+						<br>Jason<br>Swedlow
+					</p>
+					<p class="ack">
+						<img class="plain" src="berthold.png">
+						<br>Michael<br>Berthold
+					</p>
+					<p class="ack">
+						<img class="plain" src="carpenter.png">
+						<br>Anne<br>Carpenter
+					</p>
+					<div style="clear: left"></div>
+					<p class="ack" style="padding-left: 180px !important">
+						<img class="plain" src="dietz.png">
+						<br>Christian<br>Dietz
+					</p>
+					<p class="ack">
+						<img class="plain" src="pietzsch.png">
+						<br>Tobias<br>Pietzsch
+					</p>
+					<p class="ack">
+						<img class="plain" src="saalfeld.png">
+						<br>Stephan<br>Saalfeld
+					</p>
+					<p class="ack">
+						<img class="plain" src="rasband.png">
+						<br>Wayne<br>Rasband
+					</p>
+					<div style="clear: left"></div>
+					<div class="url" style="margin-top: 20px"><a href="https://imagej.net/Contributors">https://imagej.net/Contributors</a></div>
+				</section>
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<img class="plain" style="margin-top: -100px" src="dev-word-cloud.png">
+					<img class="plain" style="margin-top: -28px" src="knime-workflow.png">
+					<img class="plain" style="margin-top: -48px" src="git-commits.png">
+					<p class="outlined" style="margin-top: -20px; text-align: center">And all supporters of open science and open software!</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="../reveal.js-3.1.0/lib/js/head.min.js"></script>
+		<script src="../reveal.js-3.1.0/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: false,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: '../reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true },
+					{ src: '../reveal.js-3.1.0/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
