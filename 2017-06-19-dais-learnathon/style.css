@@ -1,0 +1,191 @@
+.toplevel {
+  height: 100%;
+}
+
+.menu {
+  color: limegreen;
+}
+
+.doit {
+  background: chocolate;
+  border-radius: 0.7em;
+  border: 2px solid darkgray;
+  font-size: 0.8em !important;
+  padding: 0.7em !important;
+}
+
+.plain {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  vertical-align: middle !important;
+}
+
+.logo {
+  background: white !important;
+  border: none !important;
+  border-radius: 0.2em;
+  box-shadow: none !important;
+  padding: 0.2em 0.5em 0.2em 0.5em !important;
+  vertical-align: middle !important;
+}
+
+.icon {
+  background: white !important;
+  border: none !important;
+  border-radius: 0.2em;
+  box-shadow: none !important;
+  padding: 0.1em !important;
+  vertical-align: middle !important;
+}
+
+table.acknowledgements td {
+  font-size: small;
+  text-align: center !important;
+}
+
+table.acknowledgements img {
+  border: none !important;
+  box-shadow: none !important;
+  height: 7em !important;
+}
+
+.url {
+  background: #222;
+  border-radius: 0.5em;
+  box-shadow: 3px 3px 1px #111 !important;
+  font-family: monospace !important;
+  font-size: 0.6em !important;
+  padding: 0.5em 2em 0.5em 2em !important;
+}
+
+.bottom {
+  position: absolute;
+  bottom: 10px;
+}
+.left {
+  position: absolute;
+  left: 0;
+}
+.right {
+  position: absolute;
+  right: 80px;
+}
+.center {
+  position: absolute;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  left: 0;
+  right: 0;
+}
+
+.r { color: lightcoral; }
+.o { color: lightsalmon; }
+.y { color: lightyellow; }
+.g { color: lightgreen; }
+.b { color: powderblue; }
+.i { color: lightblue; }
+.v { color: hotpink; }
+
+.graybox {
+  background-color: rgba(64,64,64,0.75) !important;
+  border-radius: 1em;
+  padding: 1em !important;
+}
+
+.graycolumn {
+  background: rgba(64, 64, 64, 0.75);
+  border-radius: 0.2em;
+  padding-bottom: 1em !important;
+  width: 49%
+}
+
+.outlined {
+  -webkit-text-fill-color: white;
+  -webkit-text-stroke-width: 0.04em;
+  -webkit-text-stroke-color: black;
+  text-shadow:
+  -0.02em -0.02em 0 #000,
+  0.02em -0.02em 0 #000,
+  -0.02em 0.02em 0 #000,
+  0.02em 0.02em 0 #000;
+}
+
+.guide {
+  border-top: 1px solid gray !important;
+  border-bottom: 1px solid gray !important;
+  margin-bottom: 5px !important;
+  padding: 5px 0 5px 0 !important;
+  color: gray;
+  font-size: 0.8em !important;
+  white-space: nowrap;
+}
+
+.guidefoot {
+  color: lightgray;
+  font-size: 0.7em !important;
+  font-style: italic !important;
+  margin-top: 0 !important;
+  padding-top: 0;
+  white-space: nowrap;
+}
+
+.social {
+  -webkit-text-fill-color: gold;
+  color: gold;
+}
+.overview {
+  -webkit-text-fill-color: cornflowerblue;
+  color: cornflowerblue;
+}
+.technical {
+  -webkit-text-fill-color: indianred;
+  color: indianred;
+}
+
+.round-box {
+  font-size: 24px !important;
+  background: #333;
+  border: 1px solid black;
+  border-radius: 2em;
+  padding-bottom: 0.5em !important;
+  padding-top: 0.5em !important;
+}
+
+.square-box {
+  background: #222;
+  font-size: 24px !important;
+  border: 1px solid white !important;
+  padding: 0.3em !important;
+}
+
+.ack {
+  float: left;
+  font-size: 24px !important;
+  padding-left: 0.5em !important;
+  padding-right: 0.5em !important;
+}
+
+.ack img {
+  height: 120px;
+}
+
+.features th {
+  font-size: 24px !important;
+  white-space: nowrap;
+}
+.features td {
+  font-size: 18px !important;
+}
+.features td:first-child {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.clip {
+  background: none !important;
+  border: none !important;
+  width: 200px;
+  box-shadow: none !important;
+  vertical-align: middle !important;
+}

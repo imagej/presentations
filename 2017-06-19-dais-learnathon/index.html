@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>The SciJava Developer Community</title>
+
+		<meta name="description" content="These slides highlight the methodology SciJava software developers use to work together as a community for everyone's benefit.">
+		<meta name="author" content="Curtis Rueden">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/reveal.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/theme/moon.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../reveal.js-3.1.0/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js-3.1.0/css/print/pdf.css' : '../reveal.js-3.1.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../reveal.js-3.1.0/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- TITLE SLIDE -->
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h1>SciJava methodology</h1>
+					<h2>Working together for good and awesome</h2>
+					<p>
+					<small><a href="https://imagej.net/User:Rueden">Curtis Rueden</a>,
+						UW-Madison <a href="https://imagej.net/LOCI">LOCI</a>
+						<br><br>Tweets to <code class="g">#FijiLearnathon</code></small>
+					<p style="margin-top: -10px">
+					<a style="font-size: 22px" href="https://imagej.github.io/presentations/2017-06-19-dais-learnathon">https://imagej.github.io/presentations/2017-06-19-dais-learnathon</a>
+					</p>
+					</p>
+					<p style="padding-top: 1em; margin-top: -30px">
+					<a href="https://imagej.net/LOCI">
+						<img class="logo" src="https://imagej.net/_images/6/62/Loci-logo.png" style="height: 1.8em">
+					</a>
+					<a href="https://wisc.edu/">
+						<img class="logo" src="https://imagej.net/_images/b/bf/UW-logo.png" style="height: 1.8em">
+					</a>
+					<a href="https://morgridge.org/">
+						<img class="logo" src="https://imagej.net/_images/9/94/Morgridge-logo.jpg" style="height: 1.8em">
+					</a>
+					<br>
+					<a href="https://dais.bioimagecomputing.com/">
+						<img class="logo" src="https://imagej.net/_images/0/09/Dais_csbd_color.png" style="height: 1.8em">
+					</a>
+					<a href="https://www.denbi.de/">
+						<img class="logo" src="https://imagej.net/_images/3/35/DeNBI_Logo_rgb.png" style="height: 1.8em">
+					</a>
+					</p>
+				</section>
+
+				<!-- MAIN SLIDES -->
+
+				<!-- What is LOCI? -->
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Laboratory for Optical and Computational Instrumentation</h2>
+					<div class="round-box">
+						<img src="https://imagej.net/_images/6/62/Loci-logo.png" class="logo" style="float: left; height: 3em; margin: 0.5em 0.3em 0 1.5em">
+						<p style="padding-right: 1em">
+						LOCI develops advanced optical and computational techniques for
+						imaging and experimentally manipulating living specimens.
+						</p>
+					</div>
+					<p style="float: left; font-size: 28px; padding-left: 120px">
+					<a href="https://loci.wisc.edu/equipment/spectral-lifetime-multiphoton-microscope-slim"><img src="SLIM-system.jpg" style="height: 200px"></a>
+					<br>Scopes
+					</p>
+					<p style="float: left; font-size: 28px; padding-left: 10px">
+					<a href="https://loci.wisc.edu/research/two-photon"><img src="Multiphoton-image.png" style="height: 200px"></a>
+					<br>Science
+					</p>
+					<p style="float: left; font-size: 28px; padding-left: 10px">
+					<a href="https://loci.wisc.edu/software"><img src="https://imagej.net/_images/a/ae/Fiji-icon.png" style="height: 200px"></a>
+					<br>Software
+					</p>
+					<div class="url" style="clear: left; padding-top: 20px"><a href="https://loci.wisc.edu/">https://loci.wisc.edu/</a></div>
+					<aside class="notes">
+					LOCI creates open source scientific software. While the primary
+					motivation is to facilitate development of computational techniques
+					for imaging and manipulating living specimens, our software efforts
+					are broader in scope, with the goal of benefiting the entire
+					scientific community. LOCI founded and co-develops the ImageJ2,
+					Bio-Formats, SCIFIO and SciJava projects. LOCI also maintains the
+					Fiji distribution of ImageJ.
+					</aside>
+				</section>
+
+				<!-- Why -->
+
+				<section class="toplevel" data-background="https://upload.wikimedia.org/wikipedia/commons/5/5b/A_wanderer_dancing_the_dance_of_stars_and_space.jpg">
+					<h1 class="outlined">Why are we here?</h1>
+					<ul class="outlined">
+						<li class="fragment">To learn "the new stuff"?</li>
+						<li class="fragment">To learn "best practices"?</li>
+						<li class="fragment">To write "cleaner" or "more correct" code?</li>
+						<li class="fragment">To make an impact!</li>
+					</ul>
+				</section>
+
+				<!-- Communicate -->
+
+				<section class="toplevel" data-background="https://digitalsynopsis.com/wp-content/uploads/2016/03/not-my-job-funny-pics-2.jpg">
+					<h1>Communicate</h1>
+					<div style="padding: 2.5em"></div>
+					<div class="round-box" style="font-size: 72px !important"><a href="http://forum.imagej.net/">forum.imagej.net</a></div>
+					<div style="padding: 0.3em"></div>
+					<div class="url" style="clear: left; padding-top: 20px"><a href="https://imagej.net/Communication">https://imagej.net/Communication</a></div>
+				</section>
+
+				<!-- Organize -->
+
+				<section class="toplevel" data-background="https://upload.wikimedia.org/wikipedia/commons/c/c2/Lego_messy_desk.jpg">
+					<h1 class="outlined">Organize</h1>
+					<section>
+						<ul class="outlined" style="margin-top: 300px">
+							<li>Community is good at producing material!</li>
+							<li>Less good at organizing it</li>
+							<li>Over years, becomes difficult to find things</li>
+						</ul>
+					</section>
+					<section>
+						<div class="round-box" style="margin-top: 250px; font-size: 1.2em !important">
+							<ul style="text-align: left">
+							Work together!
+							<br>Relieve pain and suffering!
+							<br>ImageJ will be as good as you make it!
+						</div>
+					</section>
+					<section>
+						<div style="margin-top: 250px">
+							<div class="round-box">
+								<h2>Bootstrapping experiment!</h2>
+								<p>Can you all <em>organize</em> these segments onto the wiki?</p>
+							</div>
+						</div>
+					</section>
+				</section>
+
+				<!-- Scenarios -->
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Scenarios</h2>
+					<ul>
+						<li class="fragment">Unanswered post where I know the answer?</li>
+						<li class="fragment">Unanswered post where I know who knows the answer?</li>
+						<li class="fragment">Unanswered post about some unknown plugin?</li>
+						<li class="fragment">Common FAQ on the forum?
+							<ul>
+								<li>https://imagej.net/Troubleshooting</li>
+								<li>https://imagej.net/FAQ</li>
+								<li>https://imagej.net/Batch</li>
+								<li>https://imagej.net/Segmentation</li>
+								<li>https://imagej.net/Tutorials</li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<!-- Topics -->
+
+				<section class="toplevel" data-background="https://imagej.net/_images/7/72/Imagej-25%25.png">
+					<h2>Topics</h2>
+					<ul>
+						<li>Maven, POMs, versions</li>
+						<li>Intro to SciJava and ImageJ2 APIs</li>
+						<li>How to hack on Java projects in Eclipse</li>
+						<li>Which parts of ImageJ2 are usable? Stable?</li>
+					</ul>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="../reveal.js-3.1.0/lib/js/head.min.js"></script>
+		<script src="../reveal.js-3.1.0/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: false,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: '../reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true },
+					{ src: '../reveal.js-3.1.0/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
