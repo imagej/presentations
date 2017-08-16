@@ -110,6 +110,17 @@
 							</li>
 						</ul>
 					</section>
+				  <section>
+					<h3>Code Check!</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+run("Gaussian Blur...", "sigma=2");
+setAutoThreshold("Default dark");
+//run("Threshold...");
+run("Create Mask");
+run("Watershed");
+run("Analyze Particles...", "size=200-Infinity exclude add");
+					</code></pre>
+				  </section>
 					<section>
 						<p style="margin: 0">3. Spruce it up</p>
 						<div style="float: right; width: 45%">
@@ -128,6 +139,27 @@
 							</li>
 						</ul>
 					</section>
+				  <section>
+					<h3>Code Check!</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+#@int(label = "Minimum size") minSize
+
+setBatchMode(true);
+id = getImageID(); // get original image id
+run("Duplicate...", " "); // duplicate original image and work on the copy
+run("Gaussian Blur...", "sigma=2");
+setAutoThreshold("Default dark");
+//run("Threshold...");
+run("Create Mask");
+run("Watershed");
+run("Analyze Particles...", "size=" + minSize + "-Infinity display exclude add");
+run("Clear Results"); // delete contents of results table
+selectImage(id); // activate original image
+roiManager("Show All with labels"); // overlay ROIs
+roiManager("Deselect");
+roiManager("Measure"); // measure on original image
+					</code></pre>
+				  </section>
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
