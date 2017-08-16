@@ -312,13 +312,13 @@ for (i = 1; i <= radius; i++) {
 					<section>
 						<p style="font-size: 0.75em;">Example script to count nuclei in multiple images in a folder/subfolders:</p>
 					<pre><code class="javascript" data-trim contenteditable>
-// @File(label = "Input directory", style = "directory") input
-// @File(label = "Output directory", style = "directory") output
-// @String(label = "File suffix", value = ".tif") suffix
-
 /*
 * Macro to count nuclei in multiple images in a folder/subfolders.
 */
+
+#@File(label = "Input directory", style = "directory") input
+#@File(label = "Output directory", style = "directory") output
+#@String(label = "File suffix", value = ".tif") suffix
 	
 processFolder(input);
 	
@@ -326,8 +326,8 @@ processFolder(input);
 function processFolder(input) {
 	list = getFileList(input);
 	for (i = 0; i < list.length; i++) {
-		if(File.isDirectory(input + list[i]))
-			processFolder("" + input + list[i]);
+		if(File.isDirectory(input + File.separator + list[i]))
+			processFolder("" + input + File.separator + list[i]);
 		if(endsWith(list[i], suffix))
 			processFile(input, output, list[i]);
 	}
