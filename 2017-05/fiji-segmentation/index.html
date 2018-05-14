@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Segmentation in Fiji</title>
+
+		<meta name="description" content="A workshop for getting started with Fiji">
+		<meta name="author" content="Curtis Rueden, Mark Hiner, Ellen Arena, Johannes Schindelin">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/reveal.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/theme/white.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../reveal.js-3.1.0/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js-3.1.0/css/print/pdf.css' : '../reveal.js-3.1.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../reveal.js-3.1.0/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<div style="padding-top: 2em">
+						<img class="image" style="width: 20%" src="http://imagej.net/_images/a/ae/Fiji-icon.png">
+					</div>
+					<h2>Segmentation with Fiji</h2>
+
+					<p style="padding-top: 3em">
+					<a href="http://imagej.net/LOCI">
+						<img class="logo" src="http://imagej.net/_images/6/62/Loci-logo.png" style="height: 1.8em">
+					</a>
+					<a href="http://wisc.edu/">
+						<img class="logo" src="http://imagej.net/_images/b/bf/UW-logo.png" style="height: 1.8em">
+					</a>
+					</p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>What is segmentation?</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Segmentation">http://imagej.net/Segmentation</a></div>
+					<section></section>
+					<section>
+						<p>
+						Partitioning a digital image into multiple segments!
+						</p>
+						<p>
+						<img src="http://imagej.net/_images/0/04/Segmentation-overlay.jpg">
+						<img src="http://imagej.net/_images/8/82/Segmentation-boundaries.jpg">
+						</p>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Segmentation</h2>
+					<h4>Three common assumptions/requirements:</h4>
+					<div class="url bottom center"><a href="http://imagej.net/Segmentation">http://imagej.net/Segmentation</a></div>
+					<section></section>
+					<section>
+						<p>1. Do you have overlapping objects? And do you care?</p>
+						<p>
+						<img class="image" style="width: 30%" src="overlap_fluorescentCells.png">
+						<img class="image" style="width: 30%" src="overlap_fluorescentCells_C1.png">
+						<img class="image" style="width: 30%" src="overlap_fluorescentCells_C1_mask.png">
+						</p>
+					</section>
+					<section>
+						<p style="margin: 5px 0;">2. What are the shapes of your objects?</p> 
+						<p style="margin: 5px 0;">Tubes? Blobs? Clouds?</p>
+						<img class="image" style="width: 30%" src="objectshape_ratneuron.png">
+					</section>
+					<section>
+						<p style="margin: 5px 0;">3. What modality was used? And how does the signal look?</p>
+						<img class="image" style="width: 30%" src="modality_BF.png">
+						<img class="image" style="width: 30%" src="modality_FL.png">
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Machine learning</h2>
+					<div class="url bottom center"><a href="http://forum.imagej.net/t/303">http://forum.imagej.net/t/303</a></div>
+					<img src="http://forum.imagej.net/uploads/default/optimized/1X/5685d16663f1e6888640ded148fffe7e7f9a3bab_1_666x500.jpg">
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>How to segment?</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Segmentation">http://imagej.net/Segmentation</a></div>
+					<section></section>
+					<section>
+						<h3>1. Preprocess</h3>
+						<p class="blurb">Prepare <a href="http://workshops.imagej.net/">your image</a> for thresholding</p>
+						<p>
+						<img class="image" src="C3-jw-30min_5_c5_nuclei_01.png">
+						&#10137; <img class="image" src="C3-jw-30min_5_c5_nuclei_02_gaussian.png">
+						</p>
+						<div style="margin-top: -30px">
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Find-Edges>Find Edges</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://en.wikipedia.org/wiki/Kuwahara_filter>Kuwahara</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Gaussian-Blur...>Gaussian Blur</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Median...>Median</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=http://imagej.net/Image_Intensity_Processing#Background_correction>Background Correction</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.net/Deconvolution>Deconvolution</a>
+						</div>
+					</section>
+					<section>
+						<h3>2. Threshold</h3>
+						<p class="blurb">Separate foreground from background</p>
+						<p>
+						<img class="image" src="C3-jw-30min_5_c5_nuclei_02_gaussian.png">
+						&#10137; <img class="image" src="C3-jw-30min_5_c5_nuclei_03_threshold.png">
+						</p>
+						<div style="margin-top: -30px">
+							<a style=" font-size: 0.5em;" href=http://imagej.net/Thresholding#Global_thresholding>Global</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=http://imagej.net/Thresholding#Local_thresholding>Local</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=http://imagej.net/Auto_Threshold#Available_methods>Available methods</a>
+						</div>
+					</section>
+					<section>
+						<h3>3. Cleanup</h3>
+						<p class="blurb">Improve mask with morphological operations</p>
+						<p>
+						<img class="image" src="C3-jw-30min_5_c5_nuclei_04_mask.png">
+						&#10137; <img class="image" src="C3-jw-30min_5_c5_nuclei_05_watershed.png">
+						</p>
+						<div style="margin-top: -30px">
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Erode>Erode</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Dilate>Dilate</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Open>Open</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Close-->Close</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Skeletonize>Skeletonize</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Outline>Outline</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Fill-Holes>Fill Holes</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-29.html#sub:Watershed>Watershed</a>
+						</div>
+					</section>
+					<section>
+						<h3>4. Identify</h3>
+						<p class="blurb">Split foreground into objects</p>
+						<p>
+						<img class="image" src="C3-jw-30min_5_c5_nuclei_05_watershed.png">
+						&#10137; <img class="image" src="C3-jw-30min_5_c5_nuclei_06_Aparticles_mask.png">
+						</p>
+						<div style="margin-top: -30px">
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-30.html#sub:Analyze-Particles...>Analyze Particles</a><a style=" font-size: 0.5em;"> | </a>
+							<a style=" font-size: 0.5em;" href=http://imagej.net/BioVoxxel_Toolbox#Extended_Particle_Analyzer>Extended Particle Analyzer</a>
+						</div>
+					</section>
+					<section>
+						<h3>5. Analyze</h3>
+						<p class="blurb">Measure the <em>original</em> data</p>
+						<p>
+						<img class="image" src="C3-jw-30min_5_c5_nuclei_06_Aparticles_original.png">
+						&#10137; <img class="image" style="width: 50%" src="C3-jw-30min_5_c5_nuclei_07_results.png">
+						</p>
+						<div style="margin-top: -30px">
+							<a style=" font-size: 0.5em;" href=https://imagej.nih.gov/ij/docs/guide/146-30.html#toc-Subsection-30.7>Set Measurements</a>
+						</div>
+					</section>
+					<section>
+						<p>
+						Other techniques:
+						</p>
+						<ul>
+							<li><a href="http://imagej.net/Level_Sets">active contours</a> (mostly interactive)</li>
+							<li><a href="http://imagej.net/Graph_Cut">graph-based methods</a></li>
+							<li><a href="http://imagej.net/Trainable_Weka_Segmentation">machine learning</a></li>
+						</ul>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2 style="margin: 5px 0;">Real World Examples</h2>
+					<div class="url bottom center"><a href="http://forum.imagej.net/">http://forum.imagej.net/</a></div>
+					<section></section>
+					<section>
+						<div><a href="http://forum.imagej.net/t/1489">Separating Objects</a></div>
+						<img style="width: 45%" src="http://forum.imagej.net/uploads/default/optimized/1X/3d7a123cd7bc1faef93eb78cf6c92c1a1183d557_1_500x500.PNG">
+					</section>
+					<section>
+						<div><a href="http://forum.imagej.net/t/1424">Skeletonization</a></div>
+						<img style="width: 60%" src="http://forum.imagej.net/uploads/default/optimized/1X/553d766de9e349f441b0252c060493f73252f9af_1_675x500.png">
+					</section>
+					<section>
+						<div><a href="http://forum.imagej.net/t/529">Spatial Resolution</a></div>
+						<img style="width: 45%" src="http://forum.imagej.net/uploads/default/optimized/1X/ba4cbff3bbc36f2a9dd05aa0210163f09e73f0d7_1_503x500.jpg">
+					</section>
+					<section>
+						<div><a href="http://forum.imagej.net/t/843">Uneven Illumination</a></div>
+						<img style="width: 55%" src="http://forum.imagej.net/uploads/default/optimized/1X/a25ba3df0bf703069179fa7fb8581ae882e30078_1_666x500.jpg">
+					</section>
+			</div>
+
+		</div>
+
+		<script src="../reveal.js-3.1.0/lib/js/head.min.js"></script>
+		<script src="../reveal.js-3.1.0/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: false,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: '../reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true },
+					{ src: '../reveal.js-3.1.0/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

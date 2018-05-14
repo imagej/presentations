@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Scripting with Fiji</title>
+
+		<meta name="description" content="A workshop for getting started with Fiji">
+		<meta name="author" content="Curtis Rueden, Mark Hiner, Ellen Arena, Johannes Schindelin">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/reveal.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/theme/white.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../reveal.js-3.1.0/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js-3.1.0/css/print/pdf.css' : '../reveal.js-3.1.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../reveal.js-3.1.0/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<div style="padding-top: 2em">
+						<img class="image" style="width: 20%" src="http://imagej.net/_images/a/ae/Fiji-icon.png">
+					</div>
+					<h2>Scripting with Fiji</h2>
+
+					<p style="padding-top: 3em">
+					<a href="http://imagej.net/LOCI">
+						<img class="logo" src="http://imagej.net/_images/6/62/Loci-logo.png" style="height: 1.8em">
+					</a>
+					<a href="http://wisc.edu/">
+						<img class="logo" src="http://imagej.net/_images/b/bf/UW-logo.png" style="height: 1.8em">
+					</a>
+					</p>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Why are scripts useful?</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Scripting">http://imagej.net/Scripting</a></div>
+					<p>They facilitate <a href="http://imagej.net/Reproducibility">reproducible</a> science:</p>
+					<div style="float: right">
+						<img class="image" style="width: 500px; margin-top: -20px" src="script.png">
+					</div>
+					<ul>
+						<li>Document your work</li>
+						<li>Automate your analysis</li>
+						<li><a href="http://imagej.net/Distribution">Share</a> with the world</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<div class="url bottom center"><a href="http://imagej.net/Recorder">http://imagej.net/Recorder</a></div>
+					<h2>Macro Recorder</h2>
+					<section>
+						<p style="margin: 0">1. Launch the Recorder</p>
+						<p style="float: right; width: 45%">
+						<img class="image" style="width: 100%" src="macro-recorder.png">
+						</p>
+						<ul style="font-size: 0.8em; margin-top: 60px">
+							<li>Use the <a href="http://imagej.net/Command_Finder">Command Finder</a>! (Ctrl+L)</li>
+							<li><strong>OR:</strong> click the Dev icon, then <em>Record...</em></li>
+							<li><strong>OR:</strong> <em>Plugins &#9654; Macros &#9654; Record...</em></li>
+						</ul>
+					</section>
+					<section>
+						<p style="margin: 0">2. Execute operations</p>
+						<div style="float: right; width: 40%">
+							<p><img class="image" style="width: 100%; margin: 30px 0" src="recorded-macro.png"></p>
+							<p class="tip" style="margin: -10px 0"><small>Use the Command Finder (Ctrl+L)!</small></p>
+						</div>
+						<ul style="font-size: 0.8em; margin-top: 60px">
+							<li>Open <a href="http://workshops.imagej.net/">sample images</a></li>
+								<ul style="font-size: 0.8em">
+									<li>Download/unpack "images/C3-jw-30min.zip"</li>
+									<li><em>Plugins &#9654; Bio-Formats &#9654; Bio-Formats Importer</em></li>
+								  <li>Open "C3-jw-30min 5_c5.tif"</li>
+								</ul>
+							<li>Apply Gaussian blur</li>
+							<li>Apply a threshold (Shift+T)</li>
+							<li>Create Mask</li>
+							<li>Watershed</li>
+							<li>Analyze Particles...
+								<ul style="font-size: 0.8em">
+									<li>Size: 200-Infinity</li>
+									<li>Exclude on edges; Add to Manager</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+					<section>
+						<p style="margin: 0">3. Spruce it up</p>
+						<div style="float: right; width: 45%">
+							<p><img class="image" style="width: 100%" src="spruced-up-macro.png"></p>
+						</div>
+						<ul style="font-size: 0.8em; margin-top: 60px">
+							<li>Click the "Create" button</li>
+							<li>Use <a href="http://imagej.net/Script_parameters">script parameters</a></li>
+							<li><code><a href="http://imagej.net/developer/macro/functions.html#setBatchMode">setBatchMode(true)</a></code></li>
+							<li>Use <a href="http://imagej.net/developer/macro/functions.html#getImageID">image IDs</a></li>
+							<li>Store in <code>scripts</code>
+								<ul style="font-size: 0.8em">
+									<li>In a folder matching the desired menu</li>
+									<li>Use underscore for spaces</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Script Editor</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Script_Editor">http://imagej.net/Script_Editor</a></div>
+					<div style="float: left; width: 60%; margin-left: 30px">
+						<p><img class="image" style="width: 100%" src="script-editor.png"></p>
+					</div>
+					<ul style="font-size: 0.8em; margin-top: 80px; margin-left: -60px">
+						<li>Comments</li>
+						<li>Variables</li>
+						<li>Functions</li>
+						<li>String manipulation</li>
+						<li>Conditionals</li>
+						<li>Loops</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Macros</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Introduction_into_Macro_Programming">http://imagej.net/Introduction_into_Macro_Programming</a></div>
+				<section>
+					<h3>Comments</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+// Comments allow you to put human-readable thoughts
+// into your code.
+
+// The goal of this "macro" is simply to teach you about comments!
+
+// Comments help you to remember why you did something:
+// Set the value to "2" because my boss said so!
+value = 2; // Comments can be added to any line!
+
+// Code can be disabled by commenting it out:
+// x = y * 2;
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Variables</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+// what sorts of values can we assign?
+title = "Hello, World!";                // string
+intensity = 255;                        // number
+a = exp(x * sin(y)) + atan(x * y – a);  // expression
+
+// string constant vs. variable name
+text = "title"; 
+text = title;
+
+x = 3;
+y = x;
+x = 5; // what is the value of y after this?
+
+// the variable is assigned after the expression is evaluated
+intensity = intensity * 2;
+					</code></pre>
+				</section>
+
+				<section>	
+				<h3>Functions</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+print("Hello, world!");
+
+// functions can return values
+// Hint: use parameters instead of calling getNumber
+number = getNumber("Type in a number!", 5);
+
+// the "run" function is the most important one
+run("Duplicate...", "title=New");
+
+// for arguments with spaces, enclose in square brackets
+run("Duplicate...", "title=[with spaces]");
+					</code></pre>
+				<div style="margin-top: 50px">
+					<a style=" font size : 0.75em;" href=http://imagej.net/developer/macro/functions.html>Built-in Macro Functions</a>
+				</div>	
+				</section>
+
+				<section>
+					<h3>Strings</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+name = "copy";
+
+// you can concatenate strings, and strings and numbers
+text = "The name is " + name;
+
+// what happens when we run this?
+run("Duplicate...", "title=name");
+
+// what's different with this line?
+run("Duplicate...", "title=" + name);
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Conditionals</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+// @String instructor
+
+if (getBoolean("Is " + instructor + " going too fast?")) {
+    hint = "Tell them to to slow down!";
+}
+else {
+    hint = "Try to modify the code, play with it...";
+}
+showMessage("Advice:", hint);
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Loops</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+// For loops:
+// They use assignment, test, increment
+// Use when you know the # of times the loop will run
+for (i = 1; i <= 10; i++) {
+    print("Counter: " + i);
+}
+
+// While loops:
+// Use when you do not necessarily know the # of times the loop will run
+while (getBoolean("Do you want me to keep going?")) {
+    print("Ok, I'm still going...");
+}
+showMessage("Ok, I'm done!");
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Tying it all together</h3>
+					<p>Do you notice a bug in this code?</p>
+					<pre><code class="javascript" data-trim contenteditable>
+// this example makes a stack of blurred versions of the
+// current slice with a range of radii.
+
+radius = getNumber("Maximal radius?", 5);
+
+title = "Blurred stack of " + getTitle();
+run("Duplicate...", "title=[" + title + "]");
+run("Select All");
+run("Copy");
+for (i = 1; i <= radius; i++) {
+        run("Add Slice");
+        run("Paste");
+        run("Gaussian Blur...", "radius=" + radius);
+}
+					</code></pre>
+				</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Script parameters</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Script_parameters">http://imagej.net/Script_parameters</a></div>
+					<div style="margin-top: -50px; float: right"><img class="image" style="width: 350px" src="widgets.png"></div>
+					<ul style="font-size: 0.7em">
+						<li><em>Templates &#9654; Intro &#9654; Widgets (JavaScript)</em></li>
+						<li>Run</li>
+						<li>Fix the bugs!</li>
+						<li>To the <code>boundedInteger</code> parameter, add:
+							<br><dd><code>style="scroll bar"</code></li>
+						<li>To the <code>string</code> parameter, add:
+							<br><dd><code>choices={"quick fox", "lazy dog"}</code></li>
+						<li>Run again</li>
+					</ul>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Batch processing</h2>
+					<div class="url bottom center"><a href="http://imagej.net/Macros">http://imagej.net/Batch</a></div>
+
+					<section>
+						<div class="tip" style="margin-top: -40px"><em>Process &#9654; Batch &#9654; Macro...</em></div>
+						<p><img class="image" style="margin-top: 5px; width: 50%" src="http://imagej.net/_images/e/e8/BatchProcess.png"></p>
+					</section>
+
+					<section>
+						<div class="tip" style="margin-top: -40px"><em>Templates &#9654; ImageJ 1.x &#9654; Examples &#9654; Process Folder (IJ1 Macro)</em></div>
+						<p><img class="image" style="margin-top: -30px; width: 59%" src="process-folder.png"></p>
+					</section>
+
+					<section>
+						<p style="font-size: 0.75em;">Example script to count nuclei in multiple images in a folder/subfolders:</p>
+					<pre><code class="javascript" data-trim contenteditable>
+// @File(label = "Input directory", style = "directory") input
+// @File(label = "Output directory", style = "directory") output
+// @String(label = "File suffix", value = ".tif") suffix
+
+/*
+* Macro to count nuclei in multiple images in a folder/subfolders.
+*/
+	
+processFolder(input);
+	
+// function to scan folders/subfolders/files to find files with correct suffix
+function processFolder(input) {
+	list = getFileList(input);
+	for (i = 0; i < list.length; i++) {
+		if(File.isDirectory(input + list[i]))
+			processFolder("" + input + list[i]);
+		if(endsWith(list[i], suffix))
+			processFile(input, output, list[i]);
+	}
+	//saves results for all images in a single file
+	saveAs("Results", output + "/All_Results.tsv"); 
+}
+
+function processFile(input, output, file) {
+	setBatchMode(true); // prevents image windows from opening while the script is running
+	// open image using Bio-Formats
+	run("Bio-Formats", "open=[" + input + "/" + file +"] autoscale color_mode=Default rois_import=[ROI manager] view=Hyperstack stack_order=XYCZT");
+  id = getImageID(); // get original image id
+	run("Duplicate...", " "); // duplicate original image and work on the copy
+	
+	// create binary image
+	run("Gaussian Blur...", "sigma=2");
+	setAutoThreshold("Default dark");
+	//run("Threshold...");
+	run("Create Mask");
+	run("Watershed");
+	// save current binary image
+	save(output + "/Binary_OUTPUT_" + file);
+	
+	run("Analyze Particles...", "size=200-Infinity exclude add");
+  selectImage(id); // activate original image
+  roiManager("Show All with labels"); // overlay ROIs
+	roiManager("Deselect");
+	roiManager("Measure"); // measure on original image
+	
+	// save ROIs for current image
+	roiManager("Deselect");
+	roiManager("Save", output+ "/" + file + "_ROI.zip"); // saves Rois zip file
+	roiManager("Deselect");
+	roiManager("Delete"); // clear ROI Manager for next image
+}
+					</code></pre>
+					</section>
+				</section>
+
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<h2>Further reading</h2>
+
+					<p style="padding-top: 30px">Help from the community&mdash;ImageJ forum!</p>
+					<div class="url"><a href="http://imagej.net/Help">http://imagej.net/Help</a></div>
+
+					<p style="padding-top: 30px">Scripting guide:</p>
+					<div class="url"><a href="http://imagej.net/Scripting">http://imagej.net/Scripting</a></div>
+
+					<p style="padding-top: 30px">Additional workshops and presentations:<p>
+					<div class="url"><a href="http://imagej.net/Presentations">http://imagej.net/Presentations</a></div>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="../reveal.js-3.1.0/lib/js/head.min.js"></script>
+		<script src="../reveal.js-3.1.0/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: false,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: '../reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true },
+					{ src: '../reveal.js-3.1.0/plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
