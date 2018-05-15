@@ -350,7 +350,8 @@ roiManager("Measure"); // measure on original image
 #@File(label = "Input directory", style = "directory") input
 #@File(label = "Output directory", style = "directory") output
 #@String(label = "File suffix", value = ".tif") suffix
-	
+#@int(label = "Minimum size") minSize
+
 processFolder(input);
 	
 // function to scan folders/subfolders/files to find files with correct suffix
@@ -382,7 +383,7 @@ function processFile(input, output, file) {
 	// save current binary image
 	save(output + "/Binary_OUTPUT_" + file);
 	
-	run("Analyze Particles...", "size=200-Infinity exclude add");
+	run("Analyze Particles...", "size=" + minSize + "-Infinity exclude add");
   selectImage(id); // activate original image
   roiManager("Show All with labels"); // overlay ROIs
 	roiManager("Deselect");
