@@ -72,97 +72,6 @@
 				</section>
 
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
-					<div class="url bottom center"><a href="http://imagej.net/Recorder">http://imagej.net/Recorder</a></div>
-					<h2>Macro Recorder</h2>
-					<section>
-						<p style="margin: 0">1. Launch the Recorder</p>
-						<p style="float: right; width: 45%">
-						<img class="image" style="width: 100%" src="macro-recorder.png">
-						</p>
-						<ul style="font-size: 0.8em; margin-top: 60px">
-							<li>Use the <a href="http://imagej.net/Command_Finder">Command Finder</a>! (Ctrl+L)</li>
-							<li><strong>OR:</strong> click the Dev icon, then <em>Record...</em></li>
-							<li><strong>OR:</strong> <em>Plugins &#9654; Macros &#9654; Record...</em></li>
-						</ul>
-					</section>
-					<section>
-						<p style="margin: 0">2. Execute operations</p>
-						<div style="float: right; width: 40%">
-							<p><img class="image" style="width: 100%; margin: 30px 0" src="recorded-macro.png"></p>
-							<p class="tip" style="margin: -10px 0"><small>Use the Command Finder (Ctrl+L)!</small></p>
-						</div>
-						<ul style="font-size: 0.8em; margin-top: 60px">
-							<li>Open <a href="http://workshops.imagej.net/">sample images</a></li>
-								<ul style="font-size: 0.8em">
-									<li>Download/unpack "images/C3-jw-30min.zip"</li>
-									<li><em>Plugins &#9654; Bio-Formats &#9654; Bio-Formats Importer</em></li>
-								  <li>Open "C3-jw-30min 5_c5.tif"</li>
-								</ul>
-							<li>Apply Gaussian blur</li>
-							<li>Apply a threshold (Shift+T)</li>
-							<li>Create Mask</li>
-							<li>Watershed</li>
-							<li>Analyze Particles...
-								<ul style="font-size: 0.8em">
-									<li>Size: 200-Infinity</li>
-									<li>Exclude on edges; Add to Manager</li>
-								</ul>
-							</li>
-						</ul>
-					</section>
-				  <section>
-					<h3>Code Check!</h3>
-					<pre><code class="javascript" data-trim contenteditable>
-run("Gaussian Blur...", "sigma=2");
-setAutoThreshold("Default dark");
-//run("Threshold...");
-run("Create Mask");
-run("Watershed");
-run("Analyze Particles...", "size=200-Infinity exclude add");
-					</code></pre>
-				  </section>
-					<section>
-						<p style="margin: 0">3. Spruce it up</p>
-						<div style="float: right; width: 45%">
-							<p><img class="image" style="width: 100%" src="spruced-up-macro.png"></p>
-						</div>
-						<ul style="font-size: 0.8em; margin-top: 60px">
-							<li>Click the "Create" button</li>
-							<li>Use <a href="http://imagej.net/Script_parameters">script parameters</a></li>
-							<li><code><a href="http://imagej.net/developer/macro/functions.html#setBatchMode">setBatchMode(true)</a></code></li>
-							<li>Use <a href="http://imagej.net/developer/macro/functions.html#getImageID">image IDs</a></li>
-							<li>Store in <code>scripts</code>
-								<ul style="font-size: 0.8em">
-									<li>In a folder matching the desired menu</li>
-									<li>Use underscore for spaces</li>
-								</ul>
-							</li>
-						</ul>
-					</section>
-				  <section>
-					<h3>Code Check!</h3>
-					<pre><code class="javascript" data-trim contenteditable>
-#@int(label = "Minimum size") minSize
-
-setBatchMode(true);
-id = getImageID(); // get original image id
-run("Duplicate...", " "); // duplicate original image and work on the copy
-run("Gaussian Blur...", "sigma=2");
-setAutoThreshold("Default dark");
-//run("Threshold...");
-run("Create Mask");
-run("Watershed");
-run("Analyze Particles...", "size=" + minSize + "-Infinity display exclude add");
-run("Clear Results"); // delete contents of results table
-selectImage(id); // activate original image
-roiManager("Show All with labels"); // overlay ROIs
-roiManager("Deselect");
-roiManager("Measure"); // measure on original image
-					</code></pre>
-				  </section>
-				</section>
-
-				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
 					<h2>Script Editor</h2>
 					<div class="url bottom center"><a href="http://imagej.net/Script_Editor">http://imagej.net/Script_Editor</a></div>
 					<div style="float: left; width: 60%; margin-left: 30px">
@@ -311,6 +220,96 @@ for (i = 1; i <= radius; i++) {
 				</section>
 				</section>
 
+				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
+					<div class="url bottom center"><a href="http://imagej.net/Recorder">http://imagej.net/Recorder</a></div>
+					<h2>Macro Recorder</h2>
+					<section>
+						<p style="margin: 0">1. Launch the Recorder</p>
+						<p style="float: right; width: 45%">
+						<img class="image" style="width: 100%" src="macro-recorder.png">
+						</p>
+						<ul style="font-size: 0.8em; margin-top: 60px">
+							<li>Use the <a href="http://imagej.net/Command_Finder">Command Finder</a>! (Ctrl+L)</li>
+							<li><strong>OR:</strong> click the Dev icon, then <em>Record...</em></li>
+							<li><strong>OR:</strong> <em>Plugins &#9654; Macros &#9654; Record...</em></li>
+						</ul>
+					</section>
+					<section>
+						<p style="margin: 0">2. Execute operations</p>
+						<div style="float: right; width: 40%">
+							<p><img class="image" style="width: 100%; margin: 30px 0" src="recorded-macro.png"></p>
+							<p class="tip" style="margin: -10px 0"><small>Use the Command Finder (Ctrl+L)!</small></p>
+						</div>
+						<ul style="font-size: 0.8em; margin-top: 60px">
+							<li>Open <a href="http://workshops.imagej.net/">sample images</a></li>
+								<ul style="font-size: 0.8em">
+									<li>Download/unpack "images/C3-jw-30min.zip"</li>
+									<li><em>Plugins &#9654; Bio-Formats &#9654; Bio-Formats Importer</em></li>
+								  <li>Open "C3-jw-30min 5_c5.tif"</li>
+								</ul>
+							<li>Apply Gaussian blur</li>
+							<li>Apply a threshold (Shift+T)</li>
+							<li>Create Mask</li>
+							<li>Watershed</li>
+							<li>Analyze Particles...
+								<ul style="font-size: 0.8em">
+									<li>Size: 200-Infinity</li>
+									<li>Exclude on edges; Add to Manager</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+				  <section>
+					<h3>Code Check!</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+run("Gaussian Blur...", "sigma=2");
+setAutoThreshold("Default dark");
+//run("Threshold...");
+run("Create Mask");
+run("Watershed");
+run("Analyze Particles...", "size=200-Infinity exclude add");
+					</code></pre>
+				  </section>
+					<section>
+						<p style="margin: 0">3. Spruce it up</p>
+						<div style="float: right; width: 45%">
+							<p><img class="image" style="width: 100%" src="spruced-up-macro.png"></p>
+						</div>
+						<ul style="font-size: 0.8em; margin-top: 60px">
+							<li>Click the "Create" button</li>
+							<li>Use <a href="http://imagej.net/Script_parameters">script parameters</a></li>
+							<li><code><a href="http://imagej.net/developer/macro/functions.html#setBatchMode">setBatchMode(true)</a></code></li>
+							<li>Use <a href="http://imagej.net/developer/macro/functions.html#getImageID">image IDs</a></li>
+							<li>Store in <code>scripts</code>
+								<ul style="font-size: 0.8em">
+									<li>In a folder matching the desired menu</li>
+									<li>Use underscore for spaces</li>
+								</ul>
+							</li>
+						</ul>
+					</section>
+				  <section>
+					<h3>Code Check!</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+#@int(label = "Minimum size") minSize
+
+setBatchMode(true);
+id = getImageID(); // get original image id
+run("Duplicate...", " "); // duplicate original image and work on the copy
+run("Gaussian Blur...", "sigma=2");
+setAutoThreshold("Default dark");
+//run("Threshold...");
+run("Create Mask");
+run("Watershed");
+run("Analyze Particles...", "size=" + minSize + "-Infinity display exclude add");
+run("Clear Results"); // delete contents of results table
+selectImage(id); // activate original image
+roiManager("Show All with labels"); // overlay ROIs
+roiManager("Deselect");
+roiManager("Measure"); // measure on original image
+					</code></pre>
+				  </section>
+				</section>
 				<section class="toplevel" data-background="http://imagej.net/_images/b/b0/Fiji-25%25.png" data-background-size="70%">
 					<h2>Script parameters</h2>
 					<div class="url bottom center"><a href="http://imagej.net/Script_parameters">http://imagej.net/Script_parameters</a></div>
