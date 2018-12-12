@@ -109,6 +109,35 @@ value = 2; // Comments can be added to any line!
 
 				<section>
 					<h3>Variables</h3>
+					<p>What is a variable?</p>
+					<ul>
+					<li> Open "Blobs" image (File > Open Samples > Blobs (25K))</li>
+					<pre><code class="javascript" data-trim contenteditable>
+run("Blue");
+run("Fire");
+					</code></pre>
+					</ul>
+				</section>
+
+				<section>
+					<h3>Variables</h3>
+					<p>What is a variable?</p>
+					<div style="float: right">
+						<img class="image" style="width: 50%; margin-top: -20px" src="variable.png">
+					</div>
+					<ul>
+						<li>Container</li>
+					<li>"A piece of code that can vary"</li>
+					<pre><code class="javascript" data-trim contenteditable>
+color = "Blue";
+run(color);
+					</code></pre>
+						<li>Two Types: Numbers or Strings</li>
+					</ul>
+				</section>
+	
+				<section>
+					<h3>Variables</h3>
 					<pre><code class="javascript" data-trim contenteditable>
 // what sorts of values can we assign?
 title = "Hello, World!";                // string
@@ -128,6 +157,58 @@ intensity = intensity * 2;
 					</code></pre>
 				</section>
 
+				<section>
+					<h3>Strings</h3>
+					<pre><code class="javascript" data-trim contenteditable>
+name = "copy";
+
+// you can concatenate strings, and strings and numbers
+text = "The name is " + name;
+
+// numbers versus strings and more concatenation...
+a = 2;
+b = 3;
+print(a + b);
+
+a = "2";
+b = "3";
+print(a + b);
+
+// what happens when we run this?
+run("Duplicate...", "title=name");
+
+// what's different with this line?
+run("Duplicate...", "title=" + name);
+					</code></pre>
+				</section>
+
+				<section>
+					<h3>Functions</h3>
+					<div style="float: center">
+						<img class="image" style="width: 50%; margin-top: -20px" src="function.png">
+					</div>
+					<ul>
+						<div style="float: left">
+					<pre><code class="javascript" data-trim contenteditable>
+
+function myFunction(arguments) {
+	// Your code goes here
+}
+
+					</code></pre>
+						</div>
+						<div style="float: right">
+					<pre><code class="javascript" data-trim contenteditable>
+
+function setLUT(lutName) {
+	run(lutName);
+}
+
+					</code></pre>
+						</div>
+					</ul>
+				</section>
+
 				<section>	
 				<h3>Functions</h3>
 					<pre><code class="javascript" data-trim contenteditable>
@@ -138,6 +219,7 @@ print("Hello, world!");
 number = getNumber("Type in a number!", 5);
 
 // the "run" function is the most important one
+// it follows the structure of run("Command...", "Argument(s) String");
 run("Duplicate...", "title=New");
 
 // for arguments with spaces, enclose in square brackets
@@ -146,22 +228,6 @@ run("Duplicate...", "title=[with spaces]");
 				<div style="margin-top: 50px">
 					<a style=" font size : 0.75em;" href=http://imagej.net/developer/macro/functions.html>Built-in Macro Functions</a>
 				</div>	
-				</section>
-
-				<section>
-					<h3>Strings</h3>
-					<pre><code class="javascript" data-trim contenteditable>
-name = "copy";
-
-// you can concatenate strings, and strings and numbers
-text = "The name is " + name;
-
-// what happens when we run this?
-run("Duplicate...", "title=name");
-
-// what's different with this line?
-run("Duplicate...", "title=" + name);
-					</code></pre>
 				</section>
 
 				<section>
@@ -364,7 +430,7 @@ function processFolder(input) {
 			processFile(input, output, list[i]);
 	}
 	//saves results for all images in a single file
-	saveAs("Results", output + "/All_Results.tsv"); 
+	saveAs("Results", output + "/All_Results.csv"); 
 }
 
 function processFile(input, output, file) {
