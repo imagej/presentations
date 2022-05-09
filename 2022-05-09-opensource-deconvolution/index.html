@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Flexible Deconvolution using Open Source in 2022</title>
+
+		<meta name="description" content="A presentation describing the implementation of Deconvolution in the ImageJ Ops project">
+		<meta name="author" content="Brian Northan">i
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/reveal.css">
+		<link rel="stylesheet" href="../reveal.js-3.1.0/css/theme/night.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="../reveal.js-3.1.0/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js-3.1.0/css/print/pdf.css' : '../reveal.js-3.1.0/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<script type="text/javascript"
+            		src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../reveal.js-3.1.0/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Flexible deconvolution using Open Source in 2022</h2>
+					<p>(As of April 27th, 2022)</p>
+					<p>
+					<small>
+						<ul>
+						<li><a href="https://github.com/bnorthan">Brian Northan</a>,
+									<li>	<a href="https://forum.image.sc/u/bnorthan">Image.sc Forum!</a> </li>
+						</ul>
+					</small>
+					</p>
+				</section>
+			
+
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Flexible deconvolution using ImageJ Ops</h2>
+					<p>
+					<small>
+							<ul>
+						<li><a href="https://github.com/bnorthan">Brian Northan</a>,
+									<li>	<a href="https://forum.image.sc/u/bnorthan">Image.sc Forum!</a> </li>
+						</ul>	
+					</small>
+					</p>
+				</section>
+					<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Flexible deconvolution using Open Source in 2022</h2>
+					<p>
+					<small>
+							<ul>
+						<li><a href="https://github.com/bnorthan">Brian Northan</a>,
+									<li>	<a href="https://forum.image.sc/u/bnorthan">Image.sc Forum!</a> </li>
+						</ul>
+
+					</small>
+					</p>
+				</section>
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Outline</h2>
+					<section>
+						<ul>
+							<li>What is deconvolution?</li>
+							<li>PSF, Noise, Edges, Stoping Criteria, Speed</li>
+							<li>Open Source Deconvolution, current + future</li>
+							<li>Future goals</li>
+							<li>Results</li>
+						</ul>
+					</section>
+				</section>	
+			
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>What is Deconvolution?</h2>
+					<section>
+						<ul>
+							<li>A procedure used to reverse convolution</li>
+						<li>Convolution (Blurring)</li>
+						<li>Deconvolution (deblurring)</li>
+						<ul>
+							<li> improves measurements</li>
+						</ul>
+						<ul> Deconvolution is a type of Restoration </ul>
+						<ul> Also need to consider noise -> restore true signal in presence of blur and noise </ul>
+						<ul> Problem is ill-posed (cannot restore original completely) </ul>
+						
+						</ul>
+					</section>
+				</section>	
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Point Spread Function (PSF)</h2>
+					<section>
+						<p>Describes response of imaging system to a point like object</p>
+
+							<img src="images/PSF_xy.jpg">
+							<img src="images/PSF_xz.jpg">
+					</section>
+					<section>
+						<ul>
+							<li>Need a point spread function to deconvolve</li>
+							<li>Measured (image of subresolution object)</li>
+							<li>Theoretical Calculation</li>
+							<li><a href="http://cirl.memphis.edu/cosmos.php">COSMOS</a></li>
+								<ul>
+									<li>Written in c++/c</li>
+									<li>Open!</li>
+								</ul>
+							<li><a href="http://bigwww.epfl.ch/algorithms/psfgenerator/">PSF Generator</a></li>
+							<li><a href="http://icy.bioimageanalysis.org/index.php?display=detailTag&tagId=90">Widefield PSF (Icy)</a></li>
+							<li><a href="https://github.com/MicroscPSF/MicroscPSF-Py">MicroscPSF-Py</a></li>
+							<li><a href="https://github.com/imagej/imagej-ops/blob/master/src/main/java/net/imagej/ops/create/kernelDiffraction/DefaultCreateKernelGibsonLanni.java">MicroscPSF-Py in imagej-ops</a></li>
+							<li><a href="https://pypi.org/project/sdeconv/">Sdeconv</a></li>
+							<li><a href="https://www.napari-hub.org/plugins/napari-sdeconv">napari-sdeconv</a></li>
+
+							
+						</ul>
+					</section>
+				
+				</section>
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Imaging Process</h2>
+					<section></section>
+					<section>
+
+							<img src="images/sphere_xy.jpg">
+							<img src="images/sphere_xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/sphere_convolved_xy.jpg">
+							<img src="images/sphere_convolved_xz.jpg">
+					</section>
+				</section>
+			
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Noise</h2>
+					<section>
+						<h3>Images also contain noise</h3>
+						<ul>
+							<li>Convolution attenuates high frequencies</li>
+							<li>Deconvolution restores high frenquencies</li>
+								<ul>
+									<li>
+										Microscope OTF is band limited so some frequencies lost completely (ill-posed)
+									</li>
+								</ul>
+							<li>Deconvolution can amplify noise</li>
+						</ul>
+						
+						
+					</section>
+					<section>
+
+							<img src="images/sphere_xy.jpg">
+							<img src="images/sphere_xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/sphere_convolved_xy.jpg">
+							<img src="images/sphere_convolved_xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/sphere_convolved_noise_xy.jpg">
+							<img src="images/sphere_convolved_noise_xz.jpg">
+					</section>
+				</section>
+			
+		<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Deconvolution (Simple)</h2>
+					<section>
+						<ul>
+	
+							<li>Solve the equation in the frequency domain</li>
+
+						</ul>
+					</section>
+				</section>
+			<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Deconvolution (Better)</h2>
+					<section>
+						<ul>
+	
+							<li>Use an Iterative approach</li>
+
+							<ul>
+								<li> Richardson Lucy</li>
+							</ul>		
+						</ul>
+					</section>
+				</section>
+		
+		<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Richardson Lucy Iterations</h2>
+					<section></section>
+					<section>
+
+							<img src="images/rl_iterations/xy.jpg">
+							<img src="images/rl_iterations/xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/rl_iterations/rl10xy.jpg">
+							<img src="images/rl_iterations/rl10xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/rl_iterations/rl20xy.jpg">
+							<img src="images/rl_iterations/rl20xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/rl_iterations/rl30xy.jpg">
+							<img src="images/rl_iterations/rl30xz.jpg">
+					</section>
+			
+				</section>
+			<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Richardson Lucy Implementations</h2>
+					<section>
+						<p>
+
+						<li> Several Implementations Available</li>
+						
+</p>
+					</section>
+					<section>
+						<ul>
+								<li><a href="https://github.com/pearu/iocbio">IOCBIOS</a></li>
+								<li><a href="http://bigwww.epfl.ch/algorithms/deconvolutionlab/">Deconvolution Lab</a></li>
+								<li><a href="https://imagej.net/libs/imagej-ops/deconvolution">ImageJ Ops</a></li>
+								<li><a href="https://github.com/clij/clij2-fft">ClijX</a></li>
+								<li><a href="https://github.com/rosalindfranklininstitute/RedLionfish/">RedLionFish</a></li>
+						</ul>
+							
+					</section>
+			</section>
+
+	
+		<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Richardson Lucy Result (50 iterations)</h2>
+					<section>
+
+							<img src="images/sphere_convolved_noise_xy.jpg">
+							<img src="images/sphere_convolved_noise_xz.jpg">
+					</section>
+					<section>
+
+							<img src="images/sphere_deconvolved_rla50_xy.jpg">
+							<img src="images/sphere_deconvolved_rla50_xz.jpg">
+					</section>
+			</section>
+		
+
+		<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Richardson Lucy with Total Variation Regularization</h2>
+					<section>
+						<p>
+
+						<li> Solution is modified to better handle noise</li>
+						
+</p>
+					</section>
+					<section>
+						<ul>
+							<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/16586486">Dey, et al. 2006</a></li>
+								<li><a href="https://github.com/pearu/iocbio">IOCBIOS</a></li>
+								<ul>
+									<li>Python implementation</li>
+									<li>Open!</li>
+								</ul><li><a href="http://bigwww.epfl.ch/algorithms/deconvolutionlab/">Deconvolution Lab</a></li>
+								<ul>
+									<li>Fiji Plugin</li>
+								</ul>
+								<li><a href="https://github.com/clij/clij2-fft">ClijX</a></li>
+						</ul>
+							
+					</section>
+			</section>
+
+		<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Richardson Lucy with Total Variation Result (50 iterations)</h2>
+					<section>
+
+							<img src="images/sphere_convolved_noise_xy.jpg">
+							<img src="images/sphere_convolved_noise_xz.jpg">
+					</section>
+					
+					<section>
+
+							<img src="images/sphere_deconvolved_rltv0.002_a50_xy.jpg">
+							<img src="images/sphere_deconvolved_rltv0.002_a50_xz.jpg">
+					</section>
+				</section>	
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Edge Handling</h2>
+					<section>
+						<ul>
+							<li>Boundary Conditions</li>
+							<li><a href="http://bigwww.epfl.ch/deconvolution/challenge/index.html?p=documentation/theory/richardsonlucy">Non-circulant deconvolution BIG Lab</a></li>
+						</ul>
+					</section>
+				</section>	
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>How do we make it fast?</h2>
+					<section>
+						<ul>
+							<li>Algorithm acceleration</li>	
+							<ul>
+								<li>Take a bigger step at each iteration</li>
+								<li><a href="http://www.rasmus-ischebeck.de/dr/bibliography/pdf/biggs97a.pdf">Vector Acceleration (Biggs)</a></li>
+							</ul>
+
+							<li>Hardware acceleration</li>
+							<ul>
+								<li>Fast math libraries</li>
+								<li>Multi-threading</li>
+								<li>GPU</li>
+							</ul>
+
+						</ul>
+					</section>
+				</section>	
+
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Future Goals (from 2015)</h2>
+					<section>
+						<ul>
+							<li>Optimize memory use and speed</li>
+							<li>GPU</li>
+								<ul>
+									<li>Done in CLIJ + Experimental version of ImageJ-ops cuda deconvolution</li>
+								</ul>
+							<li>Diffraction based PSF</li>
+							<li>Phantoms for testing</li>
+								<ul>
+									<li><a href="http://bigwww.epfl.ch/deconvolution/index.html#benchmarking">BIG Lab Benchmarking</a></li>
+								</ul>
+						</ul>
+					</section>
+				</section>
+	
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Results</h2>
+				
+
+					<section>
+							<li><a href="http://works.bepress.com/gmcnamara/31/">McNamara set</a></li>
+					</section>
+					<section>
+								<li><a href="http://bigwww.epfl.ch/algorithms/psfgenerator/">PSFs created using PSF Generator</a></li>
+					</section>
+					<section>
+								<img src="images/screen_shots/PSFLab.jpg" width=300>
+					</section>
+					<section>
+						<p>IJ Macro to crop (to center) and reverse PSF</p>
+						<pre><code class="python" data-trim contenteditable>
+run("Make Substack...", "  slices=28-155");
+run("Reverse");
+						</code></pre>
+					</section>
+					<section>
+							</li>
+							<li>IJ-ops Script used for results</li>
+							<pre><code class="python" data-trim contenteditable>
+
+# @OpService ops
+# @UIService ui
+# @Dataset image
+# @Dataset psf
+
+from net.imglib2.meta import ImgPlus
+
+deconvolved=ops.deconvolve().richardsonLucyTV(None, image, psf, [0,0,0], None, \
+None, None, None, None, None, 100, 0.0001, True, True);
+
+ui.show("deconvolved", ImgPlus(deconvolved));	
+
+						</code></pre>					</ul>
+
+					</section>
+					</section>
+					
+					<section>
+							<img src="images/CY3/CY3_Orig_ZY.png">
+							<img src="images/CY3/CY3_RLTV100_0.0001_ZY.png">
+							<p>Left to right: Original, ImageJ-Ops-RLTV</p>
+					</section>
+					
+					<section>
+							<img src="images/CY3/CY3_Orig_LP.png">
+							<p>Original Image</p>
+					</section>
+					
+					<section>
+							<img src="images/CY3/CY3_RLTV100_0.0001_LP.png">
+							<p>Imagej-ops RLTV 100 iterations</p>
+					</section>
+					</section>
+				</section>	
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Results</h2>
+				
+					<section>
+							<img src="images/DAPI/DAPI_Orig_XY.png">
+							<img src="images/DAPI/DAPI_RLTV100_0.0001_XY.png">
+							<p>Left to right: Original, ImageJ-Ops-RLTV</p>
+					</section>
+					<section>
+							<img src="images/DAPI/DAPI_Orig_YZ.png">
+							<img src="images/DAPI/DAPI_RLTV100_0.0001_YZ.png">
+							<p>Left to right: Original, ImageJ-Ops-RLTV</p>
+					</section>
+				
+
+						
+				</section>
+				
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>Star Resolution Test (Image from BIG Lab) (Napari)</h2>
+					<p>Acknowledgement - Jan Becker, Craig Russel, James Manton, Andrew York</p>
+				</section>
+
+				<section data-background="http://imagej.net/media/imagej-25-.png">
+					<h2>CytoPacq Phantom (Napari)</h2>
+					<p>Acknowledgement - Kris Kubow, Thomas Pengo</p> 
+				</section>
+
+
+			
+		</div>
+
+		</div>
+
+		<script src="../reveal.js-3.1.0/lib/js/head.min.js"></script>
+		<script src="../reveal.js-3.1.0/js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+				
+				math: {
+        				mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+        				config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+   					 },
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: '../reveal.js-3.1.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../reveal.js-3.1.0/plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../reveal.js-3.1.0/plugin/zoom-js/zoom.js', async: true },
+					{ src: '../reveal.js-3.1.0/plugin/notes/notes.js', async: true },
+					{src: '../reveal.js-3.1.0/plugin/math/math.js', async: true },		
+					]
+			});
+
+		</script>
+
+	</body>
+</html>
